@@ -8,8 +8,9 @@ The first thing you'll need to do is to download any dependencies by running thi
 
 ```
 npm install
-```
 
+You may have to use npm i --force if receiving errors
+```
 
 Your React frontend communicates with this API endpoint to authenticate and register users.
 
@@ -38,25 +39,25 @@ path variable. If you look at the `<Route/>` component with the path `/home` you
 
 is only loaded if the user is authorized.
 
-
-
 ### Redux
 
-The state for this application is stored and managed in the various files you'll find in the folder labeled `Redux`. The application has two state objects: token and user. When a user logs in, 
+The state for this application is stored and managed in the various files you'll find in the folder labeled `Redux`. The application has two state objects: token and user. When a user logs in,
 
 back-end API authorizes the request with the given credentials and then, upon successful login, the response object is parsed and then stored in the two state objects.
+
 ```
     handleLogin = async () => {
         const data = { username: this.state.username, password: this.state.password };
-        
+
 
         const userWithToken = await axios.post(baseUrl + '/login', data)
 
-    
+
         await this.props.dispatch(addToken(userWithToken.data.token))
         await this.props.dispatch(addUser(userWithToken.data.user));
     }
 ```
+
 ### Login
 
 When you reach the `/login` route, you'll see a bare login page. This is intentional. It's up to you to style this page to fit within your application.
@@ -65,21 +66,17 @@ When you fill in a username and password and click the "Sign In" button, the met
 
 If a successful response is returned, the response is parsed into the token and user objects and then functions are dispatched to send those objects to the Redux store.
 
-
-
 Once the `handleLogin()` method finishes updating the store by committing the mutations, the Main component recognizes the token and redirects the user to the Home component. They'll be able to see the homepage because they're authenticated.
 
 ### Logout
 
 When a user is logged in, they will see a `logout` link next to the `home` link. The logout link erases the token from the Redux store and deauthorizes the user.
 
-
-
 ### Register
 
 When you reach the `/register` route, you'll see a bare registration page. Like the login page, this is intentional. You'll need to style this page to fit within your application.
 
-When you fill in a username, password, confirm the password, and click the "Create Account" button, the method `handleSubmit()` is called. This calls the `handleLogin()`. This passes  your user details to your back-end application's REST API to create a new user:
+When you fill in a username, password, confirm the password, and click the "Create Account" button, the method `handleSubmit()` is called. This calls the `handleLogin()`. This passes your user details to your back-end application's REST API to create a new user:
 
 ```
     const handleSubmit = () => {
