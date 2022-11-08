@@ -1,24 +1,13 @@
 import Main from './Components/Main/Main'
-import {Provider} from 'react-redux'
-import {BrowserRouter} from 'react-router-dom'
-import {ConfigureStore} from './Redux/configureStore'
+import { BrowserRouter } from 'react-router-dom'
 
-const store = ConfigureStore();
-
-function App() {
+export default function App() {
 
   return (
-    <Provider store={store}>
+    <div className="app">
       <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />}/>
-          <Route path="login" element={<Login />}/>
-          <Route path="register" element={<Register />}/>
-          <Route path="main" element={<Main />}/>
-        </Routes>
+        <Main />
       </BrowserRouter>
-    </Provider>
+    </div>
   );
 }
-
-export default App;
