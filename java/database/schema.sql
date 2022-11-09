@@ -77,10 +77,10 @@ CREATE TABLE beer_review(
     CONSTRAINT FK_beer_id FOREIGN KEY (beer_id) REFERENCES beer (beer_id)
 );
 
-CREATE TABLE beer_avg_rating(
-    beer_id INT NOT NULL,
-    avg_rating DECIMAL(5,2) NOT NULL,
-    CONSTRAINT FK_beer_id FOREIGN KEY (beer_id) REFERENCES beer (beer_id)
+CREATE TABLE beer_type(
+    beer_id serial NOT NULL,
+    beer_style varchar(50) NOT NULL,
+    CONSTRAINT PK_beer_id PRIMARY KEY (beer_id) REFERENCES beer (beer_id)
 );
 
 COMMIT TRANSACTION;
