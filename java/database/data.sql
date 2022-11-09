@@ -26,9 +26,6 @@ CREATE TABLE brewery_address (
     country varchar(50),
     CONSTRAINT FK_brewery_id FOREIGN KEY (brewery_id) REFERENCES  brewery (brewery_id)
 );
---select * from brewery_address as ba
---join brewery as br on br.brewery_id = ba.brewery_id
---where br.brewery_name = 'AAA'
 
 CREATE TABLE beer(
     beer_id serial NOT NULL PRIMARY KEY,
@@ -41,9 +38,6 @@ CREATE TABLE beer(
     image_url varchar(200),
     CONSTRAINT FK_beer_id FOREIGN KEY (brewery_id) REFERENCES  brewery (brewery_id)
 );
--- select * from beer as b
--- join brewery as br on b.brewery_id = br.brewery_id
--- where br.brewery_name = 'AAA'
 
 CREATE TABLE beer_review(
     review_id serial NOT NULL PRIMARY KEY,
@@ -55,28 +49,12 @@ CREATE TABLE beer_review(
     created_date DATE,
     CONSTRAINT FK_beer_id FOREIGN KEY (beer_id) REFERENCES beer (beer_id)
 );
--- select * from beer_review as br
--- join beer as b on br.beer_id = b.beer_id
--- where b.beer_name = 'Blonde'
 
 CREATE TABLE beer_avg_rating(
     beer_id INT,
     avg_rating DECIMAL(5,2),
     CONSTRAINT FK_beer_id FOREIGN KEY (beer_id) REFERENCES beer (beer_id)
 );
---select * from beer_avg_rating as bar
---join beer as b on b.beer_id = bar.beer_id
---where b.beer_name = 'Blonde'
-
---CREATE TABLE images(
---    image_id serial PRIMARY KEY,
---    beer_id INT,
---    brewery_id INT,
---    image_type varchar(50),
---    image_url varchar(200),
---    CONSTRAINT FK_brewery_image_id FOREIGN KEY (brewery_id) REFERENCES  brewery (brewery_id),
---    CONSTRAINT FK_image_id FOREIGN KEY (beer_id) REFERENCES beer (beer_id)
---);
 
 INSERT INTO brewery (brewery_owner_user_id,brewery_name, is_active, is_approved,
     history,hours_of_operation, phone_number, email, home_page_url, image_url)
@@ -113,18 +91,6 @@ INSERT INTO beer_avg_rating (beer_id, avg_rating) VALUES ('1', '5.4');
 
 INSERT INTO beer_review (review_id, beer_id, author_user_id, rating, title, review_body, created_date)
 VALUES ('2', '2', '2', '4.5', 'Best beer', 'Will buy it again', '2022-11-06' );
-
---INSERT INTO images (beer_id, brewery_id, image_type, image_url )
---VALUES ('1', '1', 'brewery', 'https://drive.google.com/file/d/1EUDDG5TW9yu0TQeLGGv4qkvc0DnQ2j6R/view?usp=share_link');
---
---INSERT INTO images (beer_id, brewery_id, image_type, image_url )
---VALUES ('1', '1', 'beer', 'https://drive.google.com/file/d/1nnOH9XzctFm5N9eYJOgvfflH1wbDr4fc/view?usp=share_link');
---
---INSERT INTO images (beer_id, brewery_id, image_type, image_url )
---VALUES ('1', '2', 'brewery', 'https://drive.google.com/file/d/1W5f-RFh3zAb1LBW1jrDZLDA5USpB7rLx/view?usp=share_link');
---
---INSERT INTO images (beer_id, brewery_id, image_type, image_url )
---VALUES ('1', '2', 'beer', 'https://drive.google.com/file/d/1yFhcTFzeMlXmOaiyemROi04HcrhZ0rEw/view?usp=share_link');
 
 COMMIT;
 
