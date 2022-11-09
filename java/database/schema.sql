@@ -40,11 +40,12 @@ CREATE TABLE brewery (
 CREATE TABLE brewery_address (
     address_id serial NOT NULL,
     brewery_id int NOT NULL,
-    street  varchar(50) NOT NULL,
+    street varchar(50) NOT NULL,
     city varchar(50) NOT NULL,
     state varchar(15) NOT NULL,
     zip_code varchar(15) NOT NULL,
     country varchar(20) NOT NULL,
+    CONSTRAINT PK_address_id PRIMARY KEY (address_id),
     CONSTRAINT FK_brewery_id FOREIGN KEY (brewery_id) REFERENCES  brewery (brewery_id)
 );
 
