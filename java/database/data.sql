@@ -67,12 +67,17 @@ INSERT INTO
 VALUES
     ('1', '1-st str', 'NY', 'NY', '95100', 'USA');
 INSERT INTO
+    beer_type (beer_type_id, beer_style)
+VALUES
+    ('1', 'Ale'),
+    ('2', 'Hefeweizen');
+INSERT INTO
     beer (
         beer_name,
         brewery_id,
         description,
         abv,
-        beer_type,
+        beer_type_id,
         is_active,
         image_url
     )
@@ -82,7 +87,7 @@ VALUES
         '1',
         'light blonde',
         '5.9',
-        'Ale',
+        '1',
         'true',
         'https://drive.google.com/file/d/1nnOH9XzctFm5N9eYJOgvfflH1wbDr4fc/view?usp=share_link'
     );
@@ -108,10 +113,6 @@ VALUES
         '2022-11-06',
         '2022-11-06'
     );
-INSERT INTO
-    beer_avg_rating (beer_id, avg_rating)
-VALUES
-    ('1', '5.4');
 INSERT INTO
     brewery (
         brewery_owner_user_id,
@@ -155,7 +156,7 @@ INSERT INTO
         brewery_id,
         description,
         abv,
-        beer_type,
+        beer_type_id,
         is_active,
         image_url
     )
@@ -165,7 +166,7 @@ VALUES
         '2',
         'light hefe',
         '5.9',
-        'Hefeweizen',
+        '2',
         'true',
         'https://drive.google.com/file/d/1yFhcTFzeMlXmOaiyemROi04HcrhZ0rEw/view?usp=share_link'
     );
@@ -190,4 +191,5 @@ VALUES
         'Will buy it again',
         '2022-11-06',
         '2022-11-06'
-    );COMMIT;
+    );
+COMMIT;
