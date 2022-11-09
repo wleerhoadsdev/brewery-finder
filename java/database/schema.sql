@@ -50,15 +50,17 @@ CREATE TABLE brewery_address (
 );
 
 CREATE TABLE beer(
-    beer_id serial NOT NULL PRIMARY KEY,
-    beer_name varchar(50) NOT NULL,
+    beer_id serial NOT NULL,
     brewery_id int NOT NULL,
-    description varchar(200) NOT NULL,
-    abv DECIMAL(5,2) NOT NULL,
-    beer_type varchar(20) NOT NULL,
-    is_active BOOLEAN NOT NULL,
+    beer_name varchar(50) NOT NULL,
     image_url varchar(200) NOT NULL,
-    CONSTRAINT FK_beer_id FOREIGN KEY (brewery_id) REFERENCES  brewery (brewery_id)
+    description varchar NOT NULL,
+    abv DECIMAL(5,2) NOT NULL,
+    beer_type_id int NOT NULL,
+    is_active BOOLEAN NOT NULL,
+    CONSTRAINT PK_beer_id PRIMARY KEY (beer_id),
+    CONSTRAINT FK_brewery_id FOREIGN KEY (brewery_id) REFERENCES brewery (brewery_id),
+    CONSTRAINT FK_beer_type_id FOREIGN KEY (beer_type_id) REFERENCES beer_type (beer_type_id)
 );
 
 CREATE TABLE beer_review(
