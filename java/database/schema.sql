@@ -49,6 +49,12 @@ CREATE TABLE brewery_address (
     CONSTRAINT FK_brewery_id FOREIGN KEY (brewery_id) REFERENCES  brewery (brewery_id)
 );
 
+CREATE TABLE beer_type(
+    beer_type_id serial NOT NULL,
+    beer_style varchar(50) NOT NULL,
+    CONSTRAINT PK_beer_type_id PRIMARY KEY (beer_type_id)
+);
+
 CREATE TABLE beer(
     beer_id serial NOT NULL,
     brewery_id int NOT NULL,
@@ -75,12 +81,6 @@ CREATE TABLE beer_review(
     CONSTRAINT PK_review_id PRIMARY KEY (review_id),
     CONSTRAINT FK_author_id FOREIGN KEY (author_id) REFERENCES users (user_id),
     CONSTRAINT FK_beer_id FOREIGN KEY (beer_id) REFERENCES beer (beer_id)
-);
-
-CREATE TABLE beer_type(
-    beer_id serial NOT NULL,
-    beer_style varchar(50) NOT NULL,
-    CONSTRAINT PK_beer_id PRIMARY KEY (beer_id) REFERENCES beer (beer_id)
 );
 
 COMMIT TRANSACTION;
