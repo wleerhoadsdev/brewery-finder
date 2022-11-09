@@ -62,13 +62,16 @@ CREATE TABLE beer(
 );
 
 CREATE TABLE beer_review(
-    review_id serial NOT NULL PRIMARY KEY,
+    review_id serial NOT NULL,
+    author_id INT NOT NULL,
     beer_id INT NOT NULL,
-    author_user_id INT NOT NULL,
     rating DECIMAL(5,2) NOT NULL,
     title varchar(50) NOT NULL,
     review_body varchar(200) NOT NULL,
     created_date DATE NOT NULL,
+    updated_date DATE NOT NULL,
+    CONSTRAINT PK_review_id PRIMARY KEY (review_id),
+    CONSTRAINT FK_author_id FOREIGN KEY (author_id) REFERENCES users (user_id),
     CONSTRAINT FK_beer_id FOREIGN KEY (beer_id) REFERENCES beer (beer_id)
 );
 
