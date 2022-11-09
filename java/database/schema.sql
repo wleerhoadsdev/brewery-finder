@@ -23,16 +23,16 @@ CREATE TABLE users (
 
 CREATE TABLE brewery (
     brewery_id serial NOT NULL,
-    brewery_owner_user_id int NOT NULL,
     brewery_name varchar(50) NOT NULL,
+    brewery_owner_user_id int NOT NULL,
+    history varchar,
     is_active boolean NOT NULL,
     is_approved boolean NOT NULL,
-    image_url varchar(200),
-    history varchar,
-    hours_of_operation varchar(50),
     phone_number varchar(50),
     email varchar(50),
     home_page_url varchar(50),
+    image_url varchar(200),
+    hours_of_operation varchar(50),
     CONSTRAINT PK_brewery_id PRIMARY KEY (brewery_id),
     CONSTRAINT FK_brewery_owner_user_id FOREIGN KEY (brewery_owner_user_id) REFERENCES users (user_id)
 );
