@@ -90,11 +90,12 @@ INSERT INTO
     beer_review (
         review_id,
         beer_id,
-        author_user_id,
+        author_id,
         rating,
         title,
         review_body,
-        created_date
+        created_date,
+        updated_date
     )
 VALUES
     (
@@ -104,6 +105,7 @@ VALUES
         '4.5',
         'Good beer',
         'I drove 15 miles to have it again',
+        '2022-11-06',
         '2022-11-06'
     );
 INSERT INTO
@@ -171,11 +173,12 @@ INSERT INTO
     beer_review (
         review_id,
         beer_id,
-        author_user_id,
+        author_id,
         rating,
         title,
         review_body,
-        created_date
+        created_date,
+        updated_date
     )
 VALUES
     (
@@ -185,5 +188,6 @@ VALUES
         '4.5',
         'Best beer',
         'Will buy it again',
+        '2022-11-06',
         '2022-11-06'
     );COMMIT;
