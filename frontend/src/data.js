@@ -44,11 +44,13 @@ const breweryData = {
   home_page_url: 'https://www.anheuser-busch.com/',
   image_url: 'https://www.anheuser-busch.com/img/logo/2color-black-small.svg',
   hours_of_operation: '9am-5pm',
-  address_street: '775 Gellhorn',
-  address_city: 'Houston',
-  address_state: 'TX',
-  address_zip_code: '77029',
-  address_country: 'US'
+  address: {
+    street: '755 Gellhorn',
+    city: 'Houston',
+    state: 'TX',
+    zipCode: '77029',
+    country: 'US'
+  }
 };
 
 //User Object sample data
