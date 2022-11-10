@@ -16,6 +16,7 @@ public class UserController {
         this.userDao = userDao;
     }
 
+    //TODO: Should we change this endpoint name to /allusers?
     @RequestMapping(value = "/usersbreweries", method = RequestMethod.GET)
     public List<UserBreweryListItem> listAllUsersAndTheirBreweries() {
         return userDao.listAllUsersAndTheirBreweries();
