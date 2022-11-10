@@ -51,29 +51,74 @@ const breweryData = {
   address_country: 'US'
 };
 
-  //User Object sample data
-
+//User Object sample data
 const userData = [{
     id: 1,
     username: 'user',
-    password_hash: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
-    role: 'ROLE_USER',
+    authorities: [
+      {
+          "name": "ROLE_USER"
+      }
+    ],
     name: 'user',
     email_address: 'user@test.com'
   },
   {
     id: 2,
     username: 'brewer',
-    password_hash: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
-    role: 'ROLE_BREWER',
+    authorities: [
+      {
+          "name": "ROLE_USER"
+      }
+    ],
     name: 'brewer',
     email_address: 'brewer@test.com',
   },
   {
     id: 3,
     username: 'admin',
-    password_hash: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
-    role: 'ROLE_ADMIN',
+    authorities: [
+            {
+                "name": "ROLE_ADMIN"
+            }
+        ],
     name: 'admin',
     email_address: 'admin@test.com',
 }];
+
+//User Object logins
+const mockLogins = {
+  user: {
+    id: 1,
+    username: 'user',
+    authorities: [
+      {
+          "name": "ROLE_USER"
+      }
+    ],
+    name: 'user',
+    email_address: 'user@test.com'
+  },
+  brewer: {
+    id: 2,
+    username: 'brewer',
+    authorities: [
+      {
+          "name": "ROLE_USER"
+      }
+    ],
+    name: 'brewer',
+    email_address: 'brewer@test.com',
+  },
+  admin: {
+    id: 3,
+    username: 'admin',
+    authorities: [
+            {
+                "name": "ROLE_ADMIN"
+            }
+        ],
+    name: 'admin',
+    email_address: 'admin@test.com',
+}
+};
