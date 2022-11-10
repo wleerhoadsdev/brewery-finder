@@ -14,51 +14,66 @@ const beerData = {
 }
 
 //Beer Type Object sample data
-const beerType = {
+const beerTypeData = {
   id: 1,
   name: 'Pilsner'
 }
 
-// Brewery Object sample data
-const brewery = {
+//Beer Review Object sample data
+const beerReviewData = {
   id: 1,
-  name: "A Brewery",
+  author_id: 1,
+  beer_id: 1,
+  rating: 4.3,
+  title: 'Stella Artois best beer in the world',
+  review_body: 'Stella has a nice crisp flavor is more of a light lager with a hint of hops.',
+  created_date: '2022-11-06',
+  updated_date: '2022-11-06'
+};
 
-}
-
-//Brewer User Object sample data
-const brewerUser = {
+//Brewery Object sample data
+const breweryData = {
   id: 1,
-  username: 'BrewerDuder',
-  password_hash: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
-  role: 'ROLE_BREWER',
-  name: 'Dude Brewer',
-  emailAddress: 'dudewhobrews22@yahoo.com'
-}
+  brewery_name: 'Anheuser-Busch InBev',
+  brewery_owner_user_id: 1,
+  history: 'Over 800 years ago, AB InBev found its humble beginnings in the experienced brewing hands of Belgian monks. It was in their abbeys where one of our original beer brands, Leffe, came to be.',
+  is_active: true,
+  is_approved: true,
+  phone_number: '000-000-000',
+  email: 'test@email.com',
+  home_page_url: 'https://www.anheuser-busch.com/',
+  image_url: 'https://www.anheuser-busch.com/img/logo/2color-black-small.svg',
+  hours_of_operation: '9am-5pm',
+  address_street: '775 Gellhorn',
+  address_city: 'Houston',
+  address_state: 'TX',
+  address_zip_code: '77029',
+  address_country: 'US'
+};
 
-// Regular User Object sample data
-const regUser = {
-  id: 1,
-  username: 'user',
-  passsword: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
-  role: 'ROLE_USER'
-}
+  //User Object sample data
 
-// Admin User Object sample data
-const adminUser = {
-  id: 1,
-  username: 'admin',
-  passsword: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
-  role: 'ROLE_ADMIN'
-}
-
-// Review Object sample data
-const beerReview = {
-  reviewId: 1,
-  authorUserId: 1,
-  beerId: 1,
-  rating: 5,
-  title: 'Dude, wheres my beer?',
-  reviewBody: 'This beer is so good you will forget everything!',
-  createdDate: '2022-11-06'
-}
+const userData = [{
+    id: 1,
+    username: 'user',
+    password_hash: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
+    role: 'ROLE_USER',
+    name: 'user',
+    email_address: 'user@test.com'
+  },
+  {
+    id: 2,
+    username: 'brewer',
+    password_hash: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
+    role: 'ROLE_BREWER',
+    name: 'brewer',
+    email_address: 'brewer@test.com',
+  },
+  {
+    id: 3,
+    username: 'admin',
+    password_hash: '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
+    role: 'ROLE_ADMIN',
+    name: 'admin',
+    email_address: 'admin@test.com',
+}];
