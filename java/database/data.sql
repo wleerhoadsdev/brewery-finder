@@ -59,11 +59,11 @@ INSERT INTO
         email,
         home_page_url,
         image_url,
-        street,
-        city,
-        state,
-        zip_code,
-        country
+        address_street,
+        address_city,
+        address_state,
+        address_zip_code,
+        address_country
     )
 VALUES
     (
@@ -141,7 +141,12 @@ INSERT INTO
         phone_number,
         email,
         home_page_url,
-        image_url
+        image_url,
+        address_street,
+        address_city,
+        address_state,
+        address_zip_code,
+        address_country
     )
 VALUES
     (
@@ -154,19 +159,13 @@ VALUES
         '222-222-2222',
         'bbb@yahoo.com',
         'http://bbbbrewery.com',
-        'https://drive.google.com/file/d/1W5f-RFh3zAb1LBW1jrDZLDA5USpB7rLx/view?usp=share_link'
+        'https://drive.google.com/file/d/1W5f-RFh3zAb1LBW1jrDZLDA5USpB7rLx/view?usp=share_link',
+        '2-st str',
+        'NY',
+        'NY',
+        '95100',
+        'USA'
     );
-INSERT INTO
-    brewery_address (
-        brewery_id,
-        street,
-        city,
-        state,
-        zip_code,
-        country
-    )
-VALUES
-    ('2', '2-st str', 'NY', 'NY', '95100', 'USA');
 INSERT INTO
     beer (
         beer_name,
