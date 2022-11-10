@@ -1,6 +1,7 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users, brewery, beer, beer_review, brewery_address, beer_avg_rating;
+
 DROP SEQUENCE IF EXISTS seq_user_id;
 
 CREATE SEQUENCE seq_user_id
@@ -15,13 +16,71 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
-	name varchar(50),
-	email_address varchar(50),
+	name varchar(50) NOT NULL,
+	email_address varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-INSERT INTO users (username,password_hash,role) VALUES ('brewer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_BREWER');
+CREATE TABLE brewery (
+    brewery_id serial NOT NULL,
+    brewery_name varchar(50) NOT NULL,
+    brewery_owner_user_id int NOT NULL,
+    history varchar,
+    is_active boolean NOT NULL,
+    is_approved boolean NOT NULL,
+    phone_number varchar(50),
+    email varchar(50),
+    home_page_url varchar(50),
+    image_url varchar(200),
+    hours_of_operation varchar(50),
+    CONSTRAINT PK_brewery_id PRIMARY KEY (brewery_id),
+    CONSTRAINT FK_brewery_owner_user_id FOREIGN KEY (brewery_owner_user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE brewery_address (
+    address_id serial NOT NULL,
+    brewery_id int NOT NULL,
+    street varchar(50) NOT NULL,
+    city varchar(50) NOT NULL,
+    state varchar(15) NOT NULL,
+    zip_code varchar(15) NOT NULL,
+    country varchar(20) NOT NULL,
+    CONSTRAINT PK_address_id PRIMARY KEY (address_id),
+    CONSTRAINT FK_brewery_id FOREIGN KEY (brewery_id) REFERENCES  brewery (brewery_id)
+);
+
+CREATE TABLE beer_type(
+    beer_type_id serial NOT NULL,
+    beer_style varchar(50) NOT NULL,
+    CONSTRAINT PK_beer_type_id PRIMARY KEY (beer_type_id)
+);
+
+CREATE TABLE beer(
+    beer_id serial NOT NULL,
+    brewery_id int NOT NULL,
+    beer_name varchar(50) NOT NULL,
+    image_url varchar(200) NOT NULL,
+    description varchar NOT NULL,
+    abv DECIMAL(5,2) NOT NULL,
+    beer_type_id int NOT NULL,
+    is_active BOOLEAN NOT NULL,
+    CONSTRAINT PK_beer_id PRIMARY KEY (beer_id),
+    CONSTRAINT FK_brewery_id FOREIGN KEY (brewery_id) REFERENCES brewery (brewery_id),
+    CONSTRAINT FK_beer_type_id FOREIGN KEY (beer_type_id) REFERENCES beer_type (beer_type_id)
+);
+
+CREATE TABLE beer_review(
+    review_id serial NOT NULL,
+    author_id INT NOT NULL,
+    beer_id INT NOT NULL,
+    rating DECIMAL(5,2) NOT NULL,
+    title varchar(50) NOT NULL,
+    review_body varchar(200) NOT NULL,
+    created_date TIMESTAMP WITH TIME ZONE NOT NULL,
+    updated_date TIMESTAMP WITH TIME ZONE NOT NULL,
+    CONSTRAINT PK_review_id PRIMARY KEY (review_id),
+    CONSTRAINT FK_author_id FOREIGN KEY (author_id) REFERENCES users (user_id),
+    CONSTRAINT FK_beer_id FOREIGN KEY (beer_id) REFERENCES beer (beer_id)
+);
 
 COMMIT TRANSACTION;
