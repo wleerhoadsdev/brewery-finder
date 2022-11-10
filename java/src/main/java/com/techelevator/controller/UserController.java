@@ -17,6 +17,7 @@ public class UserController {
     }
 
     //TODO: Should we change this endpoint name to /allusers?
+    //TODO: Shouldn't we use this endpoint to return all the accounts in the application?
     @RequestMapping(value = "/usersbreweries", method = RequestMethod.GET)
     public List<UserBreweryListItem> listAllUsersAndTheirBreweries() {
         return userDao.listAllUsersAndTheirBreweries();
