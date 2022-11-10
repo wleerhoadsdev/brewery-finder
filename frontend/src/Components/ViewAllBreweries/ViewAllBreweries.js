@@ -9,7 +9,7 @@ export default function ViewAllBreweries(props) {
     return (
         <div className='home--left-panel'>
             {userText}
-            <h3> Discover your new favorite beer</h3>
+            <h3> Page to View All Breweries</h3>
             <Link to='/'>View All Breweries</Link>
             <img src='https://via.placeholder.com/600' alt='placeholder' />
         </div>

@@ -9,7 +9,7 @@ export default function AddBrewery(props) {
     return (
         <div className='home--left-panel'>
             {userText}
-            <h3> Discover your new favorite beer</h3>
+            <h3> Form to Add Breweries</h3>
             <Link to='/'>View All Breweries</Link>
             <img src='https://via.placeholder.com/600' alt='placeholder' />
         </div>
