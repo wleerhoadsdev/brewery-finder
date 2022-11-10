@@ -79,6 +79,7 @@ export default function Main(props) {
                     <ViewAllBreweries
                         user={user}
                         token={token}
+                        data={data}
                     />}
                 />
                 <Route path='/ViewAllUsers' component={() =>
