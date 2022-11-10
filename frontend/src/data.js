@@ -120,5 +120,8 @@ const mockLogins = {
         ],
     name: 'admin',
     email_address: 'admin@test.com',
-}
+  }
 };
+
+const data = {beerData, beerTypeData, beerReviewData, breweryData, userData, mockLogins};
+export default data;
