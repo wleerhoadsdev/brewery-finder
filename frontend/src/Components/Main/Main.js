@@ -13,10 +13,15 @@ import ViewAllUsers from '../ViewAllUsers/ViewAllUsers'
 import ViewBeerInformation from '../ViewBeerInformation/ViewBeerInformation'
 import ViewBeerList from '../ViewBeerList/ViewBeerList'
 import ViewBrewery from '../ViewBrewery/ViewBrewery'
+import data from '../../data'
 
 export default function Main(props) {
     const [token, setToken] = useState("")
     const [user, setUser] = useState()
+    // Use below for when API is unavailable and comment out above
+    
+    // const [user, setUser] = useState(data.mockLogins.user) 
+    
 
     const handleLogout = () => {
         setToken("")
@@ -45,12 +50,6 @@ export default function Main(props) {
                 />
                 <Route path='/register' component={() =>
                     <Register />}
-                />
-                <Route path='/' component={() =>
-                    <Home
-                        user={user}
-                        token={token}
-                    />}
                 />
                 <Route path='/AddBeer' component={() =>
                     <AddBeer
@@ -100,6 +99,12 @@ export default function Main(props) {
                 />
                 <Route path='/ViewBrewery' component={() =>
                     <ViewBrewery
+                        user={user}
+                        token={token}
+                    />}
+                />
+                <Route path='/' component={() =>
+                    <Home
                         user={user}
                         token={token}
                     />}
