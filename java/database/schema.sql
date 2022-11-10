@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, brewery, beer, beer_review, brewery_address, beer_avg_rating;
+DROP TABLE IF EXISTS users, brewery, beer, beer_review, beer_avg_rating;
 
 DROP SEQUENCE IF EXISTS seq_user_id;
 
@@ -33,20 +33,13 @@ CREATE TABLE brewery (
     home_page_url varchar(50),
     image_url varchar(200),
     hours_of_operation varchar(50),
+	address_street varchar(50) NOT NULL,
+    address_city varchar(50) NOT NULL,
+    address_state varchar(15) NOT NULL,
+    address_zip_code varchar(15) NOT NULL,
+    address_country varchar(20) NOT NULL,
     CONSTRAINT PK_brewery_id PRIMARY KEY (brewery_id),
     CONSTRAINT FK_brewery_owner_user_id FOREIGN KEY (brewery_owner_user_id) REFERENCES users (user_id)
-);
-
-CREATE TABLE brewery_address (
-    address_id serial NOT NULL,
-    brewery_id int NOT NULL,
-    street varchar(50) NOT NULL,
-    city varchar(50) NOT NULL,
-    state varchar(15) NOT NULL,
-    zip_code varchar(15) NOT NULL,
-    country varchar(20) NOT NULL,
-    CONSTRAINT PK_address_id PRIMARY KEY (address_id),
-    CONSTRAINT FK_brewery_id FOREIGN KEY (brewery_id) REFERENCES  brewery (brewery_id)
 );
 
 CREATE TABLE beer_type(

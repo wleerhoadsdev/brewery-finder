@@ -1,6 +1,12 @@
 BEGIN TRANSACTION;
 INSERT INTO
-    users (username, password_hash, role, name, email_address)
+    users (
+        username,
+        password_hash,
+        role,
+        name,
+        email_address
+    )
 VALUES
     (
         'user',
@@ -10,7 +16,13 @@ VALUES
         'user@test.com'
     );
 INSERT INTO
-    users (username, password_hash, role, name, email_address)
+    users (
+        username,
+        password_hash,
+        role,
+        name,
+        email_address
+    )
 VALUES
     (
         'admin',
@@ -20,7 +32,13 @@ VALUES
         'admin@test.com'
     );
 INSERT INTO
-    users (username, password_hash, role, name, email_address)
+    users (
+        username,
+        password_hash,
+        role,
+        name,
+        email_address
+    )
 VALUES
     (
         'brewer',
@@ -40,7 +58,12 @@ INSERT INTO
         phone_number,
         email,
         home_page_url,
-        image_url
+        image_url,
+        address_street,
+        address_city,
+        address_state,
+        address_zip_code,
+        address_country
     )
 VALUES
     (
@@ -53,19 +76,13 @@ VALUES
         '111-222-3333',
         'aaa@yahoo.com',
         'http://aaabrewery.com',
-        'https://drive.google.com/file/d/1EUDDG5TW9yu0TQeLGGv4qkvc0DnQ2j6R/view?usp=share_link'
+        'https://drive.google.com/file/d/1EUDDG5TW9yu0TQeLGGv4qkvc0DnQ2j6R/view?usp=share_link',
+        '1-st str',
+        'NY',
+        'NY',
+        '95100',
+        'USA'
     );
-INSERT INTO
-    brewery_address (
-        brewery_id,
-        street,
-        city,
-        state,
-        zip_code,
-        country
-    )
-VALUES
-    ('1', '1-st str', 'NY', 'NY', '95100', 'USA');
 INSERT INTO
     beer_type (beer_type_id, beer_style)
 VALUES
@@ -124,7 +141,12 @@ INSERT INTO
         phone_number,
         email,
         home_page_url,
-        image_url
+        image_url,
+        address_street,
+        address_city,
+        address_state,
+        address_zip_code,
+        address_country
     )
 VALUES
     (
@@ -137,19 +159,13 @@ VALUES
         '222-222-2222',
         'bbb@yahoo.com',
         'http://bbbbrewery.com',
-        'https://drive.google.com/file/d/1W5f-RFh3zAb1LBW1jrDZLDA5USpB7rLx/view?usp=share_link'
+        'https://drive.google.com/file/d/1W5f-RFh3zAb1LBW1jrDZLDA5USpB7rLx/view?usp=share_link',
+        '2-st str',
+        'NY',
+        'NY',
+        '95100',
+        'USA'
     );
-INSERT INTO
-    brewery_address (
-        brewery_id,
-        street,
-        city,
-        state,
-        zip_code,
-        country
-    )
-VALUES
-    ('2', '2-st str', 'NY', 'NY', '95100', 'USA');
 INSERT INTO
     beer (
         beer_name,
@@ -191,5 +207,4 @@ VALUES
         'Will buy it again',
         '2022-11-06',
         '2022-11-06'
-    );
-COMMIT;
+    );COMMIT;
