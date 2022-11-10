@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techelevator.model.BreweryListItem;
 import com.techelevator.model.UserBreweryListItem;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -89,9 +90,29 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public List<UserBreweryListItem> listAllUsersAndTheirBreweries() {
+        List<UserBreweryListItem> listItems = new ArrayList<>();
+        String sql =
+            "SELECT user_id, username, users.name AS user_person_name, brewery.brewery_id AS brewery_id, brewery_name " +
+            "FROM users " +
+            "LEFT OUTER JOIN brewery ON brewery.brewery_owner_user_id = users.user_id " +
+            "ORDER BY username, user_person_name, brewery_name;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()) {
+            UserBreweryListItem listItem = mapRowToUserBreweryListItem(results);
+            listItems.add(listItem);
+        }
+        return listItems;
+    }
 
-        // TODO: implement method
-        return null;
+    private UserBreweryListItem mapRowToUserBreweryListItem(SqlRowSet rs) {
+        UserBreweryListItem listItem = new UserBreweryListItem();
+        listItem.setUserId(rs.getInt("user_id"));
+        listItem.setUsername(rs.getString("username"));
+        listItem.setName(rs.getString("user_person_name"));
+        int breweryId = rs.getInt("brewery_id");
+        listItem.setBreweryId(breweryId == 0 ? null : breweryId);
+        listItem.setBreweryName(rs.getString("brewery_name"));
+        return listItem;
     }
 
     private User mapRowToUser(SqlRowSet rs) {

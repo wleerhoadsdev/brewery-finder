@@ -1,7 +1,7 @@
 package com.techelevator.model;
 
 public class Brewery {
-    private int breweryId;
+    private Integer breweryId;
     private int breweryOwnerUserId;
     private String name;
     private boolean isActive;
@@ -14,11 +14,28 @@ public class Brewery {
     private String homePageUrl;
     private String imageUrl;
 
-    public int getBreweryId() {
+    public Brewery() {
+    }
+    public Brewery(Brewery breweryToCopyFrom) {
+        this.breweryId = breweryToCopyFrom.getBreweryId();
+        this.breweryOwnerUserId = breweryToCopyFrom.getBreweryOwnerUserId();
+        this.name = breweryToCopyFrom.getName();
+        this.isActive = breweryToCopyFrom.isActive();
+        this.isApproved = breweryToCopyFrom.isApproved;
+        this.history = breweryToCopyFrom.history;
+        this.hoursOfOperation = breweryToCopyFrom.getHoursOfOperation();
+        this.address = new Address(breweryToCopyFrom.getAddress());
+        this.phoneNumber = breweryToCopyFrom.getPhoneNumber();
+        this.emailAddress = breweryToCopyFrom.getEmailAddress();
+        this.homePageUrl = breweryToCopyFrom.getHomePageUrl();
+        this.imageUrl = breweryToCopyFrom.getImageUrl();
+    }
+
+    public Integer getBreweryId() {
         return breweryId;
     }
 
-    public void setBreweryId(int breweryId) {
+    public void setBreweryId(Integer breweryId) {
         this.breweryId = breweryId;
     }
 

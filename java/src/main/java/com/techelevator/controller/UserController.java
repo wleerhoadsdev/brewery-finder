@@ -18,8 +18,6 @@ public class UserController {
 
     @RequestMapping(value = "/usersbreweries", method = RequestMethod.GET)
     public List<UserBreweryListItem> listAllUsersAndTheirBreweries() {
-
-        // TODO: implement method
-        return null;
+        return userDao.listAllUsersAndTheirBreweries();
     }
 }

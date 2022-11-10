@@ -7,6 +7,16 @@ public class Address {
     private String zipCode;
     private String country;
 
+    public Address() {
+    }
+    public Address(Address addressToCopyFrom) {
+        this.street = addressToCopyFrom.getStreet();
+        this.city = addressToCopyFrom.getCity();
+        this.state = addressToCopyFrom.getState();
+        this.zipCode = addressToCopyFrom.getZipCode();
+        this.country = addressToCopyFrom.getCountry();
+    }
+
     public String getStreet() {
         return street;
     }

@@ -3,7 +3,8 @@ package com.techelevator.model;
 public class UserBreweryListItem {
     private int userId;
     private String username;
-    private int breweryId;
+    private String name;
+    private Integer breweryId;
     private String breweryName;
 
     public int getUserId() {
@@ -22,11 +23,19 @@ public class UserBreweryListItem {
         this.username = username;
     }
 
-    public int getBreweryId() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getBreweryId() {
         return breweryId;
     }
 
-    public void setBreweryId(int breweryId) {
+    public void setBreweryId(Integer breweryId) {
         this.breweryId = breweryId;
     }
 
