@@ -64,6 +64,22 @@ VALUES
         'brewer2@test.com'
     );
 INSERT INTO
+    users (
+        username,
+        password_hash,
+        role,
+        name,
+        email_address
+    )
+VALUES
+    (
+        'new brewer 1',
+        '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
+        'ROLE_BREWER',
+        'Brewer B. Brewerson III',
+        'brewer2@test.com'
+    );
+INSERT INTO
     brewery (
         brewery_owner_user_id,
         brewery_name,
@@ -155,21 +171,21 @@ INSERT INTO
     )
 VALUES
     (
-        '3',
-        'Brewery 1',
-        'true',
-        'true',
-        'since 1966',
-        '12:00 - 23:00',
-        '111-222-3333',
-        'aaa@yahoo.com',
-        'http://aaabrewery.com',
-        'https://drive.google.com/file/d/1EUDDG5TW9yu0TQeLGGv4qkvc0DnQ2j6R/view?usp=share_link',
-        '1-st str',
-        'NY',
-        'NY',
-        '95100',
-        'USA'
+        '5',
+        'Unapproved New Brewery 3',
+        'false',
+        'false',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        ''
     );
 INSERT INTO
     beer_type (beer_type_id, beer_style)
