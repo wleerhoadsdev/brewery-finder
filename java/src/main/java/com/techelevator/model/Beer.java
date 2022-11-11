@@ -11,6 +11,21 @@ public class Beer {
     private int typeId;
     private boolean isActive;
 
+    public Beer(Beer beerToCopyFrom) {
+        this.beerId = beerToCopyFrom.getBeerId();
+        this.name = beerToCopyFrom.getName();
+        this.breweryId = beerToCopyFrom.getBreweryId();
+        this.description = beerToCopyFrom.getDescription();
+        this.adv = beerToCopyFrom.getAdv();
+        this.typeId = beerToCopyFrom.getTypeId();
+        this.isActive = beerToCopyFrom.isActive();
+        this.imageUrl = beerToCopyFrom.getImageUrl();
+    }
+
+    public Beer() {
+
+    }
+
     public int getBeerId() {
         return beerId;
     }

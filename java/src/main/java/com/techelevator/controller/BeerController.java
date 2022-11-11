@@ -1,7 +1,9 @@
 package com.techelevator.controller;
 
+import com.techelevator.controller.exception.EndpointException;
 import com.techelevator.dao.BeerDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.dao.exception.RecordNotFoundException;
 import com.techelevator.model.Beer;
 
 import org.springframework.http.HttpStatus;
@@ -28,9 +30,15 @@ public class BeerController {
     @RequestMapping(value = "/brewery/{breweryId}/addbeer", method = RequestMethod.POST)
     public Beer createBeer(Principal principal, @PathVariable("breweryId") @NotNull Integer breweryId,
                            @Valid @RequestBody Beer beer) {
-
-        // TODO: implement method
-        return null;
+        try {
+            return beerDao.create(beer);
+        }
+        catch (RecordNotFoundException e) {
+            throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        catch (Exception e) {
+            throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/brewery/{breweryId}/beer/{beerId}", method = RequestMethod.GET)
@@ -43,9 +51,15 @@ public class BeerController {
 
     @RequestMapping(value = "/brewery/{breweryId}/beer", method = RequestMethod.GET)
     public List<Beer> getBeersByBreweryId(@PathVariable("breweryId") @NotNull Integer breweryId) {
-
-        // TODO: implement method
-        return null;
+        try {
+            return beerDao.getByBreweryId(breweryId);
+        }
+        catch (RecordNotFoundException e) {
+            throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        catch (Exception e) {
+            throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/brewery/{breweryId}/beer/{beerId}", method = RequestMethod.PUT)
