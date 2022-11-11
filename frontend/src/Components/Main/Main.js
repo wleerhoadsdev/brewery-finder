@@ -18,6 +18,7 @@ import data from '../../data'
 export default function Main(props) {
     const [token, setToken] = useState("")
     const [user, setUser] = useState()
+    const [currentBrewery, setCurrentBrewery] = useState()
     // Use below for when API is unavailable and comment out above
     
     // const [user, setUser] = useState(data.mockLogins.user) 
@@ -34,6 +35,10 @@ export default function Main(props) {
 
     const handleUser = (user) => {
         setUser(user)
+    }
+
+    const handleCurrentBrewery = (breweryId) => {
+        setCurrentBrewery(breweryId)
     }
 
     return (
@@ -98,10 +103,11 @@ export default function Main(props) {
                         token={token}
                     />}
                 />
-                <Route path='/ViewBrewery' component={() =>
+                <Route path='/ViewBrewery/:id' component={() =>
                     <ViewBrewery
                         user={user}
                         token={token}
+                        breweryId={handleCurrentBrewery}
                     />}
                 />
                 <Route path='/' component={() =>
