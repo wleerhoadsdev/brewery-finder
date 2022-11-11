@@ -5,7 +5,7 @@ import './Navbar.css'
 export default function Navbar(props) {
   const nav = props.user ?
     <nav>
-      <h2>Beer Lovers</h2>
+      <Link to='/'>Beer Lovers</Link>
       <Link to='/ViewAllBreweries'>VIEW ALL BREWERIES</Link>
       <Link to='/' onClick={props.handleLogout}>LOG OUT</Link>
     </nav>
