@@ -55,8 +55,8 @@ public class JdbcBreweryDao implements BreweryDao {
             newBrewery.setBreweryId(jdbcTemplate.queryForObject(brewerySql, Integer.class,
                 newBrewery.getBreweryOwnerUserId(),
                 newBrewery.getName(),
-                newBrewery.isActive(),
-                newBrewery.isApproved(),
+                newBrewery.getIsActive(),
+                newBrewery.getIsApproved(),
                 newBrewery.getImageUrl(),
                 newBrewery.getHistory(),
                 newBrewery.getHoursOfOperation(),
@@ -172,8 +172,8 @@ public class JdbcBreweryDao implements BreweryDao {
             if (jdbcTemplate.update(brewerySql,
                 brewery.getBreweryOwnerUserId(),
                 brewery.getName(),
-                brewery.isActive(),
-                brewery.isApproved(),
+                brewery.getIsActive(),
+                brewery.getIsApproved(),
                 brewery.getImageUrl(),
                 brewery.getHistory(),
                 brewery.getHoursOfOperation(),
@@ -212,8 +212,8 @@ public class JdbcBreweryDao implements BreweryDao {
         brewery.setBreweryId(rs.getInt("brewery_id"));
         brewery.setBreweryOwnerUserId(rs.getInt("brewery_owner_user_id"));
         brewery.setName(rs.getString("brewery_name"));
-        brewery.setActive(rs.getBoolean("is_active"));
-        brewery.setApproved(rs.getBoolean("is_approved"));
+        brewery.setIsActive(rs.getBoolean("is_active"));
+        brewery.setIsApproved(rs.getBoolean("is_approved"));
         brewery.setImageUrl(rs.getString("image_url"));
         brewery.setHistory(rs.getString("history"));
         brewery.setHoursOfOperation(rs.getString("hours_of_operation"));

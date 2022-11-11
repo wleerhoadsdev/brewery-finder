@@ -20,7 +20,7 @@ public class Brewery {
         this.breweryId = breweryToCopyFrom.getBreweryId();
         this.breweryOwnerUserId = breweryToCopyFrom.getBreweryOwnerUserId();
         this.name = breweryToCopyFrom.getName();
-        this.isActive = breweryToCopyFrom.isActive();
+        this.isActive = breweryToCopyFrom.getIsActive();
         this.isApproved = breweryToCopyFrom.isApproved;
         this.history = breweryToCopyFrom.history;
         this.hoursOfOperation = breweryToCopyFrom.getHoursOfOperation();
@@ -55,20 +55,20 @@ public class Brewery {
         this.name = name;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
-    public boolean isApproved() {
+    public boolean getIsApproved() {
         return isApproved;
     }
 
-    public void setApproved(boolean approved) {
-        isApproved = approved;
+    public void setIsApproved(boolean isApproved) {
+        this.isApproved = isApproved;
     }
 
     public String getHistory() {
