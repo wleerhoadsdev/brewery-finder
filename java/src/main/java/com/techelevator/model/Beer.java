@@ -18,7 +18,7 @@ public class Beer {
         this.description = beerToCopyFrom.getDescription();
         this.adv = beerToCopyFrom.getAdv();
         this.typeId = beerToCopyFrom.getTypeId();
-        this.isActive = beerToCopyFrom.isActive();
+        this.isActive = beerToCopyFrom.getIsActive();
         this.imageUrl = beerToCopyFrom.getImageUrl();
     }
 
@@ -79,14 +79,14 @@ public class Beer {
     }
 
     public void setTypeId(int typeId) {
-        typeId = typeId;
+        this.typeId = typeId;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
     }
 }
