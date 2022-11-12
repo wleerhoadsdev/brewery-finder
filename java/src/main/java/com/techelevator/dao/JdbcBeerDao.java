@@ -2,7 +2,6 @@ package com.techelevator.dao;
 
 import com.techelevator.dao.exception.RecordNotFoundException;
 import com.techelevator.model.Beer;
-import com.techelevator.model.Brewery;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -14,6 +13,9 @@ import java.util.List;
 @Service
 public class JdbcBeerDao implements BeerDao {
     private static final String MESSAGE_COULD_NOT_CREATE_BEER_RECORD = "Could not create beer record.";
+    private static final String MESSAGE_COULD_NOT_FIND_BEER_BY_ID   = "Could not find beer by id %s";
+    private static final String MESSAGE_COULD_NOT_UPDATE_BEER_RECORD = "Could not update beer record.";
+
 
     private JdbcTemplate jdbcTemplate;
     public JdbcBeerDao(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
@@ -38,14 +40,19 @@ public class JdbcBeerDao implements BeerDao {
         } catch (DataAccessException e) {
             throw new RuntimeException(MESSAGE_COULD_NOT_CREATE_BEER_RECORD, e);
         }
-
     }
 
     @Override
-    public List<Beer> getById(int beerId) {
-
-        // TODO: implement method
-        return null;
+    public Beer getBeerById(Integer breweryId, Integer beerId) {
+        String sql = String.format(
+                "SELECT beer_id, beer_name, brewery_id,description, abv, beer_type_id, is_active, image_url" +
+                        " FROM beer WHERE brewery_id = ? AND beer_id = ?", breweryId, beerId);
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, breweryId, beerId);
+        if (!result.next()) {
+            throw new RecordNotFoundException(String.format(MESSAGE_COULD_NOT_FIND_BEER_BY_ID,
+                    beerId));
+        }
+        return mapRowToBeer(result);
     }
 
     @Override
@@ -62,16 +69,38 @@ public class JdbcBeerDao implements BeerDao {
     }
 
     @Override
-    public Beer update(Beer beer) {
+    public Beer updateBeer(Beer beer, Integer breweryId, Integer beerId) {
 
-        // TODO: implement method
-        return null;
+        try {
+            String beer_update_SQL =
+                    "UPDATE beer SET " +
+                            " beer_name = ?, brewery_id = ?, description=?, abv = ?, " +
+                            "beer_type_id = ?, is_active = ?, image_url = ?" +
+                    " WHERE brewery_id = ? AND beer_id = ?";
+            jdbcTemplate.update(beer_update_SQL,
+                    beer.getName(),
+                    beer.getBreweryId(),
+                    beer.getDescription(),
+                    beer.getAdv(),
+                    beer.getTypeId(),
+                    beer.getIsActive(),
+                    beer.getImageUrl(),
+                    breweryId,
+                    beerId
+            );
+            return beer;
+        }catch (DataAccessException e) {
+            throw new RuntimeException(MESSAGE_COULD_NOT_UPDATE_BEER_RECORD, e);
+        }
     }
 
     @Override
-    public void delete(int beerId) {
+    public void deleteBeer(Integer breweryId, Integer beerId) {
+        String beer_delete_sql = (
+                "DELETE FROM beer WHERE brewery_id = ? AND beer_id = ?"
+                );
+        jdbcTemplate.update(beer_delete_sql,breweryId, beerId);
 
-        // TODO: implement method
     }
 
     private Beer mapRowToBeer(SqlRowSet rs) {

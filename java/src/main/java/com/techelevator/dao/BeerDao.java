@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface BeerDao {
     Beer create(Beer beer);
-    List<Beer> getById(int beerId);
+    Beer getBeerById(Integer breweryId, Integer beerId);
     List<Beer> getByBreweryId(int breweryId);
-    Beer update(Beer beer);
-    void delete(int beerId);
+    Beer updateBeer(Beer beer, Integer breweryId, Integer beerId);
+    void deleteBeer(Integer breweryId, Integer beerId);
+
+
 }
