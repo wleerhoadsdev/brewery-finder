@@ -4,6 +4,7 @@ public class BreweryListItem {
     private int id;
     private String name;
     private Address address;
+    private boolean isActive;
 
     public Address getAddress() {
         return address;
@@ -28,4 +29,8 @@ public class BreweryListItem {
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean getIsActive() { return isActive; }
+
+    public void setIsActive(boolean isActive) { this.isActive = isActive; }
 }
