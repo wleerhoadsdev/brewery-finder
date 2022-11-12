@@ -83,12 +83,12 @@ public class JdbcBreweryDao implements BreweryDao {
             "SELECT " +
                 "brewery_id, " +
                 "brewery_name, " +
-                    "is_active, " +
+                "is_active, " +
                 "address_street, " +
                 "address_city, " +
                 "address_state, " +
                 "address_zip_code, " +
-                "address_country, " +
+                "address_country " +
             "FROM brewery " +
             "ORDER BY brewery_name, address_country, address_state, address_zip_code, address_city, address_street;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
