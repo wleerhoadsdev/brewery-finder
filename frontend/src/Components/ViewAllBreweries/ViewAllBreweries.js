@@ -7,18 +7,12 @@ export default function ViewAllBreweries(props) {
 
     const role = props.user ? props.user.authorities[0].name : '';
     const [breweriesData, setBreweriesData] = React.useState([]);
-    const [myBrewery, setMyBrewery] = React.useState({})
 
     React.useEffect(() => {
         axios.get(baseUrl + '/brewery').then((response) => {
             setBreweriesData(response.data);
         });
 
-        if(props.user) {
-            axios.get(baseUrl + '/user/' + props.user.id + '/brewery').then((response) => {
-                setMyBrewery(response.data);
-            })
-        }
     }, [props.user]);
 
 
@@ -26,7 +20,7 @@ export default function ViewAllBreweries(props) {
     const breweryElements = breweriesData.map(brewery => {
         return (
             <tr key={brewery.id}>
-                <td><Link to={{pathname: '/ViewBrewery', state: {id: brewery.id}}}>{brewery.name}</Link></td>
+                <td><Link to={{pathname: `/ViewBrewery/${brewery.id}`, state: {id: brewery.id}}}>{brewery.name}</Link></td>
                 <td>{brewery.address.city}</td>
                 <td>{brewery.address.state}</td>
             </tr>
