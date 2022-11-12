@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.controller.exception.EndpointException;
 import com.techelevator.dao.exception.RecordNotFoundException;
 import com.techelevator.model.Beer;
 import org.springframework.dao.DataAccessException;
@@ -15,7 +16,7 @@ public class JdbcBeerDao implements BeerDao {
     private static final String MESSAGE_COULD_NOT_CREATE_BEER_RECORD = "Could not create beer record.";
     private static final String MESSAGE_COULD_NOT_FIND_BEER_BY_ID   = "Could not find beer by id %s";
     private static final String MESSAGE_COULD_NOT_UPDATE_BEER_RECORD = "Could not update beer record.";
-
+    private static final String MESSAGE_COULD_NOT_DELETE_BEER_RECORD = "Beer not deleted. Check brewery or beer ID";
 
     private JdbcTemplate jdbcTemplate;
     public JdbcBeerDao(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
@@ -96,12 +97,15 @@ public class JdbcBeerDao implements BeerDao {
 
     @Override
     public void deleteBeer(Integer breweryId, Integer beerId) {
-        String beer_delete_sql = (
-                "DELETE FROM beer WHERE brewery_id = ? AND beer_id = ?"
-                );
-        jdbcTemplate.update(beer_delete_sql,breweryId, beerId);
+            String beer_delete_sql = (
+                    "DELETE FROM beer WHERE brewery_id = ? AND beer_id = ?"
+            );
+            int numberOfRowDeleted = jdbcTemplate.update(beer_delete_sql, breweryId, beerId);
+            if (numberOfRowDeleted != 1) {
+                throw new RuntimeException(MESSAGE_COULD_NOT_DELETE_BEER_RECORD);
+            }
+        }
 
-    }
 
     private Beer mapRowToBeer(SqlRowSet rs) {
         Beer beer = new Beer();
