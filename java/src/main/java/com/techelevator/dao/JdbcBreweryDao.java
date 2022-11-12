@@ -83,11 +83,12 @@ public class JdbcBreweryDao implements BreweryDao {
             "SELECT " +
                 "brewery_id, " +
                 "brewery_name, " +
+                    "is_active, " +
                 "address_street, " +
                 "address_city, " +
                 "address_state, " +
                 "address_zip_code, " +
-                "address_country " +
+                "address_country, " +
             "FROM brewery " +
             "ORDER BY brewery_name, address_country, address_state, address_zip_code, address_city, address_street;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
@@ -102,6 +103,7 @@ public class JdbcBreweryDao implements BreweryDao {
         BreweryListItem listItem = new BreweryListItem();
         listItem.setId(rs.getInt("brewery_id"));
         listItem.setName(rs.getString("brewery_name"));
+        listItem.setIsActive(rs.getBoolean("is_active"));
         listItem.setAddress(mapRowToAddress(rs));
         return listItem;
     }
