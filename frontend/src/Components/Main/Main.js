@@ -37,10 +37,6 @@ export default function Main(props) {
         setUser(user)
     }
 
-    const handleCurrentBrewery = (breweryId) => {
-        setCurrentBrewery(breweryId)
-    }
-
     return (
         <div>
             <Navbar
@@ -103,13 +99,12 @@ export default function Main(props) {
                         token={token}
                     />}
                 />
-                <Route path='/ViewBrewery/:id' component={() =>
+                <Route path='/ViewBrewery'>
                     <ViewBrewery
                         user={user}
                         token={token}
-                        breweryId={handleCurrentBrewery}
-                    />}
-                />
+                    />
+                </Route>
                 <Route path='/' component={() =>
                     <Home
                         user={user}
