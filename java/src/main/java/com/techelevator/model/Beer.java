@@ -10,6 +10,7 @@ public class Beer {
     private Double adv;
     private int typeId;
     private boolean isActive;
+    private String beerStyle;
 
     public Beer(Beer beerToCopyFrom) {
         this.beerId = beerToCopyFrom.getBeerId();
@@ -20,6 +21,7 @@ public class Beer {
         this.typeId = beerToCopyFrom.getTypeId();
         this.isActive = beerToCopyFrom.getIsActive();
         this.imageUrl = beerToCopyFrom.getImageUrl();
+        this.beerStyle = beerToCopyFrom.getBeerStyle();
     }
 
     public Beer() {
@@ -89,4 +91,7 @@ public class Beer {
     public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
+    public String getBeerStyle() {         return beerStyle;    }
+
+    public void setBeerStyle(String beerStyle) {        this.beerStyle = beerStyle;    }
 }
