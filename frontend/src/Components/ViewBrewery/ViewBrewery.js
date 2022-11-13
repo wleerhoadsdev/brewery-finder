@@ -17,7 +17,7 @@ export default function ViewBrewery(props) {
             setBreweryData(response.data);
          });
     }, []);
-
+    console.log(breweryData);
     return (
         <div className='home--left-panel'>
             <h3>Brewery Info</h3>
