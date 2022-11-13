@@ -41,7 +41,7 @@ INSERT INTO
     )
 VALUES
     (
-        'brewer 1',
+        'brewer1',
         '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
         'ROLE_BREWER',
         'Brewer McBrewer',
@@ -57,7 +57,7 @@ INSERT INTO
     )
 VALUES
     (
-        'brewer 2',
+        'brewer2',
         '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
         'ROLE_BREWER',
         'Brewer B. Brewerson III',
@@ -73,7 +73,7 @@ INSERT INTO
     )
 VALUES
     (
-        'new brewer 1',
+        'newbrewer1',
         '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',
         'ROLE_BREWER',
         'Brewer B. Brewerson III',
