@@ -1,7 +1,9 @@
 package com.techelevator.controller;
 
+import com.techelevator.controller.exception.EndpointException;
 import com.techelevator.dao.BeerReviewDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.dao.exception.RecordNotFoundException;
 import com.techelevator.model.BeerAverageRating;
 import com.techelevator.model.BeerReview;
 
@@ -31,16 +33,32 @@ public class BeerReviewController {
                                        @PathVariable("beerId") @NotNull Integer beerId,
                                        @Valid @RequestBody BeerReview beerReview) {
 
-        // TODO: implement method
-        return null;
+        try {
+            return beerReviewDao.create(beerReview);
+        }
+        catch (RecordNotFoundException e) {
+            throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        catch (Exception e) {
+            throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
     }
 
     @RequestMapping(value = "/brewery/{breweryId}/beer/{beerId}/review", method = RequestMethod.GET)
     public List<BeerReview> getBeerReviewsByBeerId(@PathVariable("breweryId") @NotNull Integer breweryId,
                                                    @PathVariable("beerId") @NotNull Integer beerId) {
 
-        // TODO: implement method
-        return null;
+        try {
+            return beerReviewDao.getReviewByBeerId(breweryId, beerId);
+
+        }
+        catch (RecordNotFoundException e) {
+            throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        catch (Exception e) {
+            throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/brewery/{breweryId}/beer/{beerId}/avgrating", method = RequestMethod.GET)

@@ -7,10 +7,24 @@ public class BeerReview {
     private int reviewId;
     private int beerId;
     private int authorUserId;
-    private int rating;
+    private double rating;
     private String title;
     private String body;
     private Date createDateTime;
+    private Date updateDateTime;
+
+    public BeerReview(BeerReview beerReviewToCopyFrom){
+    this.reviewId = beerReviewToCopyFrom.getReviewId();
+    this.beerId = beerReviewToCopyFrom.getBeerId();
+    this.authorUserId = beerReviewToCopyFrom.getAuthorUserId();
+    this.rating = beerReviewToCopyFrom.getRating();
+    this.title = beerReviewToCopyFrom.getTitle();
+    this.body = beerReviewToCopyFrom.getBody();
+    this.createDateTime = beerReviewToCopyFrom.getCreateDateTime();
+    this.updateDateTime = beerReviewToCopyFrom.getUpdateDateTime();
+    }
+
+    public BeerReview(){}
 
     public int getReviewId() {
         return reviewId;
@@ -36,11 +50,11 @@ public class BeerReview {
         this.authorUserId = authorUserId;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -67,4 +81,8 @@ public class BeerReview {
     public void setCreateDateTime(Date createDateTime) {
         this.createDateTime = createDateTime;
     }
+
+    public Date getUpdateDateTime() {return updateDateTime;    }
+
+    public void setUpdateDateTime(Date updateDateTime) {        this.updateDateTime = updateDateTime;    }
 }
