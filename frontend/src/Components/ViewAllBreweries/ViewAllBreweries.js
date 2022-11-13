@@ -21,11 +21,12 @@ export default function ViewAllBreweries(props) {
                 setMyBrewery(response.data.breweryId);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /* iterates through all breweries and if current user is a brewer it adds thier brewery to the top of the list */
     const elementArray = []
-    const breweryElements = breweriesData.forEach(brewery => {
+    breweriesData.forEach(brewery => {
         const isMyBrewery = brewery.id === myBrewery
 
         // if brewery is inactive skip it and don't display unless it is my brewery
@@ -33,7 +34,7 @@ export default function ViewAllBreweries(props) {
 
         const currentElement =
             <tr key={brewery.id}>
-                <td><Link to={{pathname: `/ViewBrewery/${brewery.id}`, state: {id: brewery.id}}}>{brewery.name}</Link></td>
+                <td><Link to={{ pathname: `/ViewBrewery/${brewery.id}`, state: { id: brewery.id } }}>{brewery.name}</Link></td>
                 <td>{brewery.address.city}</td>
                 <td>{brewery.address.state}</td>
             </tr>
