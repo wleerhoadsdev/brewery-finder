@@ -21,14 +21,18 @@ export default function Home(props) {
         )
     }
     return (
-        <div className='home__left-panel'>
-            {userText}
-            <h3>Discover your new favorite beer</h3>
-            <Link to='/ViewAllBreweries'>View All Breweries</Link>
-            <img
-                src='https://via.placeholder.com/600'
-                alt='placeholder'
-                className='home__image' />
-        </div>
+        <main>
+            <div className='home__content-panel'>
+                {userText}
+                <h3>Discover your new favorite beer</h3>
+                <Link to='/ViewAllBreweries'>View All Breweries</Link>
+            </div>
+            <div className='home__image-panel'>
+                <img
+                    src='https://via.placeholder.com/600'
+                    alt='placeholder'
+                    className='home__image' />
+            </div>
+        </main>
     )
 }

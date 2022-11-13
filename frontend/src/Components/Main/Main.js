@@ -19,6 +19,7 @@ export default function Main(props) {
     const [token, setToken] = useState("")
     const [user, setUser] = useState()
     const [currentBrewery, setCurrentBrewery] = useState()
+    const [currentBeer, setCurrentBeer] = useState()
     // Use below for when API is unavailable and comment out above
     
     // const [user, setUser] = useState(data.mockLogins.user) 
@@ -35,6 +36,10 @@ export default function Main(props) {
 
     const handleUser = (user) => {
         setUser(user)
+    }
+
+    const setBrewery = (breweryId) => {
+        setCurrentBrewery(breweryId)
     }
 
     return (

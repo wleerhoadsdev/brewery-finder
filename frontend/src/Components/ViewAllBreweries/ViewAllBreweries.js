@@ -34,7 +34,11 @@ export default function ViewAllBreweries(props) {
 
         const currentElement =
             <tr key={brewery.id}>
-                <td><Link to={{ pathname: `/ViewBrewery/${brewery.id}`, state: { id: brewery.id } }}>{brewery.name}</Link></td>
+                <td>
+                    <Link to={{ pathname: `/ViewBrewery/${brewery.id}`, state: { breweryId: brewery.id } }}>
+                            {brewery.name}
+                    </Link>
+                </td>
                 <td>{brewery.address.city}</td>
                 <td>{brewery.address.state}</td>
             </tr>
