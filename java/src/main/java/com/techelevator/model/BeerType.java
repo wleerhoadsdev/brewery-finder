@@ -2,22 +2,22 @@ package com.techelevator.model;
 
 public class BeerType {
 
-    private int id;
-    private String name;
+    private Integer typeId;
+    private String style;
 
-    public int getId() {
-        return id;
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
-    public String getName() {
-        return name;
+    public String getStyle() {
+        return style;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStyle(String style) {
+        this.style = style;
     }
 }
