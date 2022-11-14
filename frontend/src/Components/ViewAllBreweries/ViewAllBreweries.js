@@ -52,7 +52,6 @@ export default function ViewAllBreweries(props) {
 
     return (
         <div className='breweries'>
-            {/* {userText} */}
             <h3> Below are our List of Breweries!</h3>
             <Link to='/'>Go Back</Link>
             <table>
