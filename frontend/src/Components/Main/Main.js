@@ -24,18 +24,6 @@ export default function Main(props) {
     const [currentBrewery, setCurrentBrewery] = useState("")
     const [currentBeer, setCurrentBeer] = useState("")
     const [myBrewery, setMyBrewery] = useState("")
-    let role = ''
-    
-    
-    React.useEffect(() => {
-        role = props.user ? props.user.authorities[0].name : '';
-
-        if (role === 'ROLE_BREWER') {
-            axios.get(baseUrl + `/user/${props.user.id}/brewery`)
-                .then((response) => setMyBrewery(response.data.breweryId));
-        }
-    }, [user]);
-    
 
     const handleLogout = () => {
         setToken("")
@@ -107,7 +95,6 @@ export default function Main(props) {
                     <ViewAllUsers
                         user={user}
                         token={token}
-                        role={role}
                         handleCurrentBrewery={handleCurrentBrewery}
                     />}
                 /><Route path='/ViewBeerInformation' component={() =>
@@ -137,6 +124,8 @@ export default function Main(props) {
                     <Home
                         user={user}
                         token={token}
+                        myBrewery={myBrewery}
+                        handleMyBrewery={handleMyBrewery}
                     />}
                 />
             </Switch>

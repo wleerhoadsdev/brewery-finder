@@ -8,14 +8,12 @@ export default function Home(props) {
     const isAdmin = role === 'ROLE_ADMIN';
     const isBrewer = role === 'ROLE_BREWER';
 
-    const [myBrewery, setMyBrewery] = React.useState();
-
     React.useEffect(() => {
         if (isBrewer) {
             axios.get(baseUrl + `/user/${props.user.id}/brewery`)
-                .then((response) => setMyBrewery(response.data.breweryId));
+                .then((response) => props.handleMyBrewery(response.data.breweryId));
         }
-    }, [isBrewer]);
+    }, [isBrewer, props]);
 
     const greetingText = props.user ? (
         <h3 className='home__greeting'>
@@ -28,8 +26,8 @@ export default function Home(props) {
     const viewMyBreweryElement = (
         <Link
             to={{
-                pathname: `/ViewBrewery/${myBrewery}`,
-                state: { breweryId: myBrewery },
+                pathname: `/ViewBrewery/${props.myBrewery}`,
+                state: { breweryId: props.myBrewery },
             }}>
             View My Brewery
         </Link>
@@ -38,8 +36,8 @@ export default function Home(props) {
     const viewMyBeersElement = (
         <Link
             to={{
-                pathname: `/ViewBeerList/${myBrewery}`,
-                state: { breweryId: myBrewery },
+                pathname: `/ViewBeerList/${props.myBrewery}`,
+                state: { breweryId: props.myBrewery },
             }}>
             View My Beers
         </Link>
