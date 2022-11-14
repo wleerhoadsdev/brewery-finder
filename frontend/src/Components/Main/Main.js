@@ -6,23 +6,35 @@ import Home from '../Home/Home'
 import Navbar from '../Navbar/Navbar'
 import AddBeer from '../AddBeer/AddBeer'
 import AddBrewery from '../AddBrewery/AddBrewery'
-import EditBeer from '../EditBeer/EditBeer'
 import EditBrewery from '../EditBrewery/EditBrewery'
 import ViewAllBreweries from '../ViewAllBreweries/ViewAllBreweries'
 import ViewAllUsers from '../ViewAllUsers/ViewAllUsers'
 import ViewBeerInformation from '../ViewBeerInformation/ViewBeerInformation'
 import ViewBeerList from '../ViewBeerList/ViewBeerList'
 import ViewBrewery from '../ViewBrewery/ViewBrewery'
+import axios from 'axios';
+import { baseUrl } from '../../Shared/baseUrl'
 import data from '../../data'
 
 export default function Main(props) {
+    // Use below for when API is unavailable and comment out other user useState()
+    // const [user, setUser] = useState(data.mockLogins.user) 
     const [token, setToken] = useState("")
     const [user, setUser] = useState()
-    const [currentBrewery, setCurrentBrewery] = useState()
-    const [currentBeer, setCurrentBeer] = useState()
-    // Use below for when API is unavailable and comment out above
+    const [currentBrewery, setCurrentBrewery] = useState("")
+    const [currentBeer, setCurrentBeer] = useState("")
+    const [myBrewery, setMyBrewery] = useState("")
+    let role = ''
     
-    // const [user, setUser] = useState(data.mockLogins.user) 
+    
+    React.useEffect(() => {
+        role = props.user ? props.user.authorities[0].name : '';
+
+        if (role === 'ROLE_BREWER') {
+            axios.get(baseUrl + `/user/${props.user.id}/brewery`)
+                .then((response) => setMyBrewery(response.data.breweryId));
+        }
+    }, [user]);
     
 
     const handleLogout = () => {
@@ -38,8 +50,16 @@ export default function Main(props) {
         setUser(user)
     }
 
-    const setBrewery = (breweryId) => {
+    const handleCurrentBrewery = (breweryId) => {
         setCurrentBrewery(breweryId)
+    }
+
+    const handleMyBrewery = (breweryId) => {
+        setMyBrewery(breweryId)
+    }
+
+    const handleCurrentBeer = (beerId) => {
+        setCurrentBeer(beerId)
     }
 
     return (
@@ -67,12 +87,8 @@ export default function Main(props) {
                     <AddBrewery
                         user={user}
                         token={token}
-                    />}
-                />
-                <Route path='/EditBeer' component={() =>
-                    <EditBeer
-                        user={user}
-                        token={token}
+                        myBrewery={myBrewery}
+                        handleCurrentBrewery={handleCurrentBrewery}
                     />}
                 />
                 <Route path='/EditBrewery' component={() =>
@@ -85,29 +101,36 @@ export default function Main(props) {
                     <ViewAllBreweries
                         user={user}
                         token={token}
-                        data={data}
                     />}
                 />
                 <Route path='/ViewAllUsers' component={() =>
                     <ViewAllUsers
                         user={user}
                         token={token}
+                        role={role}
+                        handleCurrentBrewery={handleCurrentBrewery}
                     />}
                 /><Route path='/ViewBeerInformation' component={() =>
                     <ViewBeerInformation
                         user={user}
                         token={token}
+                        brewery={currentBrewery}
+                        beer={currentBeer}
                     />}
                 /><Route path='/ViewBeerList' component={() =>
                     <ViewBeerList
                         user={user}
                         token={token}
+                        brewery={currentBrewery}
+                        myBrewery={myBrewery}
                     />}
                 />
                 <Route path='/ViewBrewery'>
                     <ViewBrewery
                         user={user}
                         token={token}
+                        brewery={currentBrewery}
+                        myBrewery={myBrewery}
                     />
                 </Route>
                 <Route path='/' component={() =>
