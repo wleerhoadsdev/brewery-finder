@@ -9,12 +9,12 @@ export default function ViewBeerInformation(props) {
     const [beerData,setBeerData]=React.useState([]);
     const {breweryId, beerId}=location.state.data;
 
-
     React.useEffect(()=>{
         axios.get(baseUrl+`/brewery/${breweryId}/beer/${beerId}`).then((response)=>{
             setBeerData(response.data);
         });
     },[]);
+
     if(beerData.isActive)
         {
         return (
@@ -26,7 +26,7 @@ export default function ViewBeerInformation(props) {
                 {/*TODO: change beerTypeId to beerType */}
                 <p>{beerData.typeId}</p>
                 <Link to='/'>View All Breweries</Link>
-                <img src={beerData.image_url}/>
+                <img src={beerData.image_url} alt={beerData.beerName}/>
             </div>
         );}
     else{
