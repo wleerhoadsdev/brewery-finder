@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.techelevator.model.BreweryListItem;
+import com.techelevator.dao.exception.RecordNotFoundException;
+import com.techelevator.model.Authority;
 import com.techelevator.model.UserBreweryListItem;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -17,6 +19,9 @@ import com.techelevator.model.User;
 
 @Service
 public class JdbcUserDao implements UserDao {
+
+    private static final String MESSAGE_FORMAT_USER_NOT_FOUND_EXCEPTION = "Could not find user with ID = %d.";
+    private static final String MESSAGE_COULD_NOT_UPDATE_USER_RECORD = "Could not update user record.";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -36,7 +41,8 @@ public class JdbcUserDao implements UserDao {
 		if(results.next()) {
 			return mapRowToUser(results);
 		} else {
-			throw new RuntimeException("userId "+userId+" was not found.");
+			throw new RecordNotFoundException(String.format(
+                    MESSAGE_FORMAT_USER_NOT_FOUND_EXCEPTION, userId));
 		}
 	}
 
@@ -127,5 +133,44 @@ public class JdbcUserDao implements UserDao {
         user.setName(rs.getString("name"));
         user.setEmailAddress(rs.getString("email_address"));
         return user;
+    }
+
+    @Override
+    public User update(User user) {
+
+        try {
+            String sql =
+                "UPDATE users SET " +
+                    "username = ?, " +
+                    "password_hash = ?, " +
+                    "role = ?, " +
+                    "name = ?, " +
+                    "email_address = ? " +
+                "WHERE user_id = ?;";
+
+            String role = "";
+            for (Authority authority : user.getAuthorities()) {
+                if (!role.isEmpty()) {
+                    role += ",";
+                }
+                role += authority.getName();
+            }
+
+            if (jdbcTemplate.update(sql,
+                user.getUsername(),
+                user.getPassword(),
+                role,
+                user.getName(),
+                user.getEmailAddress(),
+                user.getId()
+            ) == 0) {
+                throw new RecordNotFoundException(String.format(MESSAGE_FORMAT_USER_NOT_FOUND_EXCEPTION,
+                        "user_id", user.getId()));
+            }
+
+            return user;
+        } catch (DataAccessException e) {
+            throw new RuntimeException(MESSAGE_COULD_NOT_UPDATE_USER_RECORD, e);
+        }
     }
 }

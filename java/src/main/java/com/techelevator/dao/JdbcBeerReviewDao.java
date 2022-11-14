@@ -47,37 +47,47 @@ public class JdbcBeerReviewDao implements BeerReviewDao {
                 " review_body, created_date, updated_date from beer_review WHERE beer_id = ? ", beerId);
         SqlRowSet result = jdbcTemplate.queryForRowSet(reviewSql, beerId);
         while (result.next()){
-
             BeerReview review = mapRowToBeerReview(result);
             listReview.add(review);
             rating.add(review.getRating());
-            System.out.println("rating: "+review.getRating());
         }
         return listReview;
     }
 
     @Override
     public Double getBeerAverageRating(int beerId) {
-//        List<BeerReview> listReview = new ArrayList<>();
-//        List<Double> rating = new ArrayList<>();
-//        String reviewSql = String.format("SELECT review_id, author_id, beer_id, rating, title, " +
-//                " review_body, created_date, updated_date from beer_review WHERE beer_id = ? ", beerId);
-//        SqlRowSet result = jdbcTemplate.queryForRowSet(reviewSql, beerId);
-//        while (result.next()){
-//
-//            BeerReview review = mapRowToBeerReview(result);
-//            listReview.add(review);
-//            rating.add(review.getRating());
-//            System.out.println("rating: "+review.getRating());
-//        }
-        return null;
+        String reviewSql = String.format("SELECT AVG(rating) FROM beer_review WHERE beer_id = ?", beerId);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(reviewSql, beerId);
+        Double avgRating = 0.0;
+        while (results.next()){
+            avgRating = results.getDouble("AVG");
+        }
+        return avgRating;
     }
 
     @Override
     public List<BeerAverageRating> getBeersAverageRatings(int breweryId) {
+        List<BeerAverageRating> listRating = new ArrayList<>();
+        String reviewSql = String.format("SELECT b.beer_id, AVG(rating) as avg_rating " +
+                        "FROM beer as b JOIN beer_review as r " +
+                        "ON b.beer_id = r.beer_id " +
+                        "WHERE b.brewery_id = ? " +
+                        "GROUP BY b.beer_id " +
+                        "ORDER BY avg_rating");
+        SqlRowSet result = jdbcTemplate.queryForRowSet(reviewSql, breweryId);
+        while (result.next()){
+            BeerAverageRating avg_rating = mapRowToBeerAverageRating(result);
+            listRating.add(avg_rating);
+        }
+        return listRating;
+    }
 
-        // TODO: implement method
-        return null;
+    private BeerAverageRating mapRowToBeerAverageRating(SqlRowSet rs){
+        BeerAverageRating beerAverageRating = new BeerAverageRating();
+        beerAverageRating.setBeerId(rs.getInt("beer_id"));
+//        beerAverageRating.setBeerName(rs.getString("beer_name"));
+        beerAverageRating.setAverageRating(rs.getDouble("avg_rating"));
+        return beerAverageRating;
     }
 
     private BeerReview mapRowToBeerReview(SqlRowSet rs){

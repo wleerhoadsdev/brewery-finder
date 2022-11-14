@@ -68,6 +68,11 @@ public class User {
    }
 
    public void setAuthorities(String authorities) {
+      this.authorities.clear();
+      this.addAuthorities(authorities);
+   }
+
+   public void addAuthorities(String authorities) {
       String[] roles = authorities.split(",");
       for(String role : roles) {
          String authority = role.contains("ROLE_") ? role : "ROLE_" + role;
@@ -116,5 +121,14 @@ public class User {
               ", activated=" + activated +
               ", authorities=" + authorities +
               '}';
+   }
+
+   public boolean hasAuthority(String role) {
+      for (Authority authority : this.authorities) {
+         if (authority.getName().equals(role)) {
+            return true;
+         }
+      }
+      return false;
    }
 }
