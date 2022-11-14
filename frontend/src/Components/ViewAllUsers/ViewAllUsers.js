@@ -5,8 +5,6 @@ import { baseUrl } from '../../Shared/baseUrl';
 
 export default function ViewAllUsers(props) {
 
-    let role = props.user ? props.user.authorities[0].name : '';
-
     const [usersData, setUsersData] = React.useState([]);
 
     React.useEffect(() => {
@@ -16,7 +14,7 @@ export default function ViewAllUsers(props) {
     }, [])
 
     const usersElements = usersData.map(userBreweryListItem => {
-        if (role === 'ROLE_ADMIN' && userBreweryListItem.breweryName != null) {
+        if (props.role === 'ROLE_ADMIN' && userBreweryListItem.breweryName != null) {
             return (
                 <tr key={userBreweryListItem.userId}>
                     <td>{userBreweryListItem.username}</td>
@@ -25,7 +23,7 @@ export default function ViewAllUsers(props) {
                 </tr>
             )
         }
-        else if (role === 'ROLE_ADMIN') {
+        else if (props.role === 'ROLE_ADMIN') {
             return (
                 <tr key={userBreweryListItem.userId}>
                     <td>{userBreweryListItem.username}</td>
