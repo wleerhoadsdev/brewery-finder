@@ -18,4 +18,6 @@ public interface UserDao {
     boolean create(String username, String password, String role, String name, String emailAddress);
 
     List<UserBreweryListItem> listAllUsersAndTheirBreweries();
+
+    User update(User user);
 }
