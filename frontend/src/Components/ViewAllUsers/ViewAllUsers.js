@@ -5,21 +5,17 @@ import { baseUrl } from '../../Shared/baseUrl';
 
 export default function ViewAllUsers(props) {
 
-    const userText = props.user ?
-        <h3>Welcome back {props.user.username}!</h3> :
-        '';
-    const role = props.user ? props.user.authorities[0].name:'';
-    const [usersData,setUsersData]=React.useState([]);
+    const [usersData, setUsersData] = React.useState([]);
 
-    React.useEffect(()=>{
-        axios.get(baseUrl+'/usersbreweries').then((response)=>{
+    React.useEffect(() => {
+        axios.get(baseUrl + '/usersbreweries').then((response) => {
             setUsersData(response.data);
         })
-    })
+    }, [])
 
-    const usersElements=usersData.map(userBreweryListItem=>{
-        if(role=='ROLE_ADMIN'&&userBreweryListItem.breweryName!=null){
-            return(
+    const usersElements = usersData.map(userBreweryListItem => {
+        if (props.role === 'ROLE_ADMIN' && userBreweryListItem.breweryName != null) {
+            return (
                 <tr key={userBreweryListItem.userId}>
                     <td>{userBreweryListItem.username}</td>
                     <td>{userBreweryListItem.name}</td>
@@ -27,17 +23,17 @@ export default function ViewAllUsers(props) {
                 </tr>
             )
         }
-        else if(role=='ROLE_ADMIN'){
-            return(
+        else if (props.role === 'ROLE_ADMIN') {
+            return (
                 <tr key={userBreweryListItem.userId}>
                     <td>{userBreweryListItem.username}</td>
                     <td>{userBreweryListItem.name}</td>
-                    <td><Link to='/AddBrewery'><button>Create Brewery</button></Link></td>
+                    <td><Link to='/AddBrewery' onClick={props.handleCurrentBrewery(userBreweryListItem.userId)}><button>Create Brewery</button></Link></td>
                 </tr>
             )
         }
-        else{
-            return(
+        else {
+            return (
                 <tr key="Error Message">You are not authorized to view this page.</tr>
             )
         }

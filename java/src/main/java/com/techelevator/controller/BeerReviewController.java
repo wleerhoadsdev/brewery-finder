@@ -65,14 +65,22 @@ public class BeerReviewController {
     public Double getBeerAverageRating(@PathVariable("breweryId") @NotNull Integer breweryId,
                                        @PathVariable("beerId") @NotNull Integer beerId) {
 
-        // TODO: implement method
-        return null;
+        Double avgRating = beerReviewDao.getBeerAverageRating(beerId);
+        return avgRating;
     }
 
     @RequestMapping(value = "/brewery/{breweryId}/beer/avgrating", method = RequestMethod.GET)
     public List<BeerAverageRating> getBeersAverageRatings(@PathVariable("breweryId") @NotNull Integer breweryId) {
 
-        // TODO: implement method
-        return null;
+        try {
+            return beerReviewDao.getBeersAverageRatings(breweryId);
+
+        }
+        catch (RecordNotFoundException e) {
+            throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        catch (Exception e) {
+            throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 }
