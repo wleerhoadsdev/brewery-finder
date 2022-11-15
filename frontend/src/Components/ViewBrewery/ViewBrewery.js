@@ -8,7 +8,7 @@ export default function ViewBrewery(props) {
     const location = useLocation();
     const [breweryData, setBreweryData] = React.useState({});
     const [address, setAddress] = React.useState("");
-    const { breweryId } = location.state;
+    const { breweryId, isMyBrewery } = location.state;
 
     React.useEffect(() => {
         axios.get(baseUrl + `/brewery/${breweryId}`).then((response) => {
@@ -28,7 +28,7 @@ export default function ViewBrewery(props) {
             <p>{breweryData.hoursOfOperation}</p>
             <p>{address}</p>
             <p>{breweryData.phoneNumber}</p>
-            <Link to={{ pathname: `/EditBrewery/${breweryId}`, state: { breweryId: breweryId, breweryData: breweryData } }}>Edit Brewery Information</Link>
+            {isMyBrewery ? <Link to={{ pathname: `/EditBrewery/${breweryId}`, state: { breweryId: breweryId, breweryData: breweryData } }}>Edit Brewery Information</Link> : ""}
         </div>
     )
 }
