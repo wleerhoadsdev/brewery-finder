@@ -1,6 +1,5 @@
 package com.techelevator.dao;
 
-import com.techelevator.controller.exception.EndpointException;
 import com.techelevator.dao.exception.RecordNotFoundException;
 import com.techelevator.model.Beer;
 import org.springframework.dao.DataAccessException;
@@ -32,7 +31,7 @@ public class JdbcBeerDao implements BeerDao {
                     newBeer.getName(),
                     newBeer.getBreweryId(),
                     newBeer.getDescription(),
-                    newBeer.getAdv(),
+                    newBeer.getAbv(),
                     newBeer.getTypeId(),
                     newBeer.getIsActive(),
                     newBeer.getImageUrl()
@@ -59,25 +58,14 @@ public class JdbcBeerDao implements BeerDao {
     @Override
     public List<Beer> getByBreweryId(int breweryId) {
         List<Beer> listBeer = new ArrayList<>();
-        String sql = String.format( "SELECT beer_id, beer_name, brewery_id, description, abv, beer.beer_type_id, beer_type.beer_style, is_active, image_url " +
-                "FROM beer " +
-                "JOIN beer_type ON beer_type.beer_type_id = beer.beer_type_id " +
-                "WHERE brewery_id = ?", breweryId);
+        String sql = String.format("SELECT beer_id, beer_name, brewery_id,description, abv, beer_type_id, is_active, image_url " +
+                        "FROM beer WHERE brewery_id = ?;", breweryId);
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, breweryId);
         while (result.next()){
             Beer beer = mapRowToBeer(result);
             listBeer.add(beer);
         }
         return listBeer;
-//        List<Beer> listBeer = new ArrayList<>();
-//        String sql = String.format("SELECT beer_id, beer_name, brewery_id,description, abv, beer_type_id, is_active, image_url " +
-//                        "FROM beer WHERE brewery_id = ?;", breweryId);
-//        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, breweryId);
-//        while (result.next()){
-//            Beer beer = mapRowToBeer(result);
-//            listBeer.add(beer);
-//        }
-//        return listBeer;
     }
 
     @Override
@@ -93,7 +81,7 @@ public class JdbcBeerDao implements BeerDao {
                     beer.getName(),
                     beer.getBreweryId(),
                     beer.getDescription(),
-                    beer.getAdv(),
+                    beer.getAbv(),
                     beer.getTypeId(),
                     beer.getIsActive(),
                     beer.getImageUrl(),
@@ -123,12 +111,11 @@ public class JdbcBeerDao implements BeerDao {
         beer.setBeerId(rs.getInt("beer_id"));
         beer.setName(rs.getString("beer_name"));
         beer.setDescription(rs.getString("description"));
-        beer.setAdv(rs.getDouble("abv"));
+        beer.setAbv(rs.getDouble("abv"));
         beer.setBreweryId(rs.getInt("brewery_id"));
         beer.setTypeId(rs.getInt("beer_type_id"));
         beer.setActive(rs.getBoolean("is_active"));
         beer.setImageUrl(rs.getString("image_url"));
-        beer.setBeerStyle(rs.getString("beer_style"));
         return beer;
     }
 }
