@@ -65,7 +65,7 @@ export default function Register(props) {
                     name="username"
                     className="form-control"
                     placeholder="Username"
-                    v-model="user.username"
+                    autocomplete="username"
                     onChange={handleInputChange}
                     required
                 />
@@ -76,7 +76,7 @@ export default function Register(props) {
                     name="name"
                     className="form-control"
                     placeholder="Name"
-                    v-model="user.name"
+                    autocomplete="username"
                     onChange={handleInputChange}
                     required
                 />
@@ -87,7 +87,7 @@ export default function Register(props) {
                     name="email"
                     className="form-control"
                     placeholder="Email"
-                    v-model="user.email"
+                    autoComplete='email'
                     onChange={handleInputChange}
                     required
                 />
@@ -98,7 +98,7 @@ export default function Register(props) {
                     name="password"
                     className="form-control"
                     placeholder="Password"
-                    v-model="user.password"
+                    autoComplete="new-password"
                     onChange={handleInputChange}
                     required
                 />
@@ -108,7 +108,7 @@ export default function Register(props) {
                     name="confirmPassword"
                     className="form-control"
                     placeholder="Confirm Password"
-                    v-model="user.password"
+                    autoComplete="new-password"
                     onChange={handleInputChange}
                     required
                 />

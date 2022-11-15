@@ -50,9 +50,10 @@ export default function Login(props) {
                     name="username"
                     className="form-control"
                     placeholder="Username"
-                    v-model="user.username"
+                    autocomplete="username"
                     onChange={handleInputChange}
                     required
+
                 />
                 <label className="sr-only">Password</label>
                 <input
@@ -61,7 +62,7 @@ export default function Login(props) {
                     name="password"
                     className="form-control"
                     placeholder="Password"
-                    v-model="user.password"
+                    autocomplete="current-password"
                     onChange={handleInputChange}
                     required
                 />

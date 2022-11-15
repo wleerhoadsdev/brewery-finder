@@ -21,7 +21,6 @@ export default function ViewAllBreweries(props) {
                 setMyBrewery(response.data.breweryId);
             })
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /* iterates through all breweries and if current user is a brewer it adds thier brewery to the top of the list */
@@ -36,7 +35,7 @@ export default function ViewAllBreweries(props) {
             <tr key={brewery.id}>
                 <td>
                     <Link to={{ pathname: `/ViewBrewery/${brewery.id}`, state: { breweryId: brewery.id } }}>
-                            {brewery.name}
+                        {brewery.name}
                     </Link>
                 </td>
                 <td>{brewery.address.city}</td>
@@ -55,12 +54,16 @@ export default function ViewAllBreweries(props) {
             <h3> Below are our List of Breweries!</h3>
             <Link to='/'>Go Back</Link>
             <table>
-                <tr>
-                    <th>Brewery Name</th>
-                    <th>City</th>
-                    <th>State</th>
-                </tr>
-                {elementArray}
+                <thead>
+                    <tr>
+                        <th>Brewery Name</th>
+                        <th>City</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {elementArray}
+                </tbody>
             </table>
             <img
                 src='https://via.placeholder.com/600'

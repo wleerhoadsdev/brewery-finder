@@ -8,13 +8,12 @@ export default function AddBrewery(props) {
 
     const [breweryInfo, setBreweryInfo] = React.useState({
         name: '',
-        breweryOwnerUserId: '',
     })
 
     const handleCreateBrewery = async (e) => {
         e.preventDefault()
         const data = {
-            "breweryOwnerUserId": props.myBrewery,
+            "breweryOwnerUserId": props.newBrewerId,
             "name": breweryInfo.name,
             "isActive": false,
             "isApproved": false,
@@ -36,13 +35,26 @@ export default function AddBrewery(props) {
         axios.post(baseUrl + '/brewery/addbrewery', data)
             .then(response => {
                 alert("Brewery was created")
+                props.handleNewBrewerId('')
                 routerHistory.push('/viewAllUsers')
-                props.handleCurrentBrewery('')
             })
-            .catch(error => {
-                console.log(error.response.data.error + ': ' + error.response.data.message)
-                alert('Brewery creation was unsuccessful')
+            .catch((error) => {
+                if (error.response) {
+                    // Request made and server responded
+                    alert(error.response.data);
+                    console.error(error.response.status + ': ' + error.response.data);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    alert(error.request);
+                    console.log(error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    alert('Error \n', error.message);
+                    console.log('Error', error.message);
+                }
             })
+
     }
 
     function handleInputChange(event) {
@@ -52,7 +64,6 @@ export default function AddBrewery(props) {
             [event.target.name]: event.target.value
         }))
     }
-
 
     return (
         <main>
@@ -71,7 +82,7 @@ export default function AddBrewery(props) {
                         onChange={handleInputChange}
                         required
                     />
-                    <button type="submit" onClick={handleCreateBrewery}>Create Account</button>
+                    <button type="submit" onClick={handleCreateBrewery}>Add Brewery</button>
                 </form>
             </div>
             <div>

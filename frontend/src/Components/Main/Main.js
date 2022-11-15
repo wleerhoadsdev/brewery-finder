@@ -24,6 +24,7 @@ export default function Main(props) {
     const [currentBrewery, setCurrentBrewery] = useState("")
     const [currentBeer, setCurrentBeer] = useState("")
     const [myBrewery, setMyBrewery] = useState("")
+    const [newBrewerId, setNewBrewerId] = useState()
 
     const handleLogout = () => {
         setToken("")
@@ -48,6 +49,10 @@ export default function Main(props) {
 
     const handleCurrentBeer = (beerId) => {
         setCurrentBeer(beerId)
+    }
+
+    const handleNewBrewerId = (userId) => {
+        setNewBrewerId(userId)
     }
 
     return (
@@ -75,8 +80,8 @@ export default function Main(props) {
                     <AddBrewery
                         user={user}
                         token={token}
-                        myBrewery={myBrewery}
-                        handleCurrentBrewery={handleCurrentBrewery}
+                        newBrewerId={newBrewerId}
+                        handleNewBrewerId={handleNewBrewerId}
                     />}
                 />
                 <Route path='/EditBrewery' component={() =>
@@ -95,7 +100,7 @@ export default function Main(props) {
                     <ViewAllUsers
                         user={user}
                         token={token}
-                        handleCurrentBrewery={handleCurrentBrewery}
+                        handleNewBrewerId={handleNewBrewerId}
                     />}
                 /><Route path='/ViewBeerInformation' component={() =>
                     <ViewBeerInformation
