@@ -35,7 +35,7 @@ export default function ViewAllBreweries(props) {
             <tr key={brewery.id}>
                 <td>
                     <Link to={{ pathname: `/ViewBrewery/${brewery.id}`, state: { breweryId: brewery.id } }}>
-                        {brewery.name}
+                            {brewery.name}
                     </Link>
                 </td>
                 <td>{brewery.address.city}</td>
