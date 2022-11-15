@@ -22,20 +22,41 @@ export default function EditBrewery(props) {
     });
     const {street, city, state, zipCode, country} = formData.address;
 
+    function handleChange(event) {
+        const {name, value} = event.target;
+        setFormData(prevFormData => {
+            const newFormData = {...prevFormData};
+
+            if(name === "street" || name === "city" || name === "state" || name ==="zipCode" || name === "country") {
+                newFormData.address[name] = value;
+            } else {
+                newFormData[name] = value;
+            }
+
+            return newFormData;
+        });
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        console.log(formData);
+    }
+
     return (
         <div className='edit_brewery_page'>
             <h3 className='edit_brewery_heading'> Edit Existing Brewery Information</h3>
-            <form>
-                <input type="text" placeholder="Brewery Name" value={formData.name} /* onChange={handleNameChange} */ />
-                <input type="email" placeholder="Brewery Email" value={formData.email} /* onChange={handleEmailChange} */ />
-                <input type="text" placeholder="Brewery History" value={formData.history} /* onChange={handleHistoryChange} */ />
-                <input type="text" placeholder="Brewery Hours of Operation" value={formData.hoursOfOperation} /* onChange={handleHourOfOperationChange} */ />
-                <input type="text" placeholder="Brewery Address: Street Address" value={street} /* onChange={handleSteetChange} */ />
-                <input type="text" placeholder="Brewery Address: City" value={city} /* onChange={handleCityChange} */ />
-                <input type="text" placeholder="Brewery Address: State" value={state} /* onChange={handleStateChange} */ />
-                <input type="text" placeholder="Brewery Address: ZipCode" value={zipCode} /* onChange={handleZipCodeChange} */ />
-                <input type="text" placeholder="Brewery Address: Country" value={country} /* onChange={handleCountryChange} */ />
-                <input type="text" placeholder="Brewery Phone Number" value={formData.phoneNumber} /* onChange={handlePhoneNumberChange} */ />
+            <form onSubmit={handleSubmit}>
+                <input type="text" placeholder="Brewery Name" name="name" value={formData.name} onChange={handleChange} />
+                <input type="email" placeholder="Brewery Email" name="email" value={formData.email} onChange={handleChange} />
+                <input type="text" placeholder="Brewery History" name="history" value={formData.history} onChange={handleChange} />
+                <input type="text" placeholder="Brewery Hours of Operation" name="hoursOfOperation" value={formData.hoursOfOperation} onChange={handleChange} />
+                <input type="text" placeholder="Brewery Address: Street Address" name="street" value={street} onChange={handleChange} />
+                <input type="text" placeholder="Brewery Address: City" name="city" value={city} onChange={handleChange} />
+                <input type="text" placeholder="Brewery Address: State" name="state" value={state} onChange={handleChange} />
+                <input type="text" placeholder="Brewery Address: ZipCode" name="zipCode" value={zipCode} onChange={handleChange} />
+                <input type="text" placeholder="Brewery Address: Country" name="country" value={country} onChange={handleChange} />
+                <input type="text" placeholder="Brewery Phone Number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+                <button>Submit</button>
             </form>
             <br />
             <Link to={{pathname: `/ViewBrewery/${breweryId}`, state:{breweryId: breweryId}}}>Go back</Link>
