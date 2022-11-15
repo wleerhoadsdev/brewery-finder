@@ -16,7 +16,8 @@ export default function ViewBrewery(props) {
             setAddress(`${street} ${city} ${state} ${zipCode} ${country}`);
             setBreweryData(response.data);
          });
-    }, []);
+    }, [breweryId]);
+
     return (
         <div className='home--left-panel'>
             <h3>Brewery Info</h3>
