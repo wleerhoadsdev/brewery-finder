@@ -20,6 +20,9 @@ class ApplicationTests {
     private BeerReviewController beerReviewController;
 
     @Autowired
+    private BeerTypeController beerTypeController;
+
+    @Autowired
     private BreweryController breweryController;
 
     @Autowired
@@ -30,6 +33,7 @@ class ApplicationTests {
         assertThat(authenticationController).isNotNull();
         assertThat(beerController).isNotNull();
         assertThat(beerReviewController).isNotNull();
+        assertThat(beerTypeController).isNotNull();
         assertThat(breweryController).isNotNull();
         assertThat(userController).isNotNull();
     }
