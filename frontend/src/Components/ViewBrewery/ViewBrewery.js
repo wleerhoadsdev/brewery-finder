@@ -22,12 +22,13 @@ export default function ViewBrewery(props) {
             <h3>Brewery Info</h3>
             <Link to='/ViewAllBreweries'>Go Back to Listing</Link>
             <p>{breweryData.name}</p>
-            <Link to={{ pathname: `/ViewBeerList/${breweryId}`, state: { breweryId:breweryId } }}>View Brewery Beer List</Link>
+            <Link to={{ pathname: `/ViewBeerList/${breweryId}`, state: { breweryId: breweryId }}}>View Brewery Beer List</Link>
             <p>{breweryData.emailAddress}</p>
             <p>{breweryData.history}</p>
             <p>{breweryData.hoursOfOperation}</p>
             <p>{address}</p>
             <p>{breweryData.phoneNumber}</p>
+            <Link to={{ pathname: `/EditBrewery/${breweryId}`, state: { breweryId: breweryId, breweryData: breweryData }}}>Edit Brewery Information</Link>
         </div>
     )
 }
