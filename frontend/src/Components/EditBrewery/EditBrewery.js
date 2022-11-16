@@ -81,7 +81,7 @@ export default function EditBrewery(props) {
                 <button>Submit</button>
             </form>
             <br />
-            <Link to={`/ViewBrewery/${breweryId}`}>Go back</Link>
+            <Link to={{ pathname:`/ViewBrewery/${breweryId}`, state:{ breweryId: breweryId }}}>Go back</Link>
         </div>
     )
 }

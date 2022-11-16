@@ -27,7 +27,7 @@ export default function ViewAllBreweries(props) {
         const currentElement =
             <tr key={brewery.id}>
                 <td>
-                    <Link to={`/ViewBrewery/${brewery.id}`} onClick={() => props.handleCurrentBrewery(brewery.id)}>
+                    <Link to={{ pathname: `/ViewBrewery/${brewery.id}`, state: { breweryId: brewery.id, isMyBrewery: isMyBrewery }}} onClick={() => props.handleCurrentBrewery(brewery.id)}>
                         {brewery.name}
                     </Link>
                 </td>

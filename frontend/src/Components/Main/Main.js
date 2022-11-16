@@ -24,11 +24,15 @@ export default function Main(props) {
     const [currentBrewery, setCurrentBrewery] = useState("")
     const [currentBeer, setCurrentBeer] = useState("")
     const [myBrewery, setMyBrewery] = useState("")
-    const [newBrewerId, setNewBrewerId] = useState()
+    const [newBrewerId, setNewBrewerId] = useState("")
 
     const handleLogout = () => {
         setToken("")
         setUser()
+        setCurrentBrewery("")
+        setMyBrewery("")
+        setCurrentBeer("")
+        setNewBrewerId("")
     }
 
     const handleToken = (token) => {

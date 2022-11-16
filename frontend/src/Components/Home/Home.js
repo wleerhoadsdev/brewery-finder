@@ -27,7 +27,7 @@ export default function Home(props) {
         <Link
             to={{
                 pathname: `/ViewBrewery/${props.myBrewery}`,
-                state: { breweryId: props.myBrewery },
+                state: { breweryId: props.myBrewery, isMyBrewery: true },
             }}>
             View My Brewery
         </Link>
@@ -47,7 +47,7 @@ export default function Home(props) {
 
     return (
         <main>
-            <div className='home__content-panel'>
+            <div className='main__content-panel'>
                 {greetingText}
                 <h3>Discover your new favorite beer</h3>
                 <Link to='/ViewAllBreweries'>View All Breweries</Link>
@@ -55,7 +55,7 @@ export default function Home(props) {
                 {isBrewer && viewMyBeersElement}
                 {isAdmin && viewAllUsersElement}
             </div>
-            <div className='home__image-panel'>
+            <div className='main--image-panel'>
                 <img
                     src='https://via.placeholder.com/600'
                     alt='placeholder'
