@@ -18,7 +18,6 @@ export default function AddBeer(props) {
     const [beerType,setBeerType]=React.useState();
 
     const handleCreateBeer = async  (e) =>{
-        e.preventDefault()
         const data = {
             "beerName": name,
             "breweryId": props.brewery,
@@ -28,7 +27,7 @@ export default function AddBeer(props) {
             "isActive": true,
             "imageUrl": image
         }
-        axios.post(`${baseUrl}/brewery/${props.brewery}/addBeer`,data)
+        axios.post(`${baseUrl}/brewery/${props.brewery}addBeer`,data)
             .then(response =>{
                 alert("Beer was created");
                 routerHistory.push(baseUrl+'/ViewBeerList/'+props.brewery);
@@ -52,9 +51,8 @@ export default function AddBeer(props) {
     }
 
     function handleSubmit(event){
-        return(
-            <p>Form Submitted!</p>
-        )
+        event.preventDefault();
+        handleCreateBeer(event);
     }
     
     if(role=='ROLE_BREWER'){
@@ -105,11 +103,7 @@ export default function AddBeer(props) {
                 onChange={e=>setBeerType(e.target.value)}
                 value={beerType}
                 />
-            <input 
-                className='submitButton'
-                type='submit' 
-                value='Add Beer'
-            />
+            <button>Add Beer</button>
         </form>
         )
     }
