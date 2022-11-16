@@ -27,7 +27,7 @@ export default function Home(props) {
         <Link
             to={{
                 pathname: `/ViewBrewery/${props.myBrewery}`,
-                state: { breweryId: props.myBrewery, isMyBrewery: true },
+                state: { breweryId: props.myBrewery },
             }}>
             View My Brewery
         </Link>
