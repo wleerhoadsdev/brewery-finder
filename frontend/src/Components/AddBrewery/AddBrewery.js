@@ -67,7 +67,7 @@ export default function AddBrewery(props) {
 
     return (
         <main>
-            <div className='home--content-panel'>
+            <div className='main--content-panel'>
 
                 <h3>Add Brewery Form</h3>
                 <Link to='/'>View All Breweries</Link>
@@ -85,7 +85,7 @@ export default function AddBrewery(props) {
                     <button type="submit" onClick={handleCreateBrewery}>Add Brewery</button>
                 </form>
             </div>
-            <div>
+            <div className='main--image-panel'>
                 <img src='https://via.placeholder.com/600' alt='placeholder' />
             </div>
         </main>

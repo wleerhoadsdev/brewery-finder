@@ -38,7 +38,7 @@ export default function ViewBeerList(props) {
 
     return (
         <main>
-            <div className='home__content-panel'>
+            <div className='main--content-panel'>
                 <h3>Page to View Full List of Beers</h3>
                 <Link to='/'>View All Breweries</Link>
                 <table>
@@ -55,7 +55,7 @@ export default function ViewBeerList(props) {
                     </tbody>
                 </table>
             </div>
-            <div className='home__image-panel'>
+            <div className='main__image-panel'>
                 <img src='https://via.placeholder.com/600' alt='placeholder' />
             </div>
         </main>
