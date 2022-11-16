@@ -6,7 +6,7 @@ import { baseUrl} from '../../Shared/baseUrl';
 export default function EditBrewery(props) {
 
     const location = useLocation();
-    const breweryId = location.state.breweryId;
+    const breweryId = props.brewery;
     const breweryData = location.state.breweryData;
     const [formData, setFormData] = React.useState({
         name: breweryData.name || "",
@@ -81,7 +81,7 @@ export default function EditBrewery(props) {
                 <button>Submit</button>
             </form>
             <br />
-            <Link to={{pathname: `/ViewBrewery/${breweryId}`, state:{breweryId: breweryId}}}>Go back</Link>
+            <Link to={`/ViewBrewery/${breweryId}`}>Go back</Link>
         </div>
     )
 }

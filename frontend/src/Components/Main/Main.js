@@ -88,12 +88,16 @@ export default function Main(props) {
                     <EditBrewery
                         user={user}
                         token={token}
+                        brewery={currentBrewery}
                     />}
                 />
                 <Route path='/ViewAllBreweries' component={() =>
                     <ViewAllBreweries
                         user={user}
                         token={token}
+                        handleCurrentBrewery={handleCurrentBrewery}
+                        myBrewery={myBrewery}
+                        brewery={currentBrewery}
                     />}
                 />
                 <Route path='/ViewAllUsers' component={() =>

@@ -1,15 +1,13 @@
 import React from 'react'
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl'; 
 
 export default function ViewBeerList(props) {
-    const location = useLocation();
     const [beersData, setBeersData] = React.useState([]);
-    const { breweryId } = location.state;
     
     React.useEffect(() => {
-        axios.get(baseUrl + `/brewery/${breweryId}/beer`).then((response) => {
+        axios.get(baseUrl + `/brewery/${props.brewery}/beer`).then((response) => {
             setBeersData(response.data)
          });
     }, [])

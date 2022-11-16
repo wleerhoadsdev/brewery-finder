@@ -9,24 +9,17 @@ export default function ViewAllBreweries(props) {
     const isBrewer = role === 'ROLE_BREWER'
 
     const [breweriesData, setBreweriesData] = React.useState([]);
-    const [myBrewery, setMyBrewery] = React.useState('')
 
     React.useEffect(() => {
         axios.get(baseUrl + '/brewery').then((response) => {
             setBreweriesData(response.data);
         })
-
-        if (isBrewer) {
-            axios.get(baseUrl + '/user/' + props.user.id + '/brewery').then((response) => {
-                setMyBrewery(response.data.breweryId);
-            })
-        }
     }, []);
 
     /* iterates through all breweries and if current user is a brewer it adds thier brewery to the top of the list */
     const elementArray = []
     breweriesData.forEach(brewery => {
-        const isMyBrewery = brewery.id === myBrewery
+        const isMyBrewery = brewery.id === props.myBrewery
 
         // if brewery is inactive skip it and don't display unless it is my brewery
         if (!brewery.isActive && !isMyBrewery) return
@@ -34,15 +27,14 @@ export default function ViewAllBreweries(props) {
         const currentElement =
             <tr key={brewery.id}>
                 <td>
-                    <Link to={{ pathname: `/ViewBrewery/${brewery.id}`, state: { breweryId: brewery.id } }}>
-                            {brewery.name}
+                    <Link to={`/ViewBrewery/${brewery.id}`} onClick={() => props.handleCurrentBrewery(brewery.id)}>
+                        {brewery.name}
                     </Link>
                 </td>
                 <td>{brewery.address.city}</td>
                 <td>{brewery.address.state}</td>
             </tr>
         if (isBrewer && isMyBrewery) {
-
             elementArray.unshift(currentElement)
             return
         }
