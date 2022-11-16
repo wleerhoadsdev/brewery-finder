@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { baseUrl } from '../../Shared/baseUrl';
 
 export default function AddBeer(props) {
 
@@ -8,15 +10,46 @@ export default function AddBeer(props) {
         '';
 
     const role = props.user ? props.user.authorities[0].name:'';
+    const routerHistory=useHistory();
     const [name,setName]=React.useState();
     const [description,setDescription]=React.useState();
     const [image,setImage]=React.useState();
-    const [adv,setAdv]=React.useState();
+    const [abv,setAbv]=React.useState();
     const [beerType,setBeerType]=React.useState();
 
-    React.useEffect(()=>{
-        //Send POST request to API with information about new beer
-    },[])
+    const handleCreateBeer = async  (e) =>{
+        e.preventDefault()
+        const data = {
+            "beerName": name,
+            "breweryId": props.brewery,
+            "description": description,
+            "abv": abv,
+            "typeId": 1,
+            "isActive": true,
+            "imageUrl": image
+        }
+        axios.post(`${baseUrl}/brewery/${props.brewery}/addBeer`,data)
+            .then(response =>{
+                alert("Beer was created");
+                routerHistory.push(baseUrl+'/ViewBeerList/'+props.brewery);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    // Request made and server responded
+                    alert(error.response.data);
+                    console.error(error.response.status + ': ' + error.response.data);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    alert(error.request);
+                    console.log(error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    alert('Error \n', error.message);
+                    console.log('Error', error.message);
+                }
+            })
+    }
 
     function handleSubmit(event){
         return(
@@ -57,12 +90,12 @@ export default function AddBeer(props) {
             <label>Alcohol by Volume</label>
             <br />
             <input
-                name='adv' 
+                name='abv' 
                 type='number'
                 min='0.0'
                 max='67.5'
-                onChange={e=>setAdv(e.target.value)}
-                value={adv}
+                onChange={e=>setAbv(e.target.value)}
+                value={abv}
             />
             <br/>
             <label>Beer Type</label>

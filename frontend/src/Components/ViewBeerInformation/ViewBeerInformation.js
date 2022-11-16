@@ -8,6 +8,7 @@ export default function ViewBeerInformation(props) {
     const location = useLocation();
     const [beerData,setBeerData]=React.useState([]);
     const {breweryId, beerId}=location.state.data;
+    /*TODO: Call on beerType API endpoint to display correct beer type */
 
     React.useEffect(()=>{
         axios.get(baseUrl+`/brewery/${breweryId}/beer/${beerId}`).then((response)=>{
@@ -21,8 +22,7 @@ export default function ViewBeerInformation(props) {
             <div className='home--left-panel'>
                 <h3>{beerData.beerName}</h3>
                 <p>{beerData.description}</p>
-                {/*adv is a typo of abv*/}
-                <p>{beerData.adv}</p>
+                <p>{beerData.abv}</p>
                 {/*TODO: change beerTypeId to beerType */}
                 <p>{beerData.typeId}</p>
                 <Link to='/'>View All Breweries</Link>

@@ -59,6 +59,8 @@ export default function Main(props) {
         setNewBrewerId(userId)
     }
 
+    /*Add API Call to get BeerType table and pass to AddBeer, ViewBeerInformation, and ViewBeerList */
+
     return (
         <div>
             <Navbar
@@ -78,6 +80,7 @@ export default function Main(props) {
                     <AddBeer
                         user={user}
                         token={token}
+                        brewery={currentBrewery}
                     />}
                 />
                 <Route path='/AddBrewery' component={() =>
