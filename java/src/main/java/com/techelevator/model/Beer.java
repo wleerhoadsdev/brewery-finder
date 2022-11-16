@@ -21,10 +21,21 @@ public class Beer {
         this.isActive = beerToCopyFrom.getIsActive();
         this.imageUrl = beerToCopyFrom.getImageUrl();
     }
-
     public Beer() {
 
     }
+//    Constructor for testing purpose
+    public Beer(int beerId,String name, int breweryId, String description,Double abv,int typeId,Boolean isActive,String imageUrl) {
+        this.beerId = beerId;
+        this.name =name;
+        this.breweryId = breweryId;
+        this.description = description;
+        this.abv = abv;
+        this.typeId = typeId;
+        this.isActive = isActive;
+        this.imageUrl = imageUrl;
+    }
+
 
     public int getBeerId() {
         return beerId;

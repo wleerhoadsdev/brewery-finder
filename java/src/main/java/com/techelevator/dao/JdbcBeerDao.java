@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
+import javax.sql.DataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,8 @@ public class JdbcBeerDao implements BeerDao {
     private static final String MESSAGE_COULD_NOT_DELETE_BEER_RECORD = "Beer not deleted. Check brewery or beer ID";
 
     private JdbcTemplate jdbcTemplate;
-    public JdbcBeerDao(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
+//    changed JdbcTemplate to DataSource
+    public JdbcBeerDao(DataSource dataSource) {this.jdbcTemplate = new JdbcTemplate(dataSource);}
 
     @Override
     public Beer create(Beer beer) {
