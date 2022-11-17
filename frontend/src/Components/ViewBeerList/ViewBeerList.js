@@ -21,26 +21,36 @@ export default function ViewBeerList(props) {
         });
     }, [])
 
+    function handleActiveChange(e, beerId){
+        console.log(beerId);
+        //console.log("Before BeerData: " + JSON.stringify(beersData));
+    }
+
     const beerListElements = beersData.map((beer) => {
         const data={
             beerId:beer.beerId,
             breweryId:beer.breweryId
         }
-        
-        return (
-            <tr key={beer.id}>
-                <td>
-                <Link to={{ pathname: `/ViewBeerInformation/${beer.beerId}`, state: {data} }}>
-                            {beer.name}
-                    </Link>
+        if(isMyBrewery||beer.isActive){
+            return (
+                <div>
+                    <tr key={beer.id}>
+                        <td>
+                        <Link to={{ pathname: `/ViewBeerInformation/${beer.beerId}`, state: {data} }}>
+                                    {beer.name}
+                            </Link>
 
-                </td>
-                {/* TODO: update typeId once we figure that out*/}
-                <td>{beer.typeId}</td>
-                <td>{beer.description}</td>
-                <td>{beer.abv}</td>
-            </tr>
-        )
+                        </td>
+                        {/* TODO: update typeId once we figure that out*/}
+                        <td>{beer.typeId}</td>
+                        <td>{beer.description}</td>
+                        <td>{beer.abv}</td>
+                    </tr>
+                    {isMyBrewery && !beer.isActive ? <button onClick={(e) => {handleActiveChange(e, beer.beerId)}}>Toggle beer to inactive</button> : <button name={beer.beerId} onClick={(e) => {handleActiveChange(e, beer.beerId)}}>Toggle beer to active</button>}
+                </div>
+            )
+        }
+        else{return <div></div>}
     })
     
 
