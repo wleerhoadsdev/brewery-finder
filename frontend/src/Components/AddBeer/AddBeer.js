@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useHistory,useLocation } from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl';
+import { webAppUrl } from '../../Shared/webAppUrl';
 
 export default function AddBeer(props) {
 
@@ -20,22 +21,20 @@ export default function AddBeer(props) {
     const [beerType,setBeerType]=React.useState();
     const {breweryData}=location.state;
 
-    const handleCreateBeer = async  (e) =>{
+    const handleCreateBeer =  () =>{
         const data = {
             "name": name,
-            "breweryId": props.brewery,
+            "breweryId": breweryData.breweryId,
             "description": description,
             "abv": abv,
             "typeId": 1,
             "isActive": true,
             "imageUrl": image
         }
-        let fullUrl=`${baseUrl}/brewery/${breweryData.breweryId}/addBeer`;
-        console.log(fullUrl);
-        axios.post(`${baseUrl}/brewery/${breweryData.breweryId}/addBeer`,data)
+        axios.post(`${baseUrl}/brewery/${breweryData.breweryId}/addbeer`,data)
             .then(response =>{
                 alert("Beer was created");
-                routerHistory.push(baseUrl+'/ViewBeerList/'+props.brewery);
+                routerHistory.push({pathname:`/ViewBeerList/${breweryData.breweryId}`, state:{isMyBrewery: true, breweryId:breweryData.breweryId}});
             })
             .catch((error) => {
                 if (error.response) {
@@ -57,7 +56,7 @@ export default function AddBeer(props) {
 
     function handleSubmit(event){
         event.preventDefault();
-        handleCreateBeer(event);
+        handleCreateBeer();
     }
     
     if(role=='ROLE_BREWER'){

@@ -62,7 +62,7 @@ export default function ViewBeerList(props) {
                         {beerListElements}
                     </tbody>
                 </table>
-                {isMyBrewery ? <Link to={{pathname: `/AddBeer/${props.brewery}`, state: { breweryData: breweryData }}}>Add Beer</Link> : ""}
+                {isMyBrewery ? <Link to={{pathname: `/AddBeer/${breweryId}`, state: { breweryData: breweryData }}}>Add Beer</Link> : ""}
             </div>
             <div className='main__image-panel'>
                 <img src='https://via.placeholder.com/600' alt='placeholder' />
