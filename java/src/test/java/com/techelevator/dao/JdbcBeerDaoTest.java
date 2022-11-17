@@ -8,13 +8,13 @@ import org.junit.Test;
 
 public class JdbcBeerDaoTest extends BaseDaoTests {
 
-//TODO: to add beer to compare with beer we received.
+//TODO: to add beer instance to compare with entire beer object we received.
 //    private static final Beer BEER_1 = new Beer(1, "Blonde", 1, "light blonde",
 //        5.9,1, true,
 //        "https://drive.google.com/file/d/1nnOH9XzctFm5N9eYJOgvfflH1wbDr4fc/view?usp=share_link");
 //    private static final Beer BEER_TEST_1 = new Beer(BEER_1);
 
-    private static final Brewery BREWERY_1 = new Brewery();
+//    private static final Brewery BREWERY_1 = new Brewery();
     private JdbcBeerDao sut;
 
     @Before
