@@ -1,14 +1,10 @@
-package com.techelevator;
+package com.techelevator.dao;
 
-
-import com.techelevator.dao.JdbcBeerDao;
 import com.techelevator.model.Beer;
 import com.techelevator.model.Brewery;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
 
 public class JdbcBeerDaoTest extends BaseDaoTests {
 
