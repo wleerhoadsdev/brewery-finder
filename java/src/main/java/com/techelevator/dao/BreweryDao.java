@@ -9,10 +9,8 @@ import java.util.List;
 public interface BreweryDao {
 
     Brewery create(Brewery brewery);
-
     List<BreweryListItem> listAll();
     Brewery getByBrewerId(int brewerUserId);
     Brewery getByBreweryId(int breweryId);
-
     Brewery update(Brewery brewery);
 }

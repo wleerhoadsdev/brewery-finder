@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.List;
 @Service
 public class JdbcBeerReviewDao implements BeerReviewDao {
     private static final String MESSAGE_COULD_NOT_CREATE_REVIEW_RECORD = "Could not create review record.";
+    private static final String MESSAGE_COULD_NOT_DELETE_REVIEW_RECORD = "Could not delete review record.";
 
     private JdbcTemplate jdbcTemplate;
-    public JdbcBeerReviewDao(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
+//    public JdbcBeerReviewDao(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
+    public JdbcBeerReviewDao(DataSource dataSource) {this.jdbcTemplate = new JdbcTemplate(dataSource);}
 
     @Override
     public BeerReview create(BeerReview beerReview) {
@@ -88,6 +91,16 @@ public class JdbcBeerReviewDao implements BeerReviewDao {
 //        beerAverageRating.setBeerName(rs.getString("beer_name"));
         beerAverageRating.setAverageRating(rs.getDouble("avg_rating"));
         return beerAverageRating;
+    }
+
+    //for testing purpose (can not delete beer until removed constrains)
+    public int deleteReview(int beer_id){
+        String review_delete_sql = "DELETE FROM beer_review WHERE review_id = ?";
+        int numberOfRowDeleted = jdbcTemplate.update(review_delete_sql, beer_id);
+        if (numberOfRowDeleted != 1) {
+            throw new RuntimeException(MESSAGE_COULD_NOT_DELETE_REVIEW_RECORD);
+        }
+        return numberOfRowDeleted;
     }
 
     private BeerReview mapRowToBeerReview(SqlRowSet rs){

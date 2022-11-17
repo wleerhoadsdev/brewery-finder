@@ -281,14 +281,14 @@ INSERT INTO
         image_url
     )
 VALUES
-    (   '1',
+    (   '20',
         'Blonde',
         '1',
         'light blonde',
         '5.9',
         '1',
         'true',
-        'https://images.unsplash.com/photo-1644844616430-c0756c5b17a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8?crop=left,right&w=864&h=1080&fit=crop&q=80'
+        'https://images_20.com'
     );
 INSERT INTO
     beer (
@@ -302,7 +302,7 @@ INSERT INTO
         image_url
     )
 VALUES
-    (   '2',
+    (   '30',
         'Half Dome',
         '2',
         'light hefe',
@@ -325,7 +325,7 @@ INSERT INTO
 VALUES
     (
         '1',
-        '1',
+        '20',
         '1',
         '4.5',
         'Good beer',
@@ -347,7 +347,7 @@ INSERT INTO
 VALUES
     (
         '2',
-        '2',
+        '30',
         '2',
         '4.5',
         'Best beer',

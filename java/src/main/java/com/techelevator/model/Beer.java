@@ -35,6 +35,17 @@ public class Beer {
         this.isActive = isActive;
         this.imageUrl = imageUrl;
     }
+    //    Constructor for testing purpose
+    public Beer(String name, int breweryId, String description,Double abv,int typeId,Boolean isActive,String imageUrl) {
+        this.name =name;
+        this.breweryId = breweryId;
+        this.description = description;
+        this.abv = abv;
+        this.typeId = typeId;
+        this.isActive = isActive;
+        this.imageUrl = imageUrl;
+    }
+
 
 
     public int getBeerId() {

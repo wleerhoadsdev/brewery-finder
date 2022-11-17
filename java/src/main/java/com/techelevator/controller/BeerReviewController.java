@@ -83,4 +83,12 @@ public class BeerReviewController {
             throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+
+    //for testing purposes
+    @RequestMapping(value = "/beer/review/{reviewId}", method = RequestMethod.DELETE)
+    public int deleteReview(@PathVariable("reviewId") @NotNull Integer reviewID) {
+
+        int deletedRows = beerReviewDao.deleteReview(reviewID);
+        return deletedRows;
+    }
 }

@@ -51,8 +51,10 @@ public class JdbcBeerDao implements BeerDao {
                         " FROM beer WHERE brewery_id = ? AND beer_id = ?", breweryId, beerId);
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, breweryId, beerId);
         if (!result.next()) {
-            throw new RecordNotFoundException(String.format(MESSAGE_COULD_NOT_FIND_BEER_BY_ID,
-                    beerId));
+            return null;
+            //removed for testing purpose.
+//            throw new RecordNotFoundException(String.format(MESSAGE_COULD_NOT_FIND_BEER_BY_ID,
+//                    beerId));
         }
         return mapRowToBeer(result);
     }
