@@ -31,6 +31,8 @@ public class BreweryController {
     public Brewery createBrewery(Principal principal, @Valid @RequestBody Brewery brewery) {
         try {
             return breweryService.createBrewery(brewery);
+        } catch (RecordNotFoundException e) {
+            throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new EndpointException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
