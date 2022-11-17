@@ -8,13 +8,13 @@ export default function ViewBeerList(props) {
     const [beersData, setBeersData] = React.useState([]);
     const [breweryData, setBreweryData] = React.useState({});
     const [address, setAddress] = React.useState("");
-    const {isMyBrewery}= location.state;
+    const {isMyBrewery, breweryId}= location.state;
     
     React.useEffect(() => {
-        axios.get(baseUrl + `/brewery/${props.brewery}/beer`).then((response) => {
+        axios.get(baseUrl + `/brewery/${breweryId}/beer`).then((response) => {
             setBeersData(response.data)
          });
-         axios.get(baseUrl + `/brewery/${props.currentBrewery}`).then((response) => {
+         axios.get(baseUrl + `/brewery/${breweryId}`).then((response) => {
             const { street, city, state, zipCode, country } = response.data.address;
             setAddress(`${street} ${city} ${state} ${zipCode} ${country}`);
             setBreweryData(response.data);

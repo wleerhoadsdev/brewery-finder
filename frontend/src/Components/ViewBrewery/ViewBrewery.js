@@ -17,14 +17,13 @@ export default function ViewBrewery(props) {
             setBreweryData(response.data);
         });
     }, []);
-    
     return (
         <main>
             <div className='main--content-panel'>
                 <h3>Brewery Info</h3>
                 <Link to='/ViewAllBreweries'>Go Back to Listing</Link>
                 <p>{breweryData.name}</p>
-                <Link to={{pathname:`/ViewBeerList/${breweryId}`, state: {isMyBrewery: isMyBrewery}}}>View Brewery Beer List</Link>
+                <Link to={{pathname:`/ViewBeerList/${breweryId}`, state: {isMyBrewery: isMyBrewery, breweryId: breweryId}}}>View Brewery Beer List</Link>
                 <p>{breweryData.emailAddress}</p>
                 <p>{breweryData.history}</p>
                 <p>{breweryData.hoursOfOperation}</p>

@@ -16,7 +16,7 @@ export default function ViewAllBreweries(props) {
         })
     }, []);
 
-    /* iterates through all breweries and if current user is a brewer it adds thier brewery to the top of the list */
+    /* iterates through all breweries and if current user is a brewer it adds their brewery to the top of the list */
     const elementArray = []
     breweriesData.forEach(brewery => {
         const isMyBrewery = brewery.id === props.myBrewery
