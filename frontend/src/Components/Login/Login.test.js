@@ -1,12 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import * as React from 'react';
+// customer render function that provides BrowserRouter support
+import { renderWithRouter } from '../../testUtils';
 
-describe('true is truthy and false is falsy', () => {
-  test('true is truthy', () => {
-    expect(true).toBe(true);
-  });
+import Login from './Login';
 
-  test('false is falsy', () => {
-    expect(false).toBe(false);
+describe('Login component', () => {
+  test('renders Login component', () => {
+    renderWithRouter(<Login />);
   });
 });
-

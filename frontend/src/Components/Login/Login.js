@@ -50,7 +50,7 @@ export default function Login(props) {
                     name="username"
                     className="form-control"
                     placeholder="Username"
-                    autocomplete="username"
+                    autoComplete="username"
                     onChange={handleInputChange}
                     required
 
@@ -62,7 +62,7 @@ export default function Login(props) {
                     name="password"
                     className="form-control"
                     placeholder="Password"
-                    autocomplete="current-password"
+                    autoComplete="current-password"
                     onChange={handleInputChange}
                     required
                 />

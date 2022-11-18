@@ -36,7 +36,7 @@ export default function ViewBeerList(props) {
             });
     }, [breweryId]);
 
-    console.log(beerRatings);
+    console.log(JSON.stringify(breweryData))
 
     function handleActiveChange(e, beerId) {
 

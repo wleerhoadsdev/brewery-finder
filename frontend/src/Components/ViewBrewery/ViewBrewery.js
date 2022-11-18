@@ -6,7 +6,7 @@ import { baseUrl } from '../../Shared/baseUrl';
 export default function ViewBrewery(props) {
 
     const location = useLocation();
-    const {breweryId, isMyBrewery} = location.state;
+    const { breweryId, isMyBrewery } = location.state;
     const [breweryData, setBreweryData] = React.useState({});
     const [address, setAddress] = React.useState("");
 
@@ -23,20 +23,20 @@ export default function ViewBrewery(props) {
                 <h3>Brewery Info</h3>
                 <Link to='/ViewAllBreweries'>Go Back to Listing</Link>
                 <p>{breweryData.name}</p>
-                <Link to={{pathname:`/ViewBeerList/${breweryId}`, state: {isMyBrewery: isMyBrewery, breweryId: breweryId}}}>View Brewery Beer List</Link>
+                <Link to={{ pathname: `/ViewBeerList/${breweryId}`, state: { isMyBrewery: isMyBrewery, breweryId: breweryId } }}>View Brewery Beer List</Link>
                 <p>{breweryData.emailAddress}</p>
                 <p>{breweryData.history}</p>
                 <p>{breweryData.hoursOfOperation}</p>
                 <p>{address}</p>
                 <p>{breweryData.phoneNumber}</p>
-                {isMyBrewery ? <Link to={{pathname: `/EditBrewery/${breweryId}`, state: { breweryData: breweryData }}}>Edit Brewery Information</Link> : ""}
+                {isMyBrewery ? <Link to={{ pathname: `/EditBrewery/${breweryId}`, state: { breweryData: breweryData } }}>Edit Brewery Information</Link> : ""}
                 <br />
             </div>
-            <div classname='main--image-panel'>
-            <img
-                src={breweryData.imageUrl}
-                alt='placeholder'
-                className='ViewAllBreweries__image'/>
+            <div className='main--image-panel'>
+                <img
+                    src={breweryData.imageUrl}
+                    alt='placeholder'
+                    className='ViewAllBreweries__image' />
             </div>
         </main>
     )

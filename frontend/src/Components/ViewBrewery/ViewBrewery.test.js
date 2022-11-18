@@ -1,12 +1,19 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import * as React from 'react';
+// customer render function that provides BrowserRouter support
+import {
+  renderWithLocationState,
+  unauthenticatedBreweryInformationState,
+} from '../../testUtils';
 
-describe('true is truthy and false is falsy', () => {
-  test('true is truthy', () => {
-    expect(true).toBe(true);
-  });
+import ViewBrewery from './ViewBrewery';
 
-  test('false is falsy', () => {
-    expect(false).toBe(false);
+describe('ViewBrewery component', () => {
+  test('render ViewBrewery component', async () => {
+    renderWithLocationState(
+      <ViewBrewery />,
+      unauthenticatedBreweryInformationState
+    );
+    expect(await screen.findByText(/Brewery 1/)).toBeInTheDocument();
   });
 });
-
