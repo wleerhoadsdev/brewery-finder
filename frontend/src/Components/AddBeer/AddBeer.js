@@ -5,7 +5,7 @@ import { baseUrl } from '../../Shared/baseUrl';
 
 export default function AddBeer(props) {
 
-  const location = useLocation();
+  const location=useLocation();
 
   const role = props.user ? props.user.authorities[0].name : '';
   const routerHistory = useHistory();

@@ -6,6 +6,7 @@ import Home from '../Home/Home'
 import Navbar from '../Navbar/Navbar'
 import AddBeer from '../AddBeer/AddBeer'
 import AddBrewery from '../AddBrewery/AddBrewery'
+import AddReview from '../AddReview/AddReview'
 import EditBrewery from '../EditBrewery/EditBrewery'
 import ViewAllBreweries from '../ViewAllBreweries/ViewAllBreweries'
 import ViewAllUsers from '../ViewAllUsers/ViewAllUsers'
@@ -90,6 +91,9 @@ export default function Main(props) {
                         newBrewerId={newBrewerId}
                         handleNewBrewerId={handleNewBrewerId}
                     />}
+                />
+                <Route path='/AddReview' component={() =>
+                    <AddReview user={user}/>}
                 />
                 <Route path='/EditBrewery' component={() =>
                     <EditBrewery

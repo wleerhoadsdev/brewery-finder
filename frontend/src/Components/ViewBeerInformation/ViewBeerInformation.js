@@ -7,6 +7,7 @@ export default function ViewBeerInformation(props) {
 
     const location = useLocation();
     const [beerData,setBeerData]=React.useState([]);
+    const [avgRating,setAvgRating]=React.useState(0);
     const {breweryId, beerId}=location.state.data;
     /*TODO: Call on beerType API endpoint to display correct beer type */
 
@@ -14,6 +15,9 @@ export default function ViewBeerInformation(props) {
         axios.get(baseUrl+`/brewery/${breweryId}/beer/${beerId}`).then((response)=>{
             setBeerData(response.data);
         });
+        axios.get(baseUrl+`/brewery/${breweryId}/beer/${beerId}/avgrating`).then((response)=>{
+            setAvgRating(response.data);
+        })
     },[]);
 
     if(beerData.isActive)
@@ -24,8 +28,12 @@ export default function ViewBeerInformation(props) {
                 <p>{beerData.description}</p>
                 <p>{beerData.abv}</p>
                 {/*TODO: change beerTypeId to beerType */}
-                <p>{beerData.typeId}</p>
+                <p>Beer Type: {beerData.typeId}</p>
+                <p>Average Rating:{avgRating}</p>
                 <Link to={{pathname:'/ViewBeerList', state: {breweryId: breweryId, isMyBrewery: location.state.isMyBrewery}}}>View Beer List</Link>
+                <br />
+                <br />
+                <Link to={{pathname:`/AddReview/brewery/${breweryId}/beer/${beerId}`,state: {beerId: beerId}}}>Add Review</Link>
                 <img src={beerData.image_url} alt={beerData.beerName}/>
             </div>
         );}
