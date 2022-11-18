@@ -25,13 +25,13 @@ export default function ViewBeerInformation(props) {
                 <p>{beerData.abv}</p>
                 {/*TODO: change beerTypeId to beerType */}
                 <p>{beerData.typeId}</p>
-                <Link to='/'>View All Breweries</Link>
+                <Link to={{pathname:'/ViewBeerList', state: {breweryId: breweryId, isMyBrewery: location.state.isMyBrewery}}}>View Beer List</Link>
                 <img src={beerData.image_url} alt={beerData.beerName}/>
             </div>
         );}
     else{
         return(
-            <p>Sorry, this beer is not available at this time.</p>
+            <></>
         )
     }
 }

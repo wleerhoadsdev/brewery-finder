@@ -5,9 +5,9 @@ import { baseUrl } from '../../Shared/baseUrl';
 
 export default function ViewBeerList(props) {
     const location=useLocation();
+    const role = props.user ? props.user.authorities[0].name:'';
     const [beersData, setBeersData] = React.useState([]);
     const [breweryData, setBreweryData] = React.useState({});
-    const [address, setAddress] = React.useState("");
     const {isMyBrewery, breweryId}= location.state;
     
     React.useEffect(() => {
@@ -15,15 +15,36 @@ export default function ViewBeerList(props) {
             setBeersData(response.data)
          });
          axios.get(baseUrl + `/brewery/${breweryId}`).then((response) => {
-            const { street, city, state, zipCode, country } = response.data.address;
-            setAddress(`${street} ${city} ${state} ${zipCode} ${country}`);
             setBreweryData(response.data);
         });
     }, [])
 
     function handleActiveChange(e, beerId){
-        console.log(beerId);
-        //console.log("Before BeerData: " + JSON.stringify(beersData));
+        
+        const data = beersData.filter((beer) => beer.beerId === beerId)[0];
+        const isActive = data.isActive;
+        data.isActive = !isActive;
+
+        axios.put(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, data)
+            .then(response =>{
+                alert("Beer is now " + (isActive ? "Inactive" : "Active"));
+            })
+            .catch((error) => {
+                if (error.response) {
+                    // Request made and server responded
+                    alert(error.response.data);
+                    console.error(error.response.status + ': ' + error.response.data);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    alert(error.request);
+                    console.log(error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    alert('Error \n', error.message);
+                    console.log('Error', error.message);
+                }
+            });
     }
 
     const beerListElements = beersData.map((beer) => {
@@ -36,7 +57,7 @@ export default function ViewBeerList(props) {
                 <div>
                     <tr key={beer.id}>
                         <td>
-                        <Link to={{ pathname: `/ViewBeerInformation/${beer.beerId}`, state: {data} }}>
+                        <Link to={{ pathname: `/ViewBeerInformation/${beer.beerId}`, state: {data: data, isMyBrewery: isMyBrewery} }}>
                                     {beer.name}
                             </Link>
 
@@ -46,7 +67,7 @@ export default function ViewBeerList(props) {
                         <td>{beer.description}</td>
                         <td>{beer.abv}</td>
                     </tr>
-                    {isMyBrewery && !beer.isActive ? <button onClick={(e) => {handleActiveChange(e, beer.beerId)}}>Toggle beer to inactive</button> : <button name={beer.beerId} onClick={(e) => {handleActiveChange(e, beer.beerId)}}>Toggle beer to active</button>}
+                    {isMyBrewery && (role === "ROLE_BREWER") ? <button onClick={(e) => {handleActiveChange(e, beer.beerId)}}>Toggle beer to {beer.isActive ? "Inactive" : "Active"}</button> : ""}
                 </div>
             )
         }
