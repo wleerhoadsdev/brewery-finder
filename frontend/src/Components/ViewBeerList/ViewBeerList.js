@@ -18,7 +18,7 @@ export default function ViewBeerList(props) {
         axios.get(baseUrl + `/brewery/${breweryId}`).then((response) => {
             setBreweryData(response.data);
         });
-    }, [])
+    }, [breweryId])
 
     React.useEffect(() => {
         let newBeerRating = {}
@@ -34,7 +34,7 @@ export default function ViewBeerList(props) {
                 });
                 SetBeerRatings(newBeerRating);
             });
-    }, []);
+    }, [breweryId]);
 
     console.log(beerRatings);
 
