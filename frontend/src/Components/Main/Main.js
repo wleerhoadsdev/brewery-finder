@@ -107,7 +107,7 @@ export default function Main(props) {
           }
         />
         <Route
-          path='/brewery/:breweryId/beers/:beerId/addreview'
+          path='/brewery/:breweryId/beer/:beerId/addreview'
           element={<AddReview user={user} />}
         />
         <Route

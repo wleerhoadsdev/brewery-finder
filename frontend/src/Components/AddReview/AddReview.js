@@ -6,6 +6,7 @@ export default function AddReview(props) {
   const user_id = 1; //for now just assign to the first user
   const beer_id = 1; //for now just assign to the first beer
 
+  console.log(props.user);
   const [reviewData, setReviewData] = React.useState({
     author_id: user_id,
     beer_id: beer_id,
