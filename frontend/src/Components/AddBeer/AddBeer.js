@@ -1,35 +1,37 @@
 import axios from 'axios';
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl';
 
 export default function AddBeer(props) {
-
-  const location=useLocation();
-
-  const role = props.user ? props.user.authorities[0].name : '';
-  let navigate=useNavigate();
   const [name, setName] = React.useState();
   const [description, setDescription] = React.useState();
   const [image, setImage] = React.useState();
   const [abv, setAbv] = React.useState();
   const [beerType, setBeerType] = React.useState();
-  const { breweryData } = location.state;
+
+  const role = props.user ? props.user.authorities[0].name : '';
+  let navigate = useNavigate();
+  const params = useParams();
+  const breweryId = params.breweryId;
 
   const handleCreateBeer = () => {
     const data = {
-      "name": name,
-      "breweryId": breweryData.breweryId,
-      "description": description,
-      "abv": abv,
-      "typeId": 1,
-      "isActive": true,
-      "imageUrl": image
-    }
-    axios.post(`${baseUrl}/brewery/${breweryData.breweryId}/addbeer`, data)
-      .then(response => {
-        alert("Beer was created");
-        navigate({ pathname: `/ViewBeerList/${breweryData.breweryId}`, state: { isMyBrewery: true, breweryId: breweryData.breweryId } });
+      name: name,
+      breweryId: breweryId,
+      description: description,
+      abv: abv,
+      typeId: 1,
+      isActive: true,
+      imageUrl: image,
+    };
+    axios
+      .post(`${baseUrl}/brewery/${breweryId}/addbeer`, data)
+      .then((response) => {
+        alert('Beer was created');
+        navigate({
+          pathname: `/brewery/${breweryId}/beers`,
+        });
       })
       .catch((error) => {
         if (error.response) {
@@ -46,8 +48,8 @@ export default function AddBeer(props) {
           alert('Error \n', error.message);
           console.log('Error', error.message);
         }
-      })
-  }
+      });
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -56,13 +58,17 @@ export default function AddBeer(props) {
 
   if (role === 'ROLE_BREWER') {
     return (
-      <form onSubmit={e => { handleSubmit(e) }}>
+      <form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
         <label>Name of Beer</label>
         <br />
         <input
           name='name'
           type='text'
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           value={name}
         />
         <br />
@@ -71,7 +77,7 @@ export default function AddBeer(props) {
         <input
           name='description'
           type='text'
-          onChange={e => setDescription(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)}
           value={description}
         />
         <br />
@@ -80,7 +86,7 @@ export default function AddBeer(props) {
         <input
           name='image'
           type='url'
-          onChange={e => setImage(e.target.value)}
+          onChange={(e) => setImage(e.target.value)}
           value={image}
         />
         <br />
@@ -91,7 +97,7 @@ export default function AddBeer(props) {
           type='number'
           min='0.0'
           max='67.5'
-          onChange={e => setAbv(e.target.value)}
+          onChange={(e) => setAbv(e.target.value)}
           value={abv}
         />
         <br />
@@ -99,16 +105,13 @@ export default function AddBeer(props) {
         <input
           name='beerType'
           type='text'
-          onChange={e => setBeerType(e.target.value)}
+          onChange={(e) => setBeerType(e.target.value)}
           value={beerType}
         />
         <button>Add Beer</button>
       </form>
-    )
-  }
-  else {
-    return (
-      <p>You are not authorized to view this page.</p>
-    )
+    );
+  } else {
+    return <p>You are not authorized to view this page.</p>;
   }
 }

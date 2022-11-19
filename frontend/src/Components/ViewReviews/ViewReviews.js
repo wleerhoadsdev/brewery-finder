@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl'; 
 
 export default function ViewReviews(props){

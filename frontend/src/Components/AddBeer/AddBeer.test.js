@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 // customer render function that provides BrowserRouter support
 import {
@@ -16,7 +16,7 @@ describe('AddBeer component', () => {
     State should be stored in the testUtils.js file and exported to use in this test.
 
     */
-    renderWithLocationState(<AddBeer />, breweryDataState);
+    render(<AddBeer />, breweryDataState);
 
     expect(
       screen.getByText(/You are not authorized to view this page./i)
