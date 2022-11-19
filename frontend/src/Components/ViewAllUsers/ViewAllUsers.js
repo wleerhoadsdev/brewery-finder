@@ -60,7 +60,7 @@ export default function ViewAllUsers(props) {
                     {usersElements}
                 </tbody>
             </table>
-            <Link to='/ViewAllBreweries'>View All Breweries</Link>
+            <Link to='/breweries'>View All Breweries</Link>
             <img
                 src='https://via.placeholder.com/600'
                 alt='placeholder'

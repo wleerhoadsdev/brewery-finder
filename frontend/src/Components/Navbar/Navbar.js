@@ -7,7 +7,7 @@ export default function Navbar(props) {
     <nav>
       <Link to='/' className='nav_app_title'>Beer Lovers</Link>
       <Link to='/'>HOME</Link>
-      <Link to='/ViewAllBreweries'>VIEW ALL BREWERIES</Link>
+      <Link to='/breweries'>VIEW ALL BREWERIES</Link>
       <Link to='/' onClick={props.handleLogout}>LOG OUT</Link>
     </nav>
     :

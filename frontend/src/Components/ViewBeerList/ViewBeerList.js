@@ -1,20 +1,24 @@
 import React from 'react'
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom'
+import { Link,useParams } from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl';
+import { useEffect } from 'react';
 
 export default function ViewBeerList(props) {
-    const location = useLocation();
     const role = props.user ? props.user.authorities[0].name : '';
+    const userId = props.user ? props.user.id : '';
     const [beersData, setBeersData] = React.useState([]);
     const [breweryData, setBreweryData] = React.useState({});
-    const [beerRatings, SetBeerRatings] = React.useState();
-    const { isMyBrewery, breweryId } = location.state;
+    const [beerRatings, setBeerRatings] = React.useState({});
+    const [isMyBrewery,setIsMyBrewery]=React.useState({});
+
+    let params=useParams();
+    let breweryId=params.breweryId;
 
     React.useEffect(() => {
         setBeersAndBrewery();
         getBeerRatings();
-    }, []);
+    }, [beersData]);
 
     function setBeersAndBrewery(){
         axios.get(baseUrl + `/brewery/${breweryId}/beer`).then((response) => {
@@ -22,26 +26,26 @@ export default function ViewBeerList(props) {
         });
         axios.get(baseUrl + `/brewery/${breweryId}`).then((response) => {
             setBreweryData(response.data);
+            if(userId===breweryData.breweryOwnerUserId){
+                setIsMyBrewery(true);
+            }
         });
     }
 
     function getBeerRatings(){
-        let newBeerRating = {}
         axios.get(baseUrl + `/brewery/${breweryId}/beer/avgrating`)
             .then((response) => {
                 response.data.forEach(rating => {
                     const beerId = rating.beerId;
                     const averageRating = rating.averageRating;
-                    newBeerRating = {
-                        ...newBeerRating,
+                    setBeerRatings(() => ({
+                        ...beerRatings,
                         [beerId]: averageRating
-                    }
-                });
-                SetBeerRatings(newBeerRating);
-            });
-    }
+                    }))
+                })
+            })};
+    
 
-    console.log(JSON.stringify(breweryData))
 
     function handleActiveChange(e, beerId) {
 
@@ -77,7 +81,7 @@ export default function ViewBeerList(props) {
             breweryId: beer.breweryId
         }
         if (isMyBrewery || beer.isActive) {
-            const beerRating = beerRatings[data.beerId];
+            const beerRating = beerRatings[beer.beerId] ? beerRatings[beer.beerId] : '';
             return (
                 <div>
                     <tr key={beer.id}>

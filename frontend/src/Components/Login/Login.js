@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl'
 import axios from 'axios'
 
 export default function Login(props) {
-    const routerHistory = useHistory();
+    let navigate = useNavigate();
 
     const [loginInfo, setLoginInfo] = useState({
         username: '',
@@ -23,7 +23,7 @@ export default function Login(props) {
             .then(response => {
                 props.handleToken(response.data.token)
                 props.handleUser(response.data.user)
-                routerHistory.push('/')
+                navigate('/')
             })
             .catch(error => {
                 console.log(error.response.data.error + ': ' + error.response.data.message)

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import {Route,Routes} from 'react-router-dom'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import Home from '../Home/Home'
@@ -67,43 +67,43 @@ export default function Main(props) {
             <Navbar
                 user={user}
                 handleLogout={handleLogout} />
-            <Switch>
-                <Route path='/login' component={() =>
-                    <Login
+            <Routes>
+                <Route path='/login' element=
+                    {<Login
                         handleToken={handleToken}
                         handleUser={handleUser}
                     />}
                 />
-                <Route path='/register' component={() =>
-                    <Register />}
+                <Route path='/register' element=
+                    {<Register />}
                 />
-                <Route path='/AddBeer' component={() =>
-                    <AddBeer
+                <Route path='/AddBeer' element=
+                    {<AddBeer
                         user={user}
                         token={token}
                         brewery={currentBrewery}
                     />}
                 />
-                <Route path='/AddBrewery' component={() =>
-                    <AddBrewery
+                <Route path='/AddBrewery' element=
+                    {<AddBrewery
                         user={user}
                         token={token}
                         newBrewerId={newBrewerId}
                         handleNewBrewerId={handleNewBrewerId}
                     />}
                 />
-                <Route path='/AddReview' component={() =>
-                    <AddReview user={user}/>}
+                <Route path='/AddReview' element=
+                    {<AddReview user={user}/>}
                 />
-                <Route path='/EditBrewery' component={() =>
-                    <EditBrewery
+                <Route path='/EditBrewery' element=
+                    {<EditBrewery
                         user={user}
                         token={token}
                         brewery={currentBrewery}
                     />}
                 />
-                <Route path='/ViewAllBreweries' component={() =>
-                    <ViewAllBreweries
+                <Route path='/breweries' element=
+                    {<ViewAllBreweries
                         user={user}
                         token={token}
                         handleCurrentBrewery={handleCurrentBrewery}
@@ -111,44 +111,45 @@ export default function Main(props) {
                         brewery={currentBrewery}
                     />}
                 />
-                <Route path='/ViewAllUsers' component={() =>
-                    <ViewAllUsers
+                <Route path='/ViewAllUsers' element=
+                    {<ViewAllUsers
                         user={user}
                         token={token}
                         handleNewBrewerId={handleNewBrewerId}
                     />}
-                /><Route path='/ViewBeerInformation' component={() =>
-                    <ViewBeerInformation
+                />
+                <Route path='/ViewBeerInformation' element=
+                    {<ViewBeerInformation
                         user={user}
                         token={token}
                         brewery={currentBrewery}
                         beer={currentBeer}
                     />}
-                /><Route path='/ViewBeerList' component={() =>
-                    <ViewBeerList
+                /><Route path='/brewery/:breweryId/beers' element=
+                    {<ViewBeerList
                         user={user}
                         token={token}
                         brewery={currentBrewery}
                         myBrewery={myBrewery}
                     />}
                 />
-                <Route path='/ViewBrewery'>
-                    <ViewBrewery
+                <Route path='/ViewBrewery' element=
+                    {<ViewBrewery
                         user={user}
                         token={token}
                         brewery={currentBrewery}
                         myBrewery={myBrewery}
-                    />
-                </Route>
-                <Route path='/' component={() =>
-                    <Home
+                    />}
+                />
+                <Route path='/' element=
+                    {<Home
                         user={user}
                         token={token}
                         myBrewery={myBrewery}
                         handleMyBrewery={handleMyBrewery}
                     />}
                 />
-            </Switch>
+            </Routes>
         </div>
     )
 

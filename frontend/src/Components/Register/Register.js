@@ -1,11 +1,11 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl'
 import './Register.css'
 
 export default function Register(props) {
-    const routerHistory = useHistory()
+    let navigate=useNavigate();
 
     const [registerInfo, setRegisterInfo] = useState({
         username: '',
@@ -37,7 +37,7 @@ export default function Register(props) {
             axios.post(baseUrl + "/register", data)
                 .then(() => {
                     alert('Account creation successful! \nLogin to your new account')
-                    routerHistory.push('/login')
+                    navigate('/login')
                 })
                 .catch((error) => {
                     if (error.response) {

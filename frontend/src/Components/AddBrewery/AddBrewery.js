@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl';
 import axios from 'axios';
 
 export default function AddBrewery(props) {
-    const routerHistory = useHistory();
+    let navigate=useNavigate();
 
     const [breweryInfo, setBreweryInfo] = React.useState({
         name: '',
@@ -36,7 +36,7 @@ export default function AddBrewery(props) {
             .then(response => {
                 alert("Brewery was created")
                 props.handleNewBrewerId('')
-                routerHistory.push('/viewAllUsers')
+                navigate('/viewAllUsers')
             })
             .catch((error) => {
                 if (error.response) {

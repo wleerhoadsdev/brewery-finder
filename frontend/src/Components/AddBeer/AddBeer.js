@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl';
 
 export default function AddBeer(props) {
@@ -8,7 +8,7 @@ export default function AddBeer(props) {
   const location=useLocation();
 
   const role = props.user ? props.user.authorities[0].name : '';
-  const routerHistory = useHistory();
+  let navigate=useNavigate();
   const [name, setName] = React.useState();
   const [description, setDescription] = React.useState();
   const [image, setImage] = React.useState();
@@ -29,7 +29,7 @@ export default function AddBeer(props) {
     axios.post(`${baseUrl}/brewery/${breweryData.breweryId}/addbeer`, data)
       .then(response => {
         alert("Beer was created");
-        routerHistory.push({ pathname: `/ViewBeerList/${breweryData.breweryId}`, state: { isMyBrewery: true, breweryId: breweryData.breweryId } });
+        navigate({ pathname: `/ViewBeerList/${breweryData.breweryId}`, state: { isMyBrewery: true, breweryId: breweryData.breweryId } });
       })
       .catch((error) => {
         if (error.response) {
