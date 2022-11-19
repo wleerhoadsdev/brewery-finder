@@ -13,6 +13,9 @@ import ViewAllUsers from '../ViewAllUsers/ViewAllUsers';
 import ViewBeerInformation from '../ViewBeerInformation/ViewBeerInformation';
 import ViewBeerList from '../ViewBeerList/ViewBeerList';
 import ViewBrewery from '../ViewBrewery/ViewBrewery';
+import axios from 'axios';
+import { baseUrl } from '../../Shared/baseUrl';
+import { useEffect } from 'react';
 
 export default function Main(props) {
   // Use below for when API is unavailable and comment out other user useState()
@@ -24,6 +27,11 @@ export default function Main(props) {
   const [myBrewery, setMyBrewery] = useState('');
   const [newBrewerId, setNewBrewerId] = useState('');
   const [editBreweryData, setEditBreweryData] = useState({});
+  const [beerTypes, setBeerTypes] = useState();
+
+  useEffect(() => {
+    getBeerTypes();
+  }, []);
 
   const handleLogout = () => {
     setToken('');
@@ -65,6 +73,12 @@ export default function Main(props) {
 
   /*Add API Call to get BeerType table and pass to AddBeer, ViewBeerInformation, and ViewBeerList */
 
+  const getBeerTypes = () => {
+    axios.get(baseUrl + '/beertype').then((response) => {
+      setBeerTypes(response.data);
+    });
+  };
+
   return (
     <div>
       <Navbar
@@ -92,6 +106,7 @@ export default function Main(props) {
               user={user}
               token={token}
               brewery={currentBrewery}
+              beerTypes={beerTypes}
             />
           }
         />
@@ -151,6 +166,7 @@ export default function Main(props) {
               token={token}
               brewery={currentBrewery}
               beer={currentBeer}
+              beerTypes={beerTypes}
             />
           }
         />
@@ -162,6 +178,7 @@ export default function Main(props) {
               token={token}
               brewery={currentBrewery}
               myBrewery={myBrewery}
+              beerTypes={beerTypes}
             />
           }
         />
