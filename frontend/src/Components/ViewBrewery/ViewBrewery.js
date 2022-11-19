@@ -1,15 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl';
 
 export default function ViewBrewery(props) {
-
-    const location = useLocation();
-    const { breweryId, isMyBrewery } = location.state;
+    let params = useParams();
+    const { breweryId, setBreweryId } = React.useState(params.breweryId);
+    const { isMyBrewery, setIsMyBrewery } = React.useState();
     const [breweryData, setBreweryData] = React.useState({});
     const [address, setAddress] = React.useState("");
 
+    console.log(breweryId)
     React.useEffect(() => {
         axios.get(baseUrl + `/brewery/${breweryId}`).then((response) => {
             const { street, city, state, zipCode, country } = response.data.address;
@@ -21,7 +22,7 @@ export default function ViewBrewery(props) {
         <main>
             <div className='main--content-panel'>
                 <h3>Brewery Info</h3>
-                <Link to='/ViewAllBreweries'>Go Back to Listing</Link>
+                <Link to='/breweries'>Go Back to Listing</Link>
                 <p>{breweryData.name}</p>
                 <Link to={{ pathname: `/ViewBeerList/${breweryId}`, state: { isMyBrewery: isMyBrewery, breweryId: breweryId } }}>View Brewery Beer List</Link>
                 <p>{breweryData.emailAddress}</p>
