@@ -56,6 +56,10 @@ export default function AddBeer(props) {
     handleCreateBeer();
   }
 
+  const beerOptions = props.beerTypes.map((type) => {
+    return <option value={type.typeId}>{type.style}</option>;
+  });
+
   if (role === 'ROLE_BREWER') {
     return (
       <form
@@ -97,17 +101,20 @@ export default function AddBeer(props) {
           type='number'
           min='0.0'
           max='67.5'
+          step='0.01'
           onChange={(e) => setAbv(e.target.value)}
           value={abv}
         />
         <br />
         <label>Beer Type</label>
-        <input
+        <select
           name='beerType'
           type='text'
           onChange={(e) => setBeerType(e.target.value)}
           value={beerType}
-        />
+        >
+          {beerOptions}
+        </select>
         <button>Add Beer</button>
       </form>
     );
