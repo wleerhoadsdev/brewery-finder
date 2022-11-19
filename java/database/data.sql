@@ -188,10 +188,20 @@ VALUES
         ''
     );
 INSERT INTO
-    beer_type (beer_type_id, beer_style)
+    beer_type (beer_style)
 VALUES
-    ('1', 'Ale'),
-    ('2', 'Hefeweizen');
+    ('Pale Lager'),
+    ('Pilsner'),
+    ('Dark Lager'),
+    ('Brown Ale'),
+    ('Pale Ale'),
+    ('India Pale Ale'),
+    ('Porter'),
+    ('Stout'),
+    ('Belgian-Style Ale'),
+    ('Wheat Beer'),
+    ('Wild & Sour Ale'),
+    ('Specialty Beer');
 INSERT INTO
     beer (
         beer_name,
