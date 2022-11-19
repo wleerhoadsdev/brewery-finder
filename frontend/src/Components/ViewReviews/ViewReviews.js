@@ -9,22 +9,30 @@ export default function ViewReviews(props){
     const [avgRating,setAvgRating]=React.useState();
 
     React.useEffect(()=>{
-        // axios.get(baseUrl+`/brewery/${breweryId}/beer/${beerId}/review`).then((response)=>{
-        //     setReviewsData(response.data);
-        // });
-        
+        axios.get(baseUrl+`/brewery/${breweryId}/beer/${beerId}/review`).then((response)=>{
+            setReviewsData(response.data);
+        });
     });
 
     const reviewsElements=reviewsData.map((review)=>{
         return(
             <div>
                 <tr key={review.reviewId}>
-                    <td>{review.title}</td>
                     <td>{review.rating}</td>
-                    <td>{review.body}</td>
+                    <td>{review.title}</td>
                     <td>{review.createDateTime}</td>
+                    <td>{review.body}</td>
                 </tr>
             </div>
         )
     })
+
+    return(
+        <main>
+            <h3>Reviews</h3>
+            <table>
+                {reviewsElements}
+            </table>
+        </main>
+    )
 }

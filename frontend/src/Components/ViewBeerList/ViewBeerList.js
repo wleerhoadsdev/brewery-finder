@@ -12,15 +12,20 @@ export default function ViewBeerList(props) {
     const { isMyBrewery, breweryId } = location.state;
 
     React.useEffect(() => {
+        setBeersAndBrewery();
+        getBeerRatings();
+    }, []);
+
+    function setBeersAndBrewery(){
         axios.get(baseUrl + `/brewery/${breweryId}/beer`).then((response) => {
             setBeersData(response.data)
         });
         axios.get(baseUrl + `/brewery/${breweryId}`).then((response) => {
             setBreweryData(response.data);
         });
-    }, [breweryId])
+    }
 
-    React.useEffect(() => {
+    function getBeerRatings(){
         let newBeerRating = {}
         axios.get(baseUrl + `/brewery/${breweryId}/beer/avgrating`)
             .then((response) => {
@@ -34,7 +39,7 @@ export default function ViewBeerList(props) {
                 });
                 SetBeerRatings(newBeerRating);
             });
-    }, [breweryId]);
+    }
 
     console.log(JSON.stringify(breweryData))
 
