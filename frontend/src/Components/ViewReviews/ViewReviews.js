@@ -5,6 +5,8 @@ import { baseUrl } from '../../Shared/baseUrl';
 
 export default function ViewReviews(props){
     const role = props.user ? props.user.authorities[0].name:'';
+    const breweryId=props.breweryId;
+    const beerId=props.beerId;
     const [reviewsData, setReviewsData]=React.useState([]);
     const [avgRating,setAvgRating]=React.useState();
 
@@ -12,7 +14,7 @@ export default function ViewReviews(props){
         axios.get(baseUrl+`/brewery/${breweryId}/beer/${beerId}/review`).then((response)=>{
             setReviewsData(response.data);
         });
-    });
+    },[breweryId,beerId]);
 
     const reviewsElements=reviewsData.map((review)=>{
         return(

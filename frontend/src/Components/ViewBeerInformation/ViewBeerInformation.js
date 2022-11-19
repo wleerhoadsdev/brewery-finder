@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl';
+import ViewReviews from '../ViewReviews/ViewReviews';
 
 export default function ViewBeerInformation(props) {
   const [beerData, setBeerData] = React.useState([]);
@@ -42,6 +43,11 @@ export default function ViewBeerInformation(props) {
           View Beer List
         </Link>
         <br />
+        <ViewReviews
+            user={props.user}
+            breweryId={breweryId}
+            beerId={beerId}
+        />
         <br />
         <Link
           to={{
