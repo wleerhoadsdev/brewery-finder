@@ -2,11 +2,11 @@ import axios from 'axios';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl';
+import ViewReviews from '../ViewReviews/ViewReviews';
 
 export default function ViewBeerInformation(props) {
   const [beerData, setBeerData] = React.useState([]);
   const [avgRating, setAvgRating] = React.useState(0);
-  /*TODO: Call on beerType API endpoint to display correct beer type */
 
   let params = useParams();
   const breweryId = params.breweryId;
@@ -40,9 +40,13 @@ export default function ViewBeerInformation(props) {
         <h3>{beerData.beerName}</h3>
         <p>{beerData.description}</p>
         <p>{beerData.abv}</p>
-        {/*TODO: change beerTypeId to beerType */}
         <p>Beer Type: {beerTypesObj[beerData.typeId]}</p>
         <p>Average Rating:{avgRating}</p>
+        <ViewReviews
+          beerId={beerId}
+          breweryId={breweryId}
+          user={props.user}
+        />
         <Link
           to={{
             pathname: `/brewery/${breweryId}/beers`,

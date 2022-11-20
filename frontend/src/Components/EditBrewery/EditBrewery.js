@@ -55,7 +55,7 @@ export default function EditBrewery(props) {
       isActive: true,
       isApproved: true,
     };
-    console.log(data);
+
     axios
       .put(baseUrl + `/brewery/${breweryId}`, data)
       .then((response) => {

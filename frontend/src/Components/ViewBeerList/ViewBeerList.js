@@ -118,7 +118,7 @@ export default function ViewBeerList(props) {
         </tr>
       );
     } else {
-      return '';
+      return <tr key={beer.id}></tr>;
     }
   });
 
