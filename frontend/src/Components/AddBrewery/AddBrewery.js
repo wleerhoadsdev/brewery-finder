@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { postCreateBrewery } from '../../api';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import UserService from '../../services/user.service';
 
 export default function AddBrewery(props) {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
+    const params = useParams();
+    const breweryOwnerUserId = params.userId;
 
     const [breweryInfo, setBreweryInfo] = React.useState({
         name: '',
-        breweryOwnerUserId: props.newBrewerId,
+        breweryOwnerUserId: breweryOwnerUserId,
         isActive: false,
         isApproved: false,
         imageUrl: '',
@@ -27,9 +29,7 @@ export default function AddBrewery(props) {
 
     const handleCreateBrewery = async (e) => {
         e.preventDefault();
-
-        postCreateBrewery(breweryInfo);
-        props.handleNewBrewerId('');
+        UserService.postCreateBrewery(breweryInfo);
         navigate('/users');
     };
 

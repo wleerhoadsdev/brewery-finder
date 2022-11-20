@@ -16,6 +16,7 @@ import ViewBrewery from '../ViewBrewery/ViewBrewery';
 import axios from 'axios';
 import { baseUrl } from '../../Shared/baseUrl';
 import { useEffect } from 'react';
+import AuthService from '../../services/auth.service';
 
 export default function Main(props) {
     // Use below for when API is unavailable and comment out other user useState()
@@ -25,21 +26,21 @@ export default function Main(props) {
     const [currentBrewery, setCurrentBrewery] = useState('');
     const [currentBeer, setCurrentBeer] = useState('');
     const [myBrewery, setMyBrewery] = useState('');
-    const [newBrewerId, setNewBrewerId] = useState('');
     const [editBreweryData, setEditBreweryData] = useState({});
     const [beerTypes, setBeerTypes] = useState();
 
     useEffect(() => {
         fetchBeerTypes();
+        handleCheckSessionStorage();
     }, []);
 
     const handleLogout = () => {
+        AuthService.logout();
         setToken('');
         setUser();
         setCurrentBrewery('');
         setMyBrewery('');
         setCurrentBeer('');
-        setNewBrewerId('');
         handleEditBreweryData('');
     };
 
@@ -51,16 +52,19 @@ export default function Main(props) {
         setUser(user);
     };
 
+    const handleCheckSessionStorage = () => {
+        if (AuthService.getCurrentToken) {
+            setToken(AuthService.getCurrentToken);
+            setUser(AuthService.getCurrentUser);
+        }
+    };
+
     const handleCurrentBrewery = (breweryId) => {
         setCurrentBrewery(breweryId);
     };
 
     const handleMyBrewery = (breweryId) => {
         setMyBrewery(breweryId);
-    };
-
-    const handleNewBrewerId = (userId) => {
-        setNewBrewerId(userId);
     };
 
     const handleEditBreweryData = (breweryData) => {
@@ -107,13 +111,11 @@ export default function Main(props) {
                     }
                 />
                 <Route
-                    path='/breweries/addbrewery'
+                    path='/users/:userId/addbrewery'
                     element={
                         <AddBrewery
                             user={user}
                             token={token}
-                            newBrewerId={newBrewerId}
-                            handleNewBrewerId={handleNewBrewerId}
                         />
                     }
                 />
@@ -150,8 +152,6 @@ export default function Main(props) {
                         <ViewAllUsers
                             user={user}
                             token={token}
-                            newBrewerId={newBrewerId}
-                            handleNewBrewerId={handleNewBrewerId}
                         />
                     }
                 />

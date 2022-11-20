@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import {
-    fetchBeersData,
-    fetchBreweryOwnerUserId,
-    fetchBeerRatings,
-    updateBeerToggleIsActive,
-    deleteBeer,
-} from '../../api';
+import UserService from '../../services/user.service';
 
 export default function ViewBeerList(props) {
     const navigate = useNavigate();
@@ -31,9 +25,9 @@ export default function ViewBeerList(props) {
         });
 
     useEffect(() => {
-        fetchBeersData(breweryId, setBeersData);
-        fetchBreweryOwnerUserId(breweryId, setBreweryOwnerUserId);
-        fetchBeerRatings(breweryId, setBeerRatings);
+        UserService.fetchBeersData(breweryId, setBeersData);
+        UserService.fetchBreweryOwnerUserId(breweryId, setBreweryOwnerUserId);
+        UserService.fetchBeerRatings(breweryId, setBeerRatings);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -46,12 +40,15 @@ export default function ViewBeerList(props) {
         const isActive = beer.isActive;
         beer.isActive = !isActive;
 
-        updateBeerToggleIsActive(breweryId, beerId, beer);
-        navigate(`/brewery/${breweryId}/beers`);
+        UserService.updateBeerToggleIsActive(breweryId, beerId, beer).then(() =>
+            navigate(`/brewery/${breweryId}/beers`)
+        );
     }
 
     function handleDeleteBeer(e, beerId) {
-        deleteBeer(breweryId, beerId);
+        UserService.deleteBeer(breweryId, beerId).then(() => {
+            setBeersData(beersData.filter((beer) => beer.beerId !== beerId));
+        });
     }
 
     const beerListElements = beersData.map((beer) => {

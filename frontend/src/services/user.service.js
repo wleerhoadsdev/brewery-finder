@@ -1,20 +1,24 @@
-import { baseUrl } from './Shared/baseUrl';
 import axios from 'axios';
-axios.defaults.baseURL = 'baseUrl';
-axios.defaults.headers.common = { Authorization: `bearer ${token}` };
+import { headers } from './auth-header';
+import { baseUrl } from '../Shared/baseUrl';
+import { catchErrors } from './auth-error';
 
 export const postCreatedBeer = (beerInformation, breweryId) => {
-    axios
-        .post(`${baseUrl}/brewery/${breweryId}/addbeer`, beerInformation)
+    return axios
+        .post(
+            `${baseUrl}/brewery/${breweryId}/addbeer`,
+            beerInformation,
+            headers
+        )
         .then((response) => {
-            alert('Beer was created');
+            return response;
         })
         .catch(catchErrors);
 };
 
 export const fetchBeersData = (breweryId, setBeersData) => {
-    axios
-        .get(baseUrl + `/brewery/${breweryId}/beer`)
+    return axios
+        .get(baseUrl + `/brewery/${breweryId}/beer`, {}, headers)
         .then((response) => {
             setBeersData(response.data);
         })
@@ -22,8 +26,8 @@ export const fetchBeersData = (breweryId, setBeersData) => {
 };
 
 export const fetchBreweryOwnerUserId = (breweryId, setBreweryOwnerUserId) => {
-    axios
-        .get(baseUrl + `/brewery/${breweryId}`)
+    return axios
+        .get(baseUrl + `/brewery/${breweryId}`, {}, headers)
         .then((response) => {
             setBreweryOwnerUserId(response.data.breweryOwnerUserId);
         })
@@ -31,8 +35,8 @@ export const fetchBreweryOwnerUserId = (breweryId, setBreweryOwnerUserId) => {
 };
 
 export const fetchBeerRatings = (breweryId, setBeerRatings) => {
-    axios
-        .get(baseUrl + `/brewery/${breweryId}/beer/avgrating`)
+    return axios
+        .get(baseUrl + `/brewery/${breweryId}/beer/avgrating`, {}, headers)
         .then((response) => {
             response.data.forEach((rating) => {
                 const beerId = rating.beerId;
@@ -47,8 +51,8 @@ export const fetchBeerRatings = (breweryId, setBeerRatings) => {
 };
 
 export const updateBeerToggleIsActive = (breweryId, beerId, beer) => {
-    axios
-        .put(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, beer)
+    return axios
+        .put(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, beer, headers)
         .then((response) => {
             alert('Beer is now ' + (beer.isActive ? 'Inactive' : 'Active'));
         })
@@ -56,8 +60,8 @@ export const updateBeerToggleIsActive = (breweryId, beerId, beer) => {
 };
 
 export const deleteBeer = (breweryId, beerId) => {
-    axios
-        .delete(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`)
+    return axios
+        .delete(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, {}, headers)
         .then((response) => {
             alert('Beer has been deleted.');
         })
@@ -65,27 +69,33 @@ export const deleteBeer = (breweryId, beerId) => {
 };
 
 export const postCreateBrewery = (breweryInfo) => {
-    axios
-        .post(baseUrl + '/brewery/addbrewery', breweryInfo)
+    return axios
+        .post(baseUrl + '/brewery/addbrewery', breweryInfo, headers)
         .then((response) => {
             alert('Brewery was created');
+            window.location.reload(true);
         })
         .catch(catchErrors);
 };
 
-const catchErrors = (error) => {
-    if (error.response) {
-        // Request made and server responded
-        alert(error.response.data);
-        console.error(error.response.status + ': ' + error.response.data);
-        console.log(error.response.headers);
-    } else if (error.request) {
-        // The request was made but no response was received
-        alert(error.request);
-        console.log(error.request);
-    } else {
-        // Something happened in setting up the request that triggered an Error
-        alert('Error \n', error.message);
-        console.log('Error', error.message);
-    }
+export const fetchAllUsers = (setUsersData) => {
+    return axios
+        .get(baseUrl + '/usersbreweries', {}, headers)
+        .then((response) => {
+            setUsersData(response.data);
+        })
+        .catch(catchErrors);
 };
+
+const UserService = {
+    postCreatedBeer,
+    fetchBeersData,
+    fetchBreweryOwnerUserId,
+    fetchBeerRatings,
+    updateBeerToggleIsActive,
+    deleteBeer,
+    postCreateBrewery,
+    fetchAllUsers,
+};
+
+export default UserService;

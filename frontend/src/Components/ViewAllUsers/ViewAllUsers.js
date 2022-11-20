@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl';
+import UserService from '../../services/user.service';
 
 export default function ViewAllUsers(props) {
     const role = props.user ? props.user.authorities[0].name : '';
@@ -9,10 +10,8 @@ export default function ViewAllUsers(props) {
     const [usersData, setUsersData] = React.useState([]);
 
     React.useEffect(() => {
-        axios.get(baseUrl + '/usersbreweries').then((response) => {
-            setUsersData(response.data);
-        });
-    }, [props.newBrewerId]);
+        UserService.fetchAllUsers(setUsersData);
+    }, []);
 
     const usersElements = usersData.map((userBreweryListItem) => {
         if (userBreweryListItem.username === 'admin') return '';
@@ -31,10 +30,7 @@ export default function ViewAllUsers(props) {
                     <td>{userBreweryListItem.name}</td>
                     <td>
                         <Link
-                            to='/breweries/addbrewery'
-                            onClick={props.handleNewBrewerId(
-                                userBreweryListItem.userId
-                            )}
+                            to={`/users/${userBreweryListItem.userId}/addbrewery`}
                         >
                             <button>Create Brewery</button>
                         </Link>

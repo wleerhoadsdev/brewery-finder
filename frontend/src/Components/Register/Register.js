@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { baseUrl } from '../../Shared/baseUrl';
+import AuthService from '../../services/auth.service';
 import './Register.css';
 
 export default function Register(props) {
@@ -10,9 +9,10 @@ export default function Register(props) {
     const [registerInfo, setRegisterInfo] = useState({
         username: '',
         name: '',
-        email: '',
+        emailAddress: '',
         password: '',
         confirmPassword: '',
+        role: 'USER',
     });
 
     const handleInputChange = (event) => {
@@ -25,33 +25,11 @@ export default function Register(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = {
-            username: registerInfo.username,
-            name: registerInfo.name,
-            emailAddress: registerInfo.email,
-            password: registerInfo.password,
-            confirmPassword: registerInfo.confirmPassword,
-            role: 'USER',
-        };
+
         if (registerInfo.password === registerInfo.confirmPassword) {
-            axios
-                .post(baseUrl + '/register', data)
-                .then(() => {
-                    alert(
-                        'Account creation successful! \nLogin to your new account'
-                    );
-                    navigate('/login');
-                })
-                .catch((error) => {
-                    if (error.response) {
-                        const { message } = error;
-                        alert(message);
-                    } else if (error.request) {
-                        console(error.response);
-                    } else {
-                        alert(error.response);
-                    }
-                });
+            AuthService.register(registerInfo).then((response) => {
+                if (response === 201) navigate('/login');
+            });
         } else {
             alert('Password and Confirm Password must match!!!');
         }
