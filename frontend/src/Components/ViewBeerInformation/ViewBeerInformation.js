@@ -21,8 +21,6 @@ export default function ViewBeerInformation(props) {
     };
   });
 
-  console.log(beerTypesObj);
-
   React.useEffect(() => {
     axios
       .get(baseUrl + `/brewery/${breweryId}/beer/${beerId}`)

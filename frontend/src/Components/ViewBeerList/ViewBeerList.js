@@ -104,7 +104,7 @@ export default function ViewBeerList(props) {
           <td>{beer.description}</td>
           <td>{beer.abv}</td>
           <td>{beerRating}</td>
-          {isMyBrewery && role === 'ROLE_BREWER' ? (
+          {isMyBrewery && role === 'ROLE_BREWER' && (
             <td>
               <button
                 onClick={(e) => {
@@ -114,13 +114,11 @@ export default function ViewBeerList(props) {
                 Toggle beer to {beer.isActive ? 'Inactive' : 'Active'}
               </button>
             </td>
-          ) : (
-            ''
           )}
         </tr>
       );
     } else {
-      return <div></div>;
+      return '';
     }
   });
 
