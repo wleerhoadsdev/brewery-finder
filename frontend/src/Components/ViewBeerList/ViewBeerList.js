@@ -27,7 +27,7 @@ export default function ViewBeerList(props) {
     setBeersAndBrewery();
     getBeerRatings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [beersData.isActive]);
 
   function setBeersAndBrewery() {
     axios.get(baseUrl + `/brewery/${breweryId}/beer`).then((response) => {
@@ -84,6 +84,32 @@ export default function ViewBeerList(props) {
       });
   }
 
+  function handleDeleteBeer(e, beerId) {
+    axios
+      .delete(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`)
+      .then((response) => {
+        alert('Beer has been deleted.');
+      })
+      .catch((error) => {
+        if (error.response) {
+          // Request made and server responded
+          alert('Failed to delete beer.');
+          console.error(
+            error.response.status + ': ' + JSON.stringify(error.response.data)
+          );
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          alert('Failed to delete beer.');
+          console.log(JSON.stringify(error.request));
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          alert('Failed to delete beer.');
+          console.log('Error', error.message);
+        }
+      });
+  }
+
   const beerListElements = beersData.map((beer) => {
     if (isMyBrewery || beer.isActive) {
       const beerRating = beerRatings[beer.beerId]
@@ -115,6 +141,17 @@ export default function ViewBeerList(props) {
               </button>
             </td>
           )}
+          {isMyBrewery && role === 'ROLE_BREWER' && (
+            <td>
+              <button
+                onClick={(e) => {
+                  handleDeleteBeer(e, beer.beerId);
+                }}
+              >
+                Delete Beer
+              </button>
+            </td>
+          )}
         </tr>
       );
     } else {
@@ -135,7 +172,8 @@ export default function ViewBeerList(props) {
               <th>Description</th>
               <th>ABV</th>
               <th>AVG Rating</th>
-              {isMyBrewery && <th>Active Toggle</th>}
+              {isMyBrewery && role === 'ROLE_BREWER' && <th>Active Toggle</th>}
+              {isMyBrewery && role === 'ROLE_BREWER' && <th>Delete Beer</th>}
             </tr>
           </thead>
           <tbody>{beerListElements}</tbody>
