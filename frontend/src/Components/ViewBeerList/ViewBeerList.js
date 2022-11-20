@@ -13,15 +13,16 @@ export default function ViewBeerList(props) {
 
   let params = useParams();
   let breweryId = params.breweryId;
-  const beerTypes = props.beerTypes;
+  const beerTypes = props.beerTypes ? props.beerTypes : '';
   let beerTypesObj = {};
 
-  beerTypes.forEach((beerType) => {
-    beerTypesObj = {
-      ...beerTypesObj,
-      [beerType.typeId]: beerType.style,
-    };
-  });
+  beerTypes &&
+    beerTypes.forEach((beerType) => {
+      beerTypesObj = {
+        ...beerTypesObj,
+        [beerType.typeId]: beerType.style,
+      };
+    });
 
   React.useEffect(() => {
     setBeersAndBrewery();
