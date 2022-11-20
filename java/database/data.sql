@@ -244,7 +244,6 @@ VALUES
     );
 INSERT INTO
     beer_review (
-        review_id,
         beer_id,
         author_id,
         rating,
@@ -255,7 +254,6 @@ INSERT INTO
     )
 VALUES
     (
-        '1',
         '1',
         '1',
         '4.5',
@@ -266,7 +264,6 @@ VALUES
     );
 INSERT INTO
     beer_review (
-        review_id,
         beer_id,
         author_id,
         rating,
@@ -277,7 +274,6 @@ INSERT INTO
     )
 VALUES
     (
-        '2',
         '2',
         '2',
         '4.5',
