@@ -5,6 +5,15 @@ public class BreweryListItem {
     private String name;
     private Address address;
     private boolean isActive;
+    private String homePageUrl;
+
+    public String getHomePageUrl() {
+        return homePageUrl;
+    }
+
+    public void setHomePageUrl(String homePageUrl) {
+        this.homePageUrl = homePageUrl;
+    }
 
     public Address getAddress() {
         return address;
@@ -33,4 +42,7 @@ public class BreweryListItem {
     public boolean getIsActive() { return isActive; }
 
     public void setIsActive(boolean isActive) { this.isActive = isActive; }
+
+
+
 }
