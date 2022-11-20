@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl';
-import { useEffect } from 'react';
 
 export default function ViewBeerList(props) {
   const role = props.user ? props.user.authorities[0].name : '';
@@ -14,10 +13,20 @@ export default function ViewBeerList(props) {
 
   let params = useParams();
   let breweryId = params.breweryId;
+  const beerTypes = props.beerTypes;
+  let beerTypesObj = {};
+
+  beerTypes.forEach((beerType) => {
+    beerTypesObj = {
+      ...beerTypesObj,
+      [beerType.typeId]: beerType.style,
+    };
+  });
 
   React.useEffect(() => {
     setBeersAndBrewery();
     getBeerRatings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function setBeersAndBrewery() {
@@ -76,46 +85,39 @@ export default function ViewBeerList(props) {
   }
 
   const beerListElements = beersData.map((beer) => {
-    const data = {
-      beerId: beer.beerId,
-      breweryId: beer.breweryId,
-    };
     if (isMyBrewery || beer.isActive) {
       const beerRating = beerRatings[beer.beerId]
         ? beerRatings[beer.beerId]
         : '';
       return (
-        <div>
-          <tr key={beer.id}>
+        <tr key={beer.id}>
+          <td>
+            <Link
+              to={{
+                pathname: `/brewery/${breweryId}/beers/${beer.beerId}`,
+              }}
+            >
+              {beer.name}
+            </Link>
+          </td>
+          <td>{beerTypesObj[beer.typeId]}</td>
+          <td>{beer.description}</td>
+          <td>{beer.abv}</td>
+          <td>{beerRating}</td>
+          {isMyBrewery && role === 'ROLE_BREWER' ? (
             <td>
-              <Link
-                to={{
-                  pathname: `/brewery/${breweryId}/beers/${beer.beerId}`,
+              <button
+                onClick={(e) => {
+                  handleActiveChange(e, beer.beerId);
                 }}
               >
-                {beer.name}
-              </Link>
+                Toggle beer to {beer.isActive ? 'Inactive' : 'Active'}
+              </button>
             </td>
-            <td>{beer.typeId}</td>
-            <td>{beer.description}</td>
-            <td>{beer.abv}</td>
-            <td>{beerRating}</td>
-            {isMyBrewery && role === 'ROLE_BREWER' ? (
-              <td>
-                {' '}
-                <button
-                  onClick={(e) => {
-                    handleActiveChange(e, beer.beerId);
-                  }}
-                >
-                  Toggle beer to {beer.isActive ? 'Inactive' : 'Active'}
-                </button>{' '}
-              </td>
-            ) : (
-              ''
-            )}
-          </tr>
-        </div>
+          ) : (
+            ''
+          )}
+        </tr>
       );
     } else {
       return <div></div>;

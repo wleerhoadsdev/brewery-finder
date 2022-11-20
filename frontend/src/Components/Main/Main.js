@@ -30,7 +30,7 @@ export default function Main(props) {
   const [beerTypes, setBeerTypes] = useState();
 
   useEffect(() => {
-    getBeerTypes();
+    fetchBeerTypes();
   }, []);
 
   const handleLogout = () => {
@@ -59,10 +59,6 @@ export default function Main(props) {
     setMyBrewery(breweryId);
   };
 
-  const handleCurrentBeer = (beerId) => {
-    setCurrentBeer(beerId);
-  };
-
   const handleNewBrewerId = (userId) => {
     setNewBrewerId(userId);
   };
@@ -73,7 +69,7 @@ export default function Main(props) {
 
   /*Add API Call to get BeerType table and pass to AddBeer, ViewBeerInformation, and ViewBeerList */
 
-  const getBeerTypes = () => {
+  const fetchBeerTypes = () => {
     axios.get(baseUrl + '/beertype').then((response) => {
       setBeerTypes(response.data);
     });

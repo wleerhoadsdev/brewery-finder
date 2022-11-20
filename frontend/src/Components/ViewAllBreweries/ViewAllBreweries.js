@@ -1,13 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl';
 import './ViewAllBreweries.css';
 
 export default function ViewAllBreweries(props) {
   const role = props.user ? props.user.authorities[0].name : '';
   const isBrewer = role === 'ROLE_BREWER';
-  let params = useParams();
 
   const [breweriesData, setBreweriesData] = React.useState([]);
 

@@ -2,7 +2,6 @@ import axios from 'axios';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { baseUrl } from '../../Shared/baseUrl';
-import ViewReviews from '../ViewReviews/ViewReviews';
 
 export default function ViewBeerInformation(props) {
   const [beerData, setBeerData] = React.useState([]);
@@ -12,6 +11,17 @@ export default function ViewBeerInformation(props) {
   let params = useParams();
   const breweryId = params.breweryId;
   const beerId = params.beerId;
+  const beerTypes = props.beerTypes;
+  let beerTypesObj = {};
+
+  beerTypes.forEach((beerType) => {
+    beerTypesObj = {
+      ...beerTypesObj,
+      [beerType.typeId]: beerType.style,
+    };
+  });
+
+  console.log(beerTypesObj);
 
   React.useEffect(() => {
     axios
@@ -33,7 +43,7 @@ export default function ViewBeerInformation(props) {
         <p>{beerData.description}</p>
         <p>{beerData.abv}</p>
         {/*TODO: change beerTypeId to beerType */}
-        <p>Beer Type: {beerData.typeId}</p>
+        <p>Beer Type: {beerTypesObj[beerData.typeId]}</p>
         <p>Average Rating:{avgRating}</p>
         <Link
           to={{
@@ -43,11 +53,6 @@ export default function ViewBeerInformation(props) {
           View Beer List
         </Link>
         <br />
-        <ViewReviews
-            user={props.user}
-            breweryId={breweryId}
-            beerId={beerId}
-        />
         <br />
         <Link
           to={{
