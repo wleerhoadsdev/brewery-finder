@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {React} from 'react';
+import React from 'react';
 import {useNavigate, useParams} from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl';
 
@@ -11,13 +11,13 @@ export default function AddReview(props) {
   let navigate=useNavigate();
 
   const [reviewData, setReviewData] = React.useState({
-    author_id: userId,
-    beer_id: beerId,
+    authorUserId: userId,
+    beerId: beerId,
     rating: 0,
     title: '',
-    review_body: '',
-    created_date: Date.now(),
-    updated_date: Date.now(),
+    body: '',
+    createDateTime: Date.now(),
+    updateDateTime: Date.now(),
   });
 
   function handleChange(event) {
@@ -34,6 +34,22 @@ export default function AddReview(props) {
           alert('Review was posted');
           navigate(baseUrl+`/brewery/${breweryId}/beer/${beerId}`);
          })
+         .catch((error) => {
+          if (error.response) {
+            // Request made and server responded
+            alert(error.response.data);
+            console.error(error.response.status + ': ' + error.response.data);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            alert(error.request);
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            alert('Error \n', error.message);
+            console.log('Error', error.message);
+          }
+        });
   }
 
   return (
@@ -51,7 +67,7 @@ export default function AddReview(props) {
           type='text'
           placeholder='Review Body'
           name='review_body'
-          value={reviewData.review_body}
+          defaultValue={reviewData.body}
           onChange={handleChange}
         />
         <input
