@@ -1,15 +1,18 @@
 import axios from 'axios';
-import React from 'react';
+import {React} from 'react';
+import {useNavigate, useParams} from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl';
 
 export default function AddReview(props) {
-  const user_id = 1; //for now just assign to the first user
-  const beer_id = 1; //for now just assign to the first beer
+  let params=useParams();
+  let breweryId=params.breweryId;
+  let userId=props.user.id;
+  let beerId=params.beerId;
+  let navigate=useNavigate();
 
-  console.log(props.user);
   const [reviewData, setReviewData] = React.useState({
-    author_id: user_id,
-    beer_id: beer_id,
+    author_id: userId,
+    beer_id: beerId,
     rating: 0,
     title: '',
     review_body: '',
@@ -26,12 +29,15 @@ export default function AddReview(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(reviewData);
+    axios.post(baseUrl+`/brewery/${breweryId}/beer/${beerId}/review`,reviewData)
+         .then((response)=>{
+          alert('Review was posted');
+          navigate(baseUrl+`/brewery/${breweryId}/beer/${beerId}`);
+         })
   }
 
   return (
     <div>
-      {console.log(props.user)}
       <h1>Add a review</h1>
       <form onSubmit={handleSubmit}>
         <input

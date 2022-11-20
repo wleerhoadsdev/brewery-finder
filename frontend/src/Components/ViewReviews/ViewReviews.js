@@ -9,6 +9,7 @@ export default function ViewReviews(props){
     const beerId=props.beerId;
     const [reviewsData, setReviewsData]=React.useState([]);
     const [avgRating,setAvgRating]=React.useState();
+    const elementArray=[];
 
     React.useEffect(()=>{
         axios.get(baseUrl+`/brewery/${breweryId}/beer/${beerId}/review`).then((response)=>{
@@ -16,8 +17,8 @@ export default function ViewReviews(props){
         });
     },[breweryId,beerId]);
 
-    const reviewsElements=reviewsData.map((review)=>{
-        return(
+    reviewsData.forEach((review)=>{
+        const currentElement=(
             <div>
                 <tr key={review.reviewId}>
                     <td>{review.rating}</td>
@@ -27,13 +28,18 @@ export default function ViewReviews(props){
                 </tr>
             </div>
         )
+        if(review.authorUserId===props.user.id){
+            elementArray.unshift(currentElement);
+            return;
+        }
+        elementArray.push(currentElement);
     })
 
     return(
         <main>
             <h3>Reviews</h3>
             <table>
-                {reviewsElements}
+                {elementArray}
             </table>
         </main>
     )
