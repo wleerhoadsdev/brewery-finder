@@ -31,6 +31,48 @@ public class Brewery {
         this.imageUrl = breweryToCopyFrom.getImageUrl();
     }
 
+
+    //    for testing purpose
+    public Brewery(Integer breweryId, int breweryOwnerUserId, String name, boolean isActive, boolean isApproved,
+                   String history, String hoursOfOperation, Address address, String phoneNumber,
+                   String emailAddress, String homePageUrl, String imageUrl) {
+        this.breweryId = breweryId;
+        this.breweryOwnerUserId = breweryOwnerUserId;
+        this.name = name;
+        this.isActive = isActive;
+        this.isApproved = isApproved;
+        this.history = history;
+        this.hoursOfOperation = hoursOfOperation;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        this.homePageUrl = homePageUrl;
+        this.imageUrl = imageUrl;
+    }
+
+    //    for testing purpose
+    public Brewery(int breweryOwnerUserId, String name, boolean isActive, boolean isApproved,
+                   String history, String hoursOfOperation, Address address, String phoneNumber,
+                   String emailAddress, String homePageUrl, String imageUrl) {
+        this.breweryOwnerUserId = breweryOwnerUserId;
+        this.name = name;
+        this.isActive = isActive;
+        this.isApproved = isApproved;
+        this.history = history;
+        this.hoursOfOperation = hoursOfOperation;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        this.homePageUrl = homePageUrl;
+        this.imageUrl = imageUrl;
+    }
+//    for testing
+    public Brewery(int i, int i1, String bbb, boolean b, boolean b1, String s, String s1, String street, String city, String state, String zipCode, String country, String s2, String s3, String s4, String s5) {
+    }
+// for testing
+    public Brewery(int i, String bbb, boolean b, boolean b1, String s, String s1, String street, String city, String state, String zipCode, String country, String s2, String s3, String s4, String s5) {
+    }
+
     public Integer getBreweryId() {
         return breweryId;
     }

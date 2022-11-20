@@ -17,6 +17,17 @@ public class Address {
         this.country = addressToCopyFrom.getCountry();
     }
 
+//    for testing
+
+
+    public Address(String street, String city, String state, String zipCode, String country) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+
     public String getStreet() {
         return street;
     }

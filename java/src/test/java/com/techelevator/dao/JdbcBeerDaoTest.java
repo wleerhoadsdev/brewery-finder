@@ -13,6 +13,8 @@ public class JdbcBeerDaoTest extends BaseDaoTests  {
             5.9,1, true, "https://images_url.com");
 
     private JdbcBeerDao sut;
+
+//  to delete review as constraint before delete beer
     private JdbcBeerReviewDao jdbcBeerReviewDao;
 
     @Before
@@ -29,8 +31,7 @@ public class JdbcBeerDaoTest extends BaseDaoTests  {
     @Test
     public void createBeer_creates_beer(){
         Beer createdBeer = sut.create(BEER_2);
-        Beer getCreatedBeer = sut.getBeerById(BEER_2.getBreweryId(), createdBeer.getBeerId());
-        assertBeerMatch(createdBeer, getCreatedBeer);
+        assertBeerMatch(BEER_2, createdBeer );
     }
 
     @Test
@@ -38,8 +39,15 @@ public class JdbcBeerDaoTest extends BaseDaoTests  {
         Beer beerToUpdate = sut.getBeerById(BEER_1.getBreweryId(), BEER_1.getBeerId());
         beerToUpdate.setName("Stella Updated");
         sut.updateBeer(beerToUpdate, beerToUpdate.getBreweryId(), beerToUpdate.getBeerId());
-        Beer retrievedBeer = sut.getBeerById(BEER_1.getBreweryId(), BEER_1.getBeerId());
+        Beer retrievedBeer = sut.getBeerById(BEER_1.getBreweryId(), beerToUpdate.getBeerId());
         assertBeerMatch(beerToUpdate,retrievedBeer );
+    }
+
+    @Test
+    public void getByBreweryID_returns_correct_number_of_beers(){
+        int beersCreatedBySQLScript = 1;
+        int numberOfBeers = sut.getByBreweryId(1).size();
+        Assert.assertEquals(beersCreatedBySQLScript, numberOfBeers);
     }
 
     @Test
@@ -55,7 +63,6 @@ public class JdbcBeerDaoTest extends BaseDaoTests  {
     }
 
     private void assertBeerMatch(Beer expected, Beer actual){
-        Assert.assertEquals(expected.getBeerId(), actual.getBeerId());
         Assert.assertEquals(expected.getBreweryId(), actual.getBreweryId());
         Assert.assertEquals(expected.getName(), actual.getName());
         Assert.assertEquals(expected.getDescription(), actual.getDescription());
@@ -63,7 +70,6 @@ public class JdbcBeerDaoTest extends BaseDaoTests  {
         Assert.assertEquals(expected.getTypeId(), actual.getTypeId());
         Assert.assertEquals(expected.getIsActive(), actual.getIsActive());
         Assert.assertEquals(expected.getImageUrl(), actual.getImageUrl());
-
     }
 
 
