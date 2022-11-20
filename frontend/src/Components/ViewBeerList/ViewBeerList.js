@@ -1,202 +1,150 @@
-import React from 'react';
-import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
-import { baseUrl } from '../../Shared/baseUrl';
+import React, { useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import {
+    fetchBeersData,
+    fetchBreweryOwnerUserId,
+    fetchBeerRatings,
+    updateBeerToggleIsActive,
+    deleteBeer,
+} from '../../api';
 
 export default function ViewBeerList(props) {
-  const role = props.user ? props.user.authorities[0].name : '';
-  const userId = props.user ? props.user.id : '';
-  const [beersData, setBeersData] = React.useState([]);
-  const [breweryData, setBreweryData] = React.useState({});
-  const [beerRatings, setBeerRatings] = React.useState({});
-  const [isMyBrewery, setIsMyBrewery] = React.useState({});
+    const navigate = useNavigate();
+    const role = props.user ? props.user.authorities[0].name : '';
+    const userId = props.user ? props.user.id : '';
+    const [beersData, setBeersData] = React.useState([]);
+    const [breweryOwnerUserId, setBreweryOwnerUserId] = React.useState();
+    const [beerRatings, setBeerRatings] = React.useState({});
+    const [isMyBrewery, setIsMyBrewery] = React.useState({});
 
-  let params = useParams();
-  let breweryId = params.breweryId;
-  const beerTypes = props.beerTypes ? props.beerTypes : '';
-  let beerTypesObj = {};
+    let params = useParams();
+    let breweryId = params.breweryId;
+    const beerTypes = props.beerTypes;
+    let beerTypesObj = {};
 
-  beerTypes &&
-    beerTypes.forEach((beerType) => {
-      beerTypesObj = {
-        ...beerTypesObj,
-        [beerType.typeId]: beerType.style,
-      };
-    });
-
-  React.useEffect(() => {
-    setBeersAndBrewery();
-    getBeerRatings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [beersData.isActive]);
-
-  function setBeersAndBrewery() {
-    axios.get(baseUrl + `/brewery/${breweryId}/beer`).then((response) => {
-      setBeersData(response.data);
-    });
-    axios.get(baseUrl + `/brewery/${breweryId}`).then((response) => {
-      setBreweryData(response.data);
-      if (userId === breweryData.breweryOwnerUserId) {
-        setIsMyBrewery(true);
-      }
-    });
-  }
-
-  function getBeerRatings() {
-    axios
-      .get(baseUrl + `/brewery/${breweryId}/beer/avgrating`)
-      .then((response) => {
-        response.data.forEach((rating) => {
-          const beerId = rating.beerId;
-          const averageRating = rating.averageRating;
-          setBeerRatings(() => ({
-            ...beerRatings,
-            [beerId]: averageRating,
-          }));
+    beerTypes &&
+        beerTypes.forEach((beerType) => {
+            beerTypesObj = {
+                ...beerTypesObj,
+                [beerType.typeId]: beerType.style,
+            };
         });
-      });
-  }
 
-  function handleActiveChange(e, beerId) {
-    const data = beersData.filter((beer) => beer.beerId === beerId)[0];
-    const isActive = data.isActive;
-    data.isActive = !isActive;
+    useEffect(() => {
+        fetchBeersData(breweryId, setBeersData);
+        fetchBreweryOwnerUserId(breweryId, setBreweryOwnerUserId);
+        fetchBeerRatings(breweryId, setBeerRatings);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    axios
-      .put(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, data)
-      .then((response) => {
-        alert('Beer is now ' + (isActive ? 'Inactive' : 'Active'));
-      })
-      .catch((error) => {
-        if (error.response) {
-          // Request made and server responded
-          alert(error.response.data);
-          console.error(error.response.status + ': ' + error.response.data);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          alert(error.request);
-          console.log(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          alert('Error \n', error.message);
-          console.log('Error', error.message);
-        }
-      });
-  }
+    useEffect(() => {
+        setIsMyBrewery(userId === breweryOwnerUserId);
+    }, [breweryOwnerUserId, userId]);
 
-  function handleDeleteBeer(e, beerId) {
-    axios
-      .delete(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`)
-      .then((response) => {
-        alert('Beer has been deleted.');
-      })
-      .catch((error) => {
-        if (error.response) {
-          // Request made and server responded
-          alert('Failed to delete beer.');
-          console.error(
-            error.response.status + ': ' + JSON.stringify(error.response.data)
-          );
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          alert('Failed to delete beer.');
-          console.log(JSON.stringify(error.request));
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          alert('Failed to delete beer.');
-          console.log('Error', error.message);
-        }
-      });
-  }
+    function handleActiveChange(e, beerId) {
+        const beer = beersData.filter((beer) => beer.beerId === beerId)[0];
+        const isActive = beer.isActive;
+        beer.isActive = !isActive;
 
-  const beerListElements = beersData.map((beer) => {
-    if (isMyBrewery || beer.isActive) {
-      const beerRating = beerRatings[beer.beerId]
-        ? beerRatings[beer.beerId]
-        : '';
-      return (
-        <tr key={beer.id}>
-          <td>
-            <Link
-              to={{
-                pathname: `/brewery/${breweryId}/beers/${beer.beerId}`,
-              }}
-            >
-              {beer.name}
-            </Link>
-          </td>
-          <td>{beerTypesObj[beer.typeId]}</td>
-          <td>{beer.description}</td>
-          <td>{beer.abv}</td>
-          <td>{beerRating}</td>
-          {isMyBrewery && role === 'ROLE_BREWER' && (
-            <td>
-              <button
-                onClick={(e) => {
-                  handleActiveChange(e, beer.beerId);
-                }}
-              >
-                Toggle beer to {beer.isActive ? 'Inactive' : 'Active'}
-              </button>
-            </td>
-          )}
-          {isMyBrewery && role === 'ROLE_BREWER' && (
-            <td>
-              <button
-                onClick={(e) => {
-                  handleDeleteBeer(e, beer.beerId);
-                }}
-              >
-                Delete Beer
-              </button>
-            </td>
-          )}
-        </tr>
-      );
-    } else {
-      return <tr key={beer.id}></tr>;
+        updateBeerToggleIsActive(breweryId, beerId, beer);
+        navigate(`/brewery/${breweryId}/beers`);
     }
-  });
 
-  return (
-    <main>
-      <div className='main--content-panel'>
-        <h3>Page to View Full List of Beers</h3>
-        <Link to='/breweries'>View All Breweries</Link>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>ABV</th>
-              <th>AVG Rating</th>
-              {isMyBrewery && role === 'ROLE_BREWER' && <th>Active Toggle</th>}
-              {isMyBrewery && role === 'ROLE_BREWER' && <th>Delete Beer</th>}
-            </tr>
-          </thead>
-          <tbody>{beerListElements}</tbody>
-        </table>
-        {isMyBrewery ? (
-          <Link
-            to={{
-              pathname: `/brewery/${breweryId}/addbeer`,
-            }}
-          >
-            Add Beer
-          </Link>
-        ) : (
-          ''
-        )}
-      </div>
-      <div className='main__image-panel'>
-        <img
-          src='https://via.placeholder.com/600'
-          alt='placeholder'
-        />
-      </div>
-    </main>
-  );
+    function handleDeleteBeer(e, beerId) {
+        deleteBeer(breweryId, beerId);
+    }
+
+    const beerListElements = beersData.map((beer) => {
+        if (isMyBrewery || beer.isActive) {
+            const beerRating = beerRatings[beer.beerId]
+                ? beerRatings[beer.beerId]
+                : 'N/A';
+            return (
+                <tr key={beer.id}>
+                    <td>
+                        <Link
+                            to={{
+                                pathname: `/brewery/${breweryId}/beers/${beer.beerId}`,
+                            }}
+                        >
+                            {beer.name}
+                        </Link>
+                    </td>
+                    <td>{beerTypesObj[beer.typeId]}</td>
+                    <td>{beer.description}</td>
+                    <td>{beer.abv}</td>
+                    <td>{beerRating}</td>
+                    {isMyBrewery && role === 'ROLE_BREWER' && (
+                        <td>
+                            <button
+                                onClick={(e) => {
+                                    handleActiveChange(e, beer.beerId);
+                                }}
+                            >
+                                Toggle beer to{' '}
+                                {beer.isActive ? 'Inactive' : 'Active'}
+                            </button>
+                        </td>
+                    )}
+                    {isMyBrewery && role === 'ROLE_BREWER' && (
+                        <td>
+                            <button
+                                onClick={(e) => {
+                                    handleDeleteBeer(e, beer.beerId);
+                                }}
+                            >
+                                Delete Beer
+                            </button>
+                        </td>
+                    )}
+                </tr>
+            );
+        } else {
+            return <tr key={beer.id}></tr>;
+        }
+    });
+
+    return (
+        <main>
+            <div className='main--content-panel'>
+                <h3>Page to View Full List of Beers</h3>
+                <Link to='/breweries'>View All Breweries</Link>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>ABV</th>
+                            <th>AVG Rating</th>
+                            {isMyBrewery && role === 'ROLE_BREWER' && (
+                                <th>Active Toggle</th>
+                            )}
+                            {isMyBrewery && role === 'ROLE_BREWER' && (
+                                <th>Delete Beer</th>
+                            )}
+                        </tr>
+                    </thead>
+                    <tbody>{beerListElements}</tbody>
+                </table>
+                {isMyBrewery ? (
+                    <Link
+                        to={{
+                            pathname: `/brewery/${breweryId}/addbeer`,
+                        }}
+                    >
+                        Add Beer
+                    </Link>
+                ) : (
+                    ''
+                )}
+            </div>
+            <div className='main__image-panel'>
+                <img
+                    src='https://via.placeholder.com/600'
+                    alt='placeholder'
+                />
+            </div>
+        </main>
+    );
 }
