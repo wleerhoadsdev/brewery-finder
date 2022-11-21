@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class BeerController {
+    private static final String MESSAGE_COULD_NOT_FIND_BEER_BY_ID   = "Could not find beer";
 
     private static final String MESSAGE_FORMAT_BAD_REQUEST_BEER_ID_PATH_VAR_REQ_BODY_MISMATCH
             = "The beer ID's in the path variable and request body do not match.";
@@ -49,6 +50,9 @@ public class BeerController {
                             @PathVariable("beerId") @NotNull Integer beerId) {
         try {
             Beer beerById = beerDao.getBeerById(breweryId, beerId);
+            if (beerById == null){
+                throw new RecordNotFoundException(MESSAGE_COULD_NOT_FIND_BEER_BY_ID);
+            }
             return beerById;
         }
         catch (RecordNotFoundException e) {
