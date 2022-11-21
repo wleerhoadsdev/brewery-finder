@@ -1,0 +1,1 @@
+export const webAppUrl = 'http://localhost:3000';

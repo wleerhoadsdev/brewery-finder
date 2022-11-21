@@ -1,77 +1,106 @@
-import axios from 'axios'
-import {Component} from 'react'
-import {Link} from 'react-router-dom'
-import { baseUrl } from '../../Shared/baseUrl'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthService from '../../services/auth.service';
+import './Register.css';
 
-class Register extends Component{
+export default function Register(props) {
+    let navigate = useNavigate();
 
-    constructor(props){
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-            confirmPassword: ''
+    const [registerInfo, setRegisterInfo] = useState({
+        username: '',
+        name: '',
+        emailAddress: '',
+        password: '',
+        confirmPassword: '',
+        role: 'USER',
+    });
+
+    const handleInputChange = (event) => {
+        event.preventDefault();
+        setRegisterInfo((prevState) => ({
+            ...prevState,
+            [event.target.name]: event.target.value,
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (registerInfo.password === registerInfo.confirmPassword) {
+            AuthService.register(registerInfo).then((response) => {
+                if (response === 201) navigate('/login');
+            });
+        } else {
+            alert('Password and Confirm Password must match!!!');
         }
-        
-    }
+    };
 
-    handleInputChange = (event) => {
-        event.preventDefault()
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-    handleSubmit = () => {
-        const data = {username: this.state.username, password: this.state.password, confirmPassword: this.state.confirmPassword, role: 'USER'}
-        if(this.state.password === this.state.confirmPassword){
-            axios.post(baseUrl + "/register", data)
-        }else{
-            alert("Password and Confirm Password must match!!!")
-        }
-    }
-
-    render(){
-        return(
-            <div>
-                <h1>Create Account</h1>
-                <label class="sr-only">Username</label>
+    return (
+        <div>
+            <h1>Create Account</h1>
+            <form>
+                <label className='sr-only'>Username</label>
                 <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    class="form-control"
-                    placeholder="Username"
-                    v-model="user.username"
-                    onChange={this.handleInputChange}
+                    type='text'
+                    id='username'
+                    name='username'
+                    className='form-control'
+                    placeholder='Username'
+                    autoComplete='username'
+                    onChange={handleInputChange}
                     required
                 />
-                <label class="sr-only">Password</label>
+                <label className='sr-only'>Name</label>
                 <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Password"
-                    v-model="user.password"
-                    onChange={this.handleInputChange}
+                    type='text'
+                    id='name'
+                    name='name'
+                    className='form-control'
+                    placeholder='Name'
+                    autoComplete='username'
+                    onChange={handleInputChange}
+                    required
+                />
+                <label className='sr-only'>Email</label>
+                <input
+                    type='email'
+                    id='email'
+                    name='email'
+                    className='form-control'
+                    placeholder='Email'
+                    autoComplete='email'
+                    onChange={handleInputChange}
+                    required
+                />
+                <label className='sr-only'>Password</label>
+                <input
+                    type='password'
+                    id='password'
+                    name='password'
+                    className='form-control'
+                    placeholder='Password'
+                    autoComplete='new-password'
+                    onChange={handleInputChange}
                     required
                 />
                 <input
-                    type="password"
-                    id="password-confirm"
-                    name="confirmPassword"
-                    class="form-control"
-                    placeholder="Confirm Password"
-                    v-model="user.password"
-                    onChange={this.handleInputChange}
+                    type='password'
+                    id='password-confirm'
+                    name='confirmPassword'
+                    className='form-control'
+                    placeholder='Confirm Password'
+                    autoComplete='new-password'
+                    onChange={handleInputChange}
                     required
                 />
-                <Link to="/login">Have an account?</Link>
-                <button type="submit" onClick={this.handleSubmit}>Sign in</button>
-            </div>
-        )
-    }
+                <Link to='/login'>Have an account?</Link>
+                <button
+                    type='submit'
+                    onClick={handleSubmit}
+                >
+                    Create Account
+                </button>
+            </form>
+        </div>
+    );
 }
-
-export default Register;

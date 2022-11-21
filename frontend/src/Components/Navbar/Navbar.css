@@ -1,0 +1,11 @@
+nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 20px;
+}
+
+.nav_app_title {
+  margin-right: auto;
+  display: inline;
+}
