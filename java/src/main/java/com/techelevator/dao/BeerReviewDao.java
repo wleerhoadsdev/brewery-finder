@@ -12,5 +12,6 @@ public interface BeerReviewDao {
     List<BeerAverageRating> getBeersAverageRatings(int breweryId);
     //delete for testing purpose since we need
     //to delete constraints before delete beer
-    int deleteReview(int beer_id);
+    int deleteReview(int reviewId);
+    int deleteReviewsByBeerId(Integer beerId);
 }

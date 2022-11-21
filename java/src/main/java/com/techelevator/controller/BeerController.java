@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.controller.exception.EndpointException;
 import com.techelevator.dao.BeerDao;
+import com.techelevator.dao.BeerReviewDao;
 import com.techelevator.dao.BreweryDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.dao.exception.RecordNotFoundException;
@@ -33,11 +34,13 @@ public class BeerController {
     private UserDao userDao;
     private BreweryDao breweryDao;
     private BeerDao beerDao;
+    private BeerReviewDao beerReviewDao;
 
-    public BeerController(UserDao userDao, BreweryDao breweryDao, BeerDao beerDao) {
+    public BeerController(UserDao userDao, BreweryDao breweryDao, BeerDao beerDao, BeerReviewDao beerReviewDao) {
         this.userDao = userDao;
         this.breweryDao = breweryDao;
         this.beerDao = beerDao;
+        this.beerReviewDao = beerReviewDao;
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'BREWER')")
@@ -123,6 +126,7 @@ public class BeerController {
 
         try {
             verifyApiCallerIsBreweryOwnerOrAdmin(principal, breweryId);
+            beerReviewDao.deleteReviewsByBeerId(beerId);
             beerDao.deleteBeer(breweryId, beerId);
         } catch (EndpointException e) {
             throw e;
