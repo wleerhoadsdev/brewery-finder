@@ -83,13 +83,12 @@ public class BreweryService {
 
         Brewery currentBrewery = breweryDao.getByBreweryId(brewery.getBreweryId());
 
-        /* TODO: Uncomment this out when add endpoint authorization support
         User user = username == null ? null : userDao.findByUsername(username);
         if (user == null || (user.getId() != currentBrewery.getBreweryOwnerUserId()
                 && !user.hasAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException(String.format(
                     MESSAGE_FORMAT_NOT_BREWERY_OWNER_OR_ADMIN, brewery.getBreweryId()));
-        }*/
+        }
 
         if (currentBrewery.getBreweryOwnerUserId() != brewery.getBreweryOwnerUserId()) {
             throw new UnsupportedOperationException(MESSAGE_FORMAT_CHANGING_OF_BREWERY_OWNER_NOT_SUPPORTED);
