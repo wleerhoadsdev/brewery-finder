@@ -1,13 +1,15 @@
 package com.techelevator.controller;
 
 import com.techelevator.controller.exception.EndpointException;
+import com.techelevator.dao.BeerDao;
 import com.techelevator.dao.BeerReviewDao;
-import com.techelevator.dao.UserDao;
 import com.techelevator.dao.exception.RecordNotFoundException;
 import com.techelevator.model.BeerAverageRating;
 import com.techelevator.model.BeerReview;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,31 +20,37 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class BeerReviewController {
+    private static final String MESSAGE_FORMAT_BAD_REQUEST_BEER_ID_PATH_VAR_REQ_BODY_MISMATCH
+            = "The beer ID's in the path variable and request body do not match.";
 
-    private UserDao userDao;
+    private BeerDao beerDao;
     private BeerReviewDao beerReviewDao;
 
-    public BeerReviewController(UserDao userDao, BeerReviewDao beerReviewDao) {
-        this.userDao = userDao;
+    public BeerReviewController(BeerDao beerDao, BeerReviewDao beerReviewDao) {
+        this.beerDao = beerDao;
         this.beerReviewDao = beerReviewDao;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(code = HttpStatus.CREATED)
     @RequestMapping(value = "/brewery/{breweryId}/beer/{beerId}/review", method = RequestMethod.POST)
     public BeerReview createBeerReview(Principal principal, @PathVariable("breweryId") @NotNull Integer breweryId,
                                        @PathVariable("beerId") @NotNull Integer beerId,
                                        @Valid @RequestBody BeerReview beerReview) {
 
-        try {
-            return beerReviewDao.create(beerReview);
-        }
-        catch (RecordNotFoundException e) {
-            throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-        catch (Exception e) {
-            throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        if (!beerId.equals(beerReview.getBeerId())) {
+            throw new EndpointException(HttpStatus.BAD_REQUEST,
+                    MESSAGE_FORMAT_BAD_REQUEST_BEER_ID_PATH_VAR_REQ_BODY_MISMATCH);
         }
 
+        try {
+            verifyBeerBelongsToBrewery(breweryId, beerId);
+            return beerReviewDao.create(beerReview);
+        } catch (RecordNotFoundException e) {
+            throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (Exception e) {
+            throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/brewery/{breweryId}/beer/{beerId}/review", method = RequestMethod.GET)
@@ -52,11 +60,9 @@ public class BeerReviewController {
         try {
             return beerReviewDao.getReviewByBeerId(breweryId, beerId);
 
-        }
-        catch (RecordNotFoundException e) {
+        } catch (RecordNotFoundException e) {
             throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
@@ -75,12 +81,15 @@ public class BeerReviewController {
         try {
             return beerReviewDao.getBeersAverageRatings(breweryId);
 
-        }
-        catch (RecordNotFoundException e) {
+        } catch (RecordNotFoundException e) {
             throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
+    }
+
+    private void verifyBeerBelongsToBrewery(Integer breweryId, Integer beerId) {
+        // throws RecordNotFound exception if beer does not exist or does not have matching brewery ID
+        beerDao.getBeerById(breweryId, beerId);
     }
 }

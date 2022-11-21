@@ -7,6 +7,7 @@ import com.techelevator.model.BreweryListItem;
 import com.techelevator.service.BreweryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ public class BreweryController {
         this.breweryService = breweryService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(code = HttpStatus.CREATED)
     @RequestMapping(value = "/brewery/addbrewery", method = RequestMethod.POST)
     public Brewery createBrewery(Principal principal, @Valid @RequestBody Brewery brewery) {
@@ -71,6 +73,7 @@ public class BreweryController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'BREWER')")
     @RequestMapping(value = "/brewery/{breweryId}", method = RequestMethod.PUT)
     public Brewery updateBrewery(Principal principal, @PathVariable("breweryId") @NotNull Integer breweryId,
                                  @Valid @RequestBody Brewery brewery) {
@@ -86,7 +89,7 @@ public class BreweryController {
         } catch (RecordNotFoundException e) {
             throw new EndpointException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AccessDeniedException e) {
-            throw new EndpointException(HttpStatus.UNAUTHORIZED, e.getMessage());
+            throw new EndpointException(HttpStatus.FORBIDDEN, e.getMessage());
         } catch (Exception e) {
             throw new EndpointException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
