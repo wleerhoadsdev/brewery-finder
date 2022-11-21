@@ -1,15 +1,13 @@
 import axios from 'axios';
-import { headers } from './auth-header';
+import authHeader from './auth-header';
 import { baseUrl } from '../Shared/baseUrl';
 import { catchErrors } from './auth-error';
 
 export const postCreatedBeer = (beerInformation, breweryId) => {
     return axios
-        .post(
-            `${baseUrl}/brewery/${breweryId}/addbeer`,
-            beerInformation,
-            headers
-        )
+        .post(`${baseUrl}/brewery/${breweryId}/addbeer`, beerInformation, {
+            headers: authHeader(),
+        })
         .then((response) => {
             return response;
         })
@@ -18,7 +16,7 @@ export const postCreatedBeer = (beerInformation, breweryId) => {
 
 export const fetchBeerTypes = (setBeerTypes) => {
     return axios
-        .get(baseUrl + '/beertype')
+        .get(baseUrl + '/beertype', {}, { headers: authHeader() })
         .then((response) => {
             setBeerTypes(response.data);
         })
@@ -27,7 +25,11 @@ export const fetchBeerTypes = (setBeerTypes) => {
 
 export const fetchBeersData = (breweryId, setBeersData) => {
     return axios
-        .get(baseUrl + `/brewery/${breweryId}/beer`, {}, headers)
+        .get(
+            baseUrl + `/brewery/${breweryId}/beer`,
+            {},
+            { headers: authHeader() }
+        )
         .then((response) => {
             setBeersData(response.data);
         })
@@ -36,7 +38,11 @@ export const fetchBeersData = (breweryId, setBeersData) => {
 
 export const fetchBeerData = (breweryId, beerId, setBeerData) => {
     return axios
-        .get(baseUrl + `/brewery/${breweryId}/beer/${beerId}`, {}, headers)
+        .get(
+            baseUrl + `/brewery/${breweryId}/beer/${beerId}`,
+            {},
+            { headers: authHeader() }
+        )
         .then((response) => {
             setBeerData(response.data);
         })
@@ -45,7 +51,9 @@ export const fetchBeerData = (breweryId, beerId, setBeerData) => {
 
 export const updateBeerToggleIsActive = (breweryId, beerId, beer) => {
     return axios
-        .put(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, beer, headers)
+        .put(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, beer, {
+            headers: authHeader(),
+        })
         .then((response) => {
             alert('Beer is now ' + (beer.isActive ? 'Inactive' : 'Active'));
         })
@@ -54,7 +62,11 @@ export const updateBeerToggleIsActive = (breweryId, beerId, beer) => {
 
 export const deleteBeer = (breweryId, beerId) => {
     return axios
-        .delete(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, {}, headers)
+        .delete(
+            `${baseUrl}/brewery/${breweryId}/beer/${beerId}`,
+            {},
+            { headers: authHeader() }
+        )
         .then((response) => {
             alert('Beer has been deleted.');
         })

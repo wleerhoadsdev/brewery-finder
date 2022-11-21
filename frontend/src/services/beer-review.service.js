@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { headers } from './auth-header';
+import authHeader from './auth-header';
 import { baseUrl } from '../Shared/baseUrl';
 import { catchErrors } from './auth-error';
 
 export const fetchBeerRatings = (breweryId, setBeerRatings) => {
     return axios
-        .get(baseUrl + `/brewery/${breweryId}/beer/avgrating`, {}, headers)
+        .get(
+            baseUrl + `/brewery/${breweryId}/beer/avgrating`,
+            {},
+            { headers: authHeader() }
+        )
         .then((response) => {
             response.data.forEach((rating) => {
                 const beerId = rating.beerId;
@@ -24,7 +28,7 @@ export const fetchAvgBeerRating = (breweryId, beerId, setAvgRating) => {
         .get(
             baseUrl + `/brewery/${breweryId}/beer/${beerId}/avgrating`,
             {},
-            headers
+            { headers: authHeader() }
         )
         .then((response) => {
             setAvgRating(response.data);
@@ -37,7 +41,7 @@ export const postBeerReview = (breweryId, beerId, reviewData) => {
         .post(
             baseUrl + `/brewery/${breweryId}/beer/${beerId}/review`,
             reviewData,
-            headers
+            { headers: authHeader() }
         )
         .then((response) => {
             alert('Review was posted');
@@ -47,7 +51,11 @@ export const postBeerReview = (breweryId, beerId, reviewData) => {
 
 export const fetchReviewData = (breweryId, beerId, setReviewsData) => {
     return axios
-        .get(baseUrl + `/brewery/${breweryId}/beer/${beerId}/review`)
+        .get(
+            baseUrl + `/brewery/${breweryId}/beer/${beerId}/review`,
+            {},
+            { headers: authHeader() }
+        )
         .then((response) => {
             setReviewsData(response.data);
         })
