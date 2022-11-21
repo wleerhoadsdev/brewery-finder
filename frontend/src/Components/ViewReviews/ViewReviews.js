@@ -1,20 +1,15 @@
-import axios from 'axios';
-import React from 'react';
-import { baseUrl } from '../../Shared/baseUrl';
+import React, { useState, useEffect } from 'react';
 import './ViewReviews.css';
+import BeerReviewService from '../../services/beer-review.service';
 
 export default function ViewReviews(props) {
     const breweryId = props.breweryId;
     const beerId = props.beerId;
-    const [reviewsData, setReviewsData] = React.useState([]);
+    const [reviewsData, setReviewsData] = useState([]);
     const elementArray = [];
 
-    React.useEffect(() => {
-        axios
-            .get(baseUrl + `/brewery/${breweryId}/beer/${beerId}/review`)
-            .then((response) => {
-                setReviewsData(response.data);
-            });
+    useEffect(() => {
+        BeerReviewService.fetchReviewData(breweryId, beerId, setReviewsData);
     }, [breweryId, beerId]);
 
     reviewsData.forEach((review) => {

@@ -13,14 +13,11 @@ import ViewAllUsers from '../ViewAllUsers/ViewAllUsers';
 import ViewBeerInformation from '../ViewBeerInformation/ViewBeerInformation';
 import ViewBeerList from '../ViewBeerList/ViewBeerList';
 import ViewBrewery from '../ViewBrewery/ViewBrewery';
-import axios from 'axios';
-import { baseUrl } from '../../Shared/baseUrl';
 import { useEffect } from 'react';
 import AuthService from '../../services/auth.service';
+import BeerService from '../../services/beer.service';
 
 export default function Main(props) {
-    // Use below for when API is unavailable and comment out other user useState()
-    // const [user, setUser] = useState(data.mockLogins.user)
     const [token, setToken] = useState('');
     const [user, setUser] = useState();
     const [currentBrewery, setCurrentBrewery] = useState('');
@@ -30,7 +27,7 @@ export default function Main(props) {
     const [beerTypes, setBeerTypes] = useState();
 
     useEffect(() => {
-        fetchBeerTypes();
+        handleGetBeerTypes();
         handleCheckSessionStorage();
     }, []);
 
@@ -71,12 +68,8 @@ export default function Main(props) {
         setEditBreweryData(breweryData);
     };
 
-    /*Add API Call to get BeerType table and pass to AddBeer, ViewBeerInformation, and ViewBeerList */
-
-    const fetchBeerTypes = () => {
-        axios.get(baseUrl + '/beertype').then((response) => {
-            setBeerTypes(response.data);
-        });
+    const handleGetBeerTypes = () => {
+        BeerService.fetchBeerTypes(setBeerTypes);
     };
 
     return (

@@ -1,15 +1,13 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { baseUrl } from '../../Shared/baseUrl';
 import UserService from '../../services/user.service';
 
 export default function ViewAllUsers(props) {
     const role = props.user ? props.user.authorities[0].name : '';
 
-    const [usersData, setUsersData] = React.useState([]);
+    const [usersData, setUsersData] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         UserService.fetchAllUsers(setUsersData);
     }, []);
 

@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import UserService from '../../services/user.service';
+import BeerReviewService from '../../services/beer-review.service';
+import BeerService from '../../services/beer.service';
+import BreweryService from '../../services/brewery.service';
 
 export default function ViewBeerList(props) {
     const navigate = useNavigate();
     const role = props.user ? props.user.authorities[0].name : '';
     const userId = props.user ? props.user.id : '';
-    const [beersData, setBeersData] = React.useState([]);
-    const [breweryOwnerUserId, setBreweryOwnerUserId] = React.useState();
-    const [beerRatings, setBeerRatings] = React.useState({});
-    const [isMyBrewery, setIsMyBrewery] = React.useState({});
+    const [beersData, setBeersData] = useState([]);
+    const [breweryOwnerUserId, setBreweryOwnerUserId] = useState();
+    const [beerRatings, setBeerRatings] = useState({});
+    const [isMyBrewery, setIsMyBrewery] = useState({});
 
     let params = useParams();
     let breweryId = params.breweryId;
@@ -25,9 +27,12 @@ export default function ViewBeerList(props) {
         });
 
     useEffect(() => {
-        UserService.fetchBeersData(breweryId, setBeersData);
-        UserService.fetchBreweryOwnerUserId(breweryId, setBreweryOwnerUserId);
-        UserService.fetchBeerRatings(breweryId, setBeerRatings);
+        BeerService.fetchBeersData(breweryId, setBeersData);
+        BreweryService.fetchBreweryOwnerUserId(
+            breweryId,
+            setBreweryOwnerUserId
+        );
+        BeerReviewService.fetchBeerRatings(breweryId, setBeerRatings);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -40,13 +45,13 @@ export default function ViewBeerList(props) {
         const isActive = beer.isActive;
         beer.isActive = !isActive;
 
-        UserService.updateBeerToggleIsActive(breweryId, beerId, beer).then(() =>
+        BeerService.updateBeerToggleIsActive(breweryId, beerId, beer).then(() =>
             navigate(`/brewery/${breweryId}/beers`)
         );
     }
 
     function handleDeleteBeer(e, beerId) {
-        UserService.deleteBeer(breweryId, beerId).then(() => {
+        BeerService.deleteBeer(breweryId, beerId).then(() => {
             setBeersData(beersData.filter((beer) => beer.beerId !== beerId));
         });
     }

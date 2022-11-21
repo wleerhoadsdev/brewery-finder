@@ -1,8 +1,8 @@
-import axios from 'axios';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { baseUrl } from '../../Shared/baseUrl';
 import ViewReviews from '../ViewReviews/ViewReviews';
+import BeerReviewService from '../../services/beer-review.service';
+import BeerService from '../../services/beer.service';
 
 export default function ViewBeerInformation(props) {
     const role = props.user ? props.user.authorities[0].name : '';
@@ -12,8 +12,8 @@ export default function ViewBeerInformation(props) {
     const beerTypes = props.beerTypes;
     let beerTypesObj = {};
 
-    const [beerData, setBeerData] = React.useState([]);
-    const [avgRating, setAvgRating] = React.useState(0);
+    const [beerData, setBeerData] = useState([]);
+    const [avgRating, setAvgRating] = useState(0);
 
     beerTypes &&
         beerTypes.forEach((beerType) => {
@@ -23,23 +23,15 @@ export default function ViewBeerInformation(props) {
             };
         });
 
-    React.useEffect(() => {
-        axios
-            .get(baseUrl + `/brewery/${breweryId}/beer/${beerId}`)
-            .then((response) => {
-                setBeerData(response.data);
-            });
-        axios
-            .get(baseUrl + `/brewery/${breweryId}/beer/${beerId}/avgrating`)
-            .then((response) => {
-                setAvgRating(response.data);
-            });
+    useEffect(() => {
+        BeerService.fetchBeerData(breweryId, beerId, setBeerData);
+        BeerReviewService.fetchAvgBeerRating(breweryId, beerId, setAvgRating);
     }, [beerId, breweryId]);
 
     if (beerData.isActive) {
         return (
             <div className='home--left-panel'>
-                <h3>{beerData.beerName}</h3>
+                <h3>{beerData.name}</h3>
                 <p>{beerData.description}</p>
                 <p>{beerData.abv}</p>
                 <p>Beer Type: {beerTypesObj[beerData.typeId]}</p>

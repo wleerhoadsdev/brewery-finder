@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import UserService from '../../services/user.service';
+import BeerService from '../../services/beer.service';
 
 export default function AddBeer(props) {
     const role = props.user ? props.user.authorities[0].name : '';
@@ -28,7 +28,7 @@ export default function AddBeer(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        UserService.postCreatedBeer(beerInformation, breweryId).then(
+        BeerService.postCreatedBeer(beerInformation, breweryId).then(
             (response) => {
                 alert('Beer was created');
                 navigate(`/brewery/${breweryId}/beers`);
