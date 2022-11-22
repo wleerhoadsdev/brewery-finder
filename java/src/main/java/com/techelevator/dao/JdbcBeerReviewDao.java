@@ -17,9 +17,8 @@ public class JdbcBeerReviewDao implements BeerReviewDao {
     private static final String MESSAGE_COULD_NOT_CREATE_REVIEW_RECORD = "Could not create review record.";
     private static final String MESSAGE_COULD_NOT_DELETE_REVIEW_RECORD = "Could not delete review record.";
 
-    private JdbcTemplate jdbcTemplate;
-//    public JdbcBeerReviewDao(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
-    public JdbcBeerReviewDao(DataSource dataSource) {this.jdbcTemplate = new JdbcTemplate(dataSource);}
+    public JdbcTemplate jdbcTemplate;
+    public JdbcBeerReviewDao(DataSource dataSource){this.jdbcTemplate = new JdbcTemplate(dataSource);}
 
     @Override
     public BeerReview create(BeerReview beerReview) {
