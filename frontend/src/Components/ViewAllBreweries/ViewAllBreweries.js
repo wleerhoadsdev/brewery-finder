@@ -28,6 +28,7 @@ export default function ViewAllBreweries(props) {
                         to={{
                             pathname: `/brewery/${brewery.id}`,
                         }}
+                        className='link_to_brewery'
                         onClick={() => props.handleCurrentBrewery(brewery.id)}
                     >
                         {brewery.name}
@@ -46,9 +47,9 @@ export default function ViewAllBreweries(props) {
 
     return (
         <div className='breweries'>
-            <h3> Below are our List of Breweries!</h3>
-            <Link to='/'>Go Back</Link>
-            <table>
+            <h3> Below is our List of Breweries!</h3>
+            <Link to='/' className='go_back_link'>Go Back</Link>
+            <table className='brewery_table'>
                 <thead>
                     <tr>
                         <th>Brewery Name</th>

@@ -73,7 +73,7 @@ export default function Main(props) {
     };
 
     return (
-        <div>
+        <>
             <Navbar
                 user={user}
                 handleLogout={handleLogout}
@@ -196,6 +196,6 @@ export default function Main(props) {
                     }
                 />
             </Routes>
-        </div>
+        </>
     );
 }

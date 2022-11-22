@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import UserService from '../../services/user.service';
+import './Home.css';
 
 export default function Home(props) {
     const role = props.user ? props.user.authorities[0].name : '';
@@ -24,7 +25,7 @@ export default function Home(props) {
     );
 
     const viewMyBreweryElement = (
-        <Link
+        <Link className={"link-styles"}
             to={{
                 pathname: `/brewery/${props.myBrewery}`,
             }}
@@ -34,7 +35,7 @@ export default function Home(props) {
     );
 
     const viewMyBeersElement = (
-        <Link
+        <Link className={"link-styles"}
             to={{
                 pathname: `/brewery/${props.myBrewery}/beers`,
             }}
@@ -49,8 +50,9 @@ export default function Home(props) {
         <main>
             <div className='main__content-panel'>
                 {greetingText}
-                <h3>Discover your new favorite beer</h3>
-                <Link to='/breweries'>View All Breweries</Link>
+                <h3 className='heading'>Discover your new favorite beer</h3>
+                <Link className={"link-styles"} 
+                    to='/breweries'>View All Breweries</Link>
                 {isBrewer && viewMyBreweryElement}
                 {isBrewer && viewMyBeersElement}
                 {isAdmin && viewAllUsersElement}
