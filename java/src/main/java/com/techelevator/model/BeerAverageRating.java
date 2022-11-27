@@ -2,16 +2,8 @@ package com.techelevator.model;
 
 public class BeerAverageRating {
     private int beerId;
-    private double averageRating;
-//    private String beerName;
 
-//    public String getBeerName() {
-//        return beerName;
-//    }
-//
-//    public void setBeerName(String beerName) {
-//        this.beerName = beerName;
-//    }
+    private double averageRating;
 
     public int getBeerId() {
         return beerId;

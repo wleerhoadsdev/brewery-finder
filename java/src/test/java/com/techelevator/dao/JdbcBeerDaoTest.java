@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class JdbcBeerDaoTest extends BaseDaoTests  {
 
-    private static final Beer BEER_1 = new Beer(20, "Blonde", 1, "light blonde",
+    private static final Beer BEER_1 = new Beer("Blonde", 1, "light blonde",
         5.9,1, true, "https://images_20.com");
     private static final Beer BEER_2 = new Beer("Blonde 20", 1, "Blonde 20",
             5.9,1, true, "https://images_url.com");
@@ -24,7 +24,7 @@ public class JdbcBeerDaoTest extends BaseDaoTests  {
 
     @Test
     public void getBeerById_return_correct_info(){
-        Beer beer1 = sut.getBeerById(BEER_1.getBreweryId(),BEER_1.getBeerId());
+        Beer beer1 = sut.getBeerById(BEER_1.getBreweryId(),1);
         assertBeerMatch(beer1, BEER_1);
     }
 
@@ -36,7 +36,7 @@ public class JdbcBeerDaoTest extends BaseDaoTests  {
 
     @Test
     public void updateBeer_updates_beer(){
-        Beer beerToUpdate = sut.getBeerById(BEER_1.getBreweryId(), BEER_1.getBeerId());
+        Beer beerToUpdate = sut.getBeerById(BEER_1.getBreweryId(), 1);
         beerToUpdate.setName("Stella Updated");
         sut.updateBeer(beerToUpdate, beerToUpdate.getBreweryId(), beerToUpdate.getBeerId());
         Beer retrievedBeer = sut.getBeerById(BEER_1.getBreweryId(), beerToUpdate.getBeerId());
@@ -55,9 +55,9 @@ public class JdbcBeerDaoTest extends BaseDaoTests  {
         //deleting constrain first. Review with id 1 created in sql script
         int reviewIdCreatedWithScript = 1;
         jdbcBeerReviewDao.deleteReview(reviewIdCreatedWithScript);
-        sut.deleteBeer(BEER_1.getBreweryId(),BEER_1.getBeerId());
+        sut.deleteBeer(BEER_1.getBreweryId(),1);
         //beer actually deleted, but question how to veiry it is deleted
-        Beer retrievedBeer = sut.getBeerById(BEER_1.getBreweryId(), BEER_1.getBeerId());
+        Beer retrievedBeer = sut.getBeerById(BEER_1.getBreweryId(), 1);
         Assert.assertNull(retrievedBeer);
 
     }

@@ -271,7 +271,7 @@ VALUES
     ('2', 'Hefeweizen');
 INSERT INTO
     beer (
-        beer_id,
+--        beer_id,
         beer_name,
         brewery_id,
         description,
@@ -281,7 +281,8 @@ INSERT INTO
         image_url
     )
 VALUES
-    (   '20',
+    (
+--    '20',
         'Blonde',
         '1',
         'light blonde',
@@ -292,7 +293,7 @@ VALUES
     );
 INSERT INTO
     beer (
-        beer_id,
+--        beer_id,
         beer_name,
         brewery_id,
         description,
@@ -302,7 +303,8 @@ INSERT INTO
         image_url
     )
 VALUES
-    (   '30',
+    (
+--    '30',
         'Half Dome',
         '2',
         'light hefe',
@@ -311,9 +313,32 @@ VALUES
         'true',
         'https://cdn.pixabay.com/photo/2015/09/21/18/07/irish-950380_1280.jpg'
     );
+----    for testing purpose
+--    INSERT INTO
+--    beer (
+----        beer_id,
+--        beer_name,
+--        brewery_id,
+--        description,
+--        abv,
+--        beer_type_id,
+--        is_active,
+--        image_url
+--    )
+--VALUES
+--    (
+----    '20',
+--        'Blonde',
+--        '1',
+--        'light blonde',
+--        '1.0',
+--        '1',
+--        'true',
+--        'https://images_20.com'
+--    );
 INSERT INTO
     beer_review (
-        review_id,
+--        review_id,
         beer_id,
         author_id,
         rating,
@@ -324,8 +349,8 @@ INSERT INTO
     )
 VALUES
     (
+--        '1',
         '1',
-        '20',
         '1',
         '4.5',
         'Good beer',
@@ -335,7 +360,7 @@ VALUES
     );
 INSERT INTO
     beer_review (
-        review_id,
+--        review_id,
         beer_id,
         author_id,
         rating,
@@ -346,8 +371,8 @@ INSERT INTO
     )
 VALUES
     (
+--        '2',
         '2',
-        '30',
         '2',
         '4.5',
         'Best beer',

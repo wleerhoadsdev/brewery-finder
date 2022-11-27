@@ -62,7 +62,7 @@ export default function ViewBeerList(props) {
                 ? beerRatings[beer.beerId]
                 : 'N/A';
             return (
-                <tr key={beer.id}>
+                <tr key={beer.beerId}>
                     <td>
                         <Link
                             to={{
