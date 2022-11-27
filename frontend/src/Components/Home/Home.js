@@ -44,7 +44,7 @@ export default function Home(props) {
         </Link>
     );
 
-    const viewAllUsersElement = <Link to='/users'>View All Users</Link>;
+    const viewAllUsersElement = <Link className={"link-styles"} to='/users'>View All Users</Link>;
 
     return (
         <main>

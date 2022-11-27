@@ -14,11 +14,12 @@ export default function Navbar(props) {
             >
                 Beer Lovers
             </Link>
-            {!isHomePage && <Link to='/'>HOME</Link>}
-            <Link to='/breweries'>VIEW ALL BREWERIES</Link>
+            {!isHomePage && <Link to='/' className='link-styles'>HOME</Link>}
+            <Link to='/breweries' className='link-styles'>VIEW ALL BREWERIES</Link>
             <Link
                 to='/'
                 onClick={props.handleLogout}
+                className='link-styles'
             >
                 LOG OUT
             </Link>
@@ -31,9 +32,9 @@ export default function Navbar(props) {
             >
                 Beer Lovers
             </Link>
-            {!isHomePage && <Link to='/'>HOME</Link>}
-            <Link to='/login'>SIGN IN</Link>
-            <Link to='/register'>CREATE ACCOUNT</Link>
+            {!isHomePage && <Link to='/' className='link-styles'>HOME</Link>}
+            <Link to='/login' className='link-styles'>SIGN IN</Link>
+            <Link to='/register' className='link-styles'>CREATE ACCOUNT</Link>
         </nav>
     );
 

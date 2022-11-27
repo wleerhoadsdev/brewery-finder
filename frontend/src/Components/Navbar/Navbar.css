@@ -9,6 +9,8 @@ nav {
   display: flex;
   align-items: center;
   grid-area: nav;
+  width:100%;
+  padding-right:75px;
 }
 .nav_app_title{
   font-family: 'Permanent Marker', cursive;
@@ -26,7 +28,7 @@ nav > a {
   margin-left: 50px;
 }
 
-.create-link-styles{
+.link-styles{
   background-color: white;
   color: #414bb2;
   border: 2px solid #414bb2;
@@ -36,11 +38,11 @@ nav > a {
   display: inline-block;
 }
 
-.create-link-styles:hover{
+.link-styles:hover{
   background-color: #414bb2;
   color: white;
 }
-/* 
+
 nav {
   display: flex;
   align-items: center;
@@ -67,4 +69,3 @@ nav {
 
 
 
- */
