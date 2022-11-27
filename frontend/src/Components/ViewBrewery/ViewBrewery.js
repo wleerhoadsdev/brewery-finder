@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import BreweryService from '../../services/brewery.service';
+import './ViewBrewery.css';
 
 export default function ViewBrewery(props) {
     const [isMyBrewery, setIsMyBrewery] = useState(false);
@@ -24,9 +25,7 @@ export default function ViewBrewery(props) {
     return (
         <main>
             <div className='main--content-panel'>
-                <h3>Brewery Info</h3>
-                <Link to='/breweries'>Go Back to Listing</Link>
-                <p>{breweryData.name}</p>
+                <h1>{breweryData.name}</h1>
                 <Link
                     to={{
                         pathname: `/brewery/${breweryId}/beers`,
@@ -34,11 +33,11 @@ export default function ViewBrewery(props) {
                 >
                     View Brewery Beer List
                 </Link>
-                <p>{breweryData.emailAddress}</p>
-                <p>{breweryData.history}</p>
-                <p>{breweryData.hoursOfOperation}</p>
+                <p>Phone: {breweryData.phoneNumber}</p>
+                <p>Email: {breweryData.emailAddress}</p>
+                <p>Open Sun-Sat: {breweryData.hoursOfOperation}</p>
                 <p>{address}</p>
-                <p>{breweryData.phoneNumber}</p>
+                <p>Brewing {breweryData.history}</p>
                 {isMyBrewery ? (
                     <Link
                         to={{
