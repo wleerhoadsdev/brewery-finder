@@ -20,7 +20,6 @@ import BeerService from '../../services/beer.service';
 export default function Main(props) {
     const [token, setToken] = useState('');
     const [user, setUser] = useState();
-    const [currentBrewery, setCurrentBrewery] = useState('');
     const [currentBeer, setCurrentBeer] = useState('');
     const [myBrewery, setMyBrewery] = useState('');
     const [editBreweryData, setEditBreweryData] = useState({});
@@ -35,7 +34,6 @@ export default function Main(props) {
         AuthService.logout();
         setToken('');
         setUser();
-        setCurrentBrewery('');
         setMyBrewery('');
         setCurrentBeer('');
         handleEditBreweryData('');
@@ -54,10 +52,6 @@ export default function Main(props) {
             setToken(AuthService.getCurrentToken);
             setUser(AuthService.getCurrentUser);
         }
-    };
-
-    const handleCurrentBrewery = (breweryId) => {
-        setCurrentBrewery(breweryId);
     };
 
     const handleMyBrewery = (breweryId) => {
@@ -98,7 +92,6 @@ export default function Main(props) {
                         <AddBeer
                             user={user}
                             token={token}
-                            brewery={currentBrewery}
                             beerTypes={beerTypes}
                         />
                     }
@@ -122,7 +115,6 @@ export default function Main(props) {
                         <EditBrewery
                             user={user}
                             token={token}
-                            brewery={currentBrewery}
                             breweryData={editBreweryData}
                         />
                     }
@@ -133,9 +125,7 @@ export default function Main(props) {
                         <ViewAllBreweries
                             user={user}
                             token={token}
-                            handleCurrentBrewery={handleCurrentBrewery}
                             myBrewery={myBrewery}
-                            brewery={currentBrewery}
                         />
                     }
                 />
@@ -154,7 +144,6 @@ export default function Main(props) {
                         <ViewBeerInformation
                             user={user}
                             token={token}
-                            brewery={currentBrewery}
                             beer={currentBeer}
                             beerTypes={beerTypes}
                         />
@@ -166,7 +155,6 @@ export default function Main(props) {
                         <ViewBeerList
                             user={user}
                             token={token}
-                            brewery={currentBrewery}
                             myBrewery={myBrewery}
                             beerTypes={beerTypes}
                         />
@@ -178,7 +166,6 @@ export default function Main(props) {
                         <ViewBrewery
                             user={user}
                             token={token}
-                            brewery={currentBrewery}
                             myBrewery={myBrewery}
                             handleEditBreweryData={handleEditBreweryData}
                         />

@@ -29,7 +29,6 @@ export default function ViewAllBreweries(props) {
                             pathname: `/brewery/${brewery.id}`,
                         }}
                         className='link_to_brewery'
-                        onClick={() => props.handleCurrentBrewery(brewery.id)}
                     >
                         {brewery.name}
                     </Link>

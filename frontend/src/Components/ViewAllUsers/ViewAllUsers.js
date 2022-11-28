@@ -16,8 +16,8 @@ export default function ViewAllUsers(props) {
         const hasBreweryName = userBreweryListItem.breweryName != null;
         const isListItemAdmin = userBreweryListItem.username === 'admin';
 
-        if (!isListItemAdmin) {
-            return (
+        return (
+            !isListItemAdmin && (
                 <tr key={userBreweryListItem.userId}>
                     <td>{userBreweryListItem.username}</td>
                     <td>{userBreweryListItem.name}</td>
@@ -33,8 +33,8 @@ export default function ViewAllUsers(props) {
                         )}
                     </td>
                 </tr>
-            );
-        }
+            )
+        );
     });
 
     return (

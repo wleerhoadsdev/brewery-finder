@@ -50,6 +50,7 @@ export default function AddBeer(props) {
     if (role === 'ROLE_BREWER') {
         return (
             <form onSubmit={handleSubmit}>
+                <h1>Add a new beer</h1>
                 <label>Name of Beer</label>
                 <input
                     name='name'
@@ -90,6 +91,10 @@ export default function AddBeer(props) {
             </form>
         );
     } else {
-        return <p>You are not authorized to view this page.</p>;
+        return (
+            <main>
+                <h1>You are not authorized to view this page.</h1>
+            </main>
+        );
     }
 }

@@ -5,7 +5,7 @@ import BeerReviewService from '../../services/beer-review.service';
 export default function AddReview(props) {
     let params = useParams();
     let breweryId = params.breweryId;
-    let userId = props.user.id;
+    let userId = props.user ? props.user.id : '';
     let beerId = params.beerId;
     let navigate = useNavigate();
 
@@ -34,6 +34,7 @@ export default function AddReview(props) {
         );
     }
 
+    if (!userId) return <h3>You are not authorized to view this page.</h3>;
     return (
         <div>
             <h1>Add a review</h1>

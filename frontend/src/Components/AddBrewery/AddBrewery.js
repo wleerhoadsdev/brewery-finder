@@ -6,6 +6,8 @@ export default function AddBrewery(props) {
     const navigate = useNavigate();
     const params = useParams();
     const breweryOwnerUserId = params.userId;
+    const role = props.user ? props.user.authorities[0].name : '';
+    const isRoleAdmin = role === 'ROLE_ADMIN';
 
     const [breweryInfo, setBreweryInfo] = useState({
         name: '',
@@ -40,7 +42,12 @@ export default function AddBrewery(props) {
             [event.target.name]: event.target.value,
         }));
     }
-
+    if (!isRoleAdmin)
+        return (
+            <main>
+                <h1>You are not authorized to view this page.</h1>
+            </main>
+        );
     return (
         <main>
             <div className='main--content-panel'>
