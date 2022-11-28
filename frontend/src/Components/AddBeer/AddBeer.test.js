@@ -39,7 +39,6 @@ describe('AddBeer component', () => {
                 <AddBeer beerTypes={beerTypesPropsMock} />
             </MemoryRouter>
         );
-        screen.debug();
         const titleElement = await screen.findByRole('heading', {
             level: 1,
         });

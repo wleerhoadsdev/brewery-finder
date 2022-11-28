@@ -19,8 +19,6 @@ describe('ViewBrewery component', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByText('Brewery Info')).toBeInTheDocument();
-
         expect(screen.getByText('View Brewery Beer List')).toBeInTheDocument();
     });
 

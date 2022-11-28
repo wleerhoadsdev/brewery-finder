@@ -16,7 +16,7 @@ describe('App component', () => {
         await user.click(screen.getByText(/View All Breweries/i));
 
         expect(
-            screen.getByText(/Below are our List of Breweries!/i)
+            await screen.findByText(/Below is our List of Breweries!/i)
         ).toBeInTheDocument();
     });
 

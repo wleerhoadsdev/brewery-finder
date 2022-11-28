@@ -20,7 +20,7 @@ describe('ViewAllBreweries component', () => {
         );
 
         expect(
-            screen.getByText('Below are our List of Breweries!')
+            screen.getByText('Below is our List of Breweries!')
         ).toBeInTheDocument();
 
         expect(screen.getByText('Brewery Name')).toBeInTheDocument();
