@@ -3,11 +3,16 @@ import authHeader from './auth-header';
 import { baseUrl } from '../Shared/baseUrl';
 import { catchErrors } from './auth-error';
 
-export const fetchBreweryOwnerUserId = (breweryId, setBreweryOwnerUserId) => {
+export const fetchBreweryOwnerUserId = (
+    breweryId,
+    setBreweryOwnerUserId,
+    setBreweryPhoto
+) => {
     return axios
         .get(baseUrl + `/brewery/${breweryId}`, {}, { headers: authHeader() })
         .then((response) => {
             setBreweryOwnerUserId(response.data.breweryOwnerUserId);
+            setBreweryPhoto(response.data.imageUrl);
         })
         .catch(catchErrors);
 };

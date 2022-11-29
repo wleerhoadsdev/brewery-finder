@@ -1,0 +1,26 @@
+main {
+    display: flex;
+    justify-content: space-around;
+    height: 70vh;
+    padding-top: 2vh;
+}
+
+.main__content-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 800px;
+}
+
+.main__image-panel {
+    max-width: 600px;
+}
+
+.main__image-panel img {
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+}

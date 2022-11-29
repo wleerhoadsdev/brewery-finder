@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import BreweryService from '../../services/brewery.service';
+import './AddBrewery.css';
 
 export default function AddBrewery(props) {
     const navigate = useNavigate();
@@ -50,10 +51,9 @@ export default function AddBrewery(props) {
         );
     return (
         <main>
-            <div className='main--content-panel'>
+            <div className='main__content-panel add-brewery__panel'>
                 <h3>Add Brewery Form</h3>
-                <Link to='/breweries'>View All Breweries</Link>
-                <form>
+                <form id='add-brewery__form'>
                     <label className='sr-only'>Brewery Name</label>
                     <input
                         type='text'
@@ -67,15 +67,16 @@ export default function AddBrewery(props) {
                     <button
                         type='submit'
                         onClick={handleCreateBrewery}
+                        id='add-brewery__button'
                     >
                         Add Brewery
                     </button>
                 </form>
             </div>
-            <div className='main--image-panel'>
+            <div className='main__image-panel'>
                 <img
-                    src='https://via.placeholder.com/600'
-                    alt='placeholder'
+                    src='https://images.unsplash.com/photo-1658245798119-4fad546590ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80'
+                    alt={'Glasses of beer clinking together for a toast'}
                 />
             </div>
         </main>

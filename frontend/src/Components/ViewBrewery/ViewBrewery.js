@@ -24,7 +24,7 @@ export default function ViewBrewery(props) {
 
     return (
         <main>
-            <div className='main--content-panel'>
+            <div className='main__content-panel'>
                 <h1>{breweryData.name}</h1>
                 <Link
                     to={{
@@ -54,10 +54,10 @@ export default function ViewBrewery(props) {
                 )}
                 <br />
             </div>
-            <div className='main--image-panel'>
+            <div className='main__image-panel'>
                 <img
                     src={breweryData.imageUrl}
-                    alt='placeholder'
+                    alt='brewery'
                     className='ViewAllBreweries__image'
                 />
             </div>

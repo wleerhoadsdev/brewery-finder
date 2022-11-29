@@ -45,24 +45,27 @@ export default function ViewAllBreweries(props) {
     });
 
     return (
-        <div className='breweries'>
-            <h3> Below is our List of Breweries!</h3>
-            <Link to='/' className='go_back_link'>Go Back</Link>
-            <table className='brewery_table'>
-                <thead>
-                    <tr>
-                        <th>Brewery Name</th>
-                        <th>City</th>
-                        <th>State</th>
-                    </tr>
-                </thead>
-                <tbody>{elementArray}</tbody>
-            </table>
-            <img
-                src='https://via.placeholder.com/600'
-                alt='placeholder'
-                className='ViewAllBreweries__image'
-            />
-        </div>
+        <main className='breweries'>
+            <div className='main__content-panel'>
+                <h1> Below is our List of Breweries!</h1>
+                <table className='brewery_table'>
+                    <thead>
+                        <tr>
+                            <th>Brewery Name</th>
+                            <th>City</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>{elementArray}</tbody>
+                </table>
+            </div>
+            <div className='main__image-panel'>
+                <img
+                    src='https://images.unsplash.com/photo-1610976623276-daf397fbaaf6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2835&q=80'
+                    alt='beer pouring into glass on a cutting board with cheese'
+                    className='ViewAllBreweries__image'
+                />
+            </div>
+        </main>
     );
 }

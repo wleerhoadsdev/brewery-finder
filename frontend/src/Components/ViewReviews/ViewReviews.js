@@ -14,9 +14,14 @@ export default function ViewReviews(props) {
 
     reviewsData.forEach((review) => {
         const currentElement = (
-            <div key={review.reviewId}>
-                <h4>{review.title}</h4>
-                <span>{review.rating}/5</span>
+            <div
+                key={review.reviewId}
+                className='view-reviews__review'
+            >
+                <h3>
+                    {review.title}{' '}
+                    <span id='view-reviews__rating'>{review.rating}/5</span>
+                </h3>
                 <p>{review.body}</p>
                 <p>{review.createDateTime}</p>
             </div>
@@ -30,9 +35,9 @@ export default function ViewReviews(props) {
     });
 
     return (
-        <section>
-            <h3>Reviews</h3>
-            <section>{elementArray}</section>
+        <section className='view-reviews__reviews'>
+            <h2 id='view-reviews__title'>Reviews</h2>
+            {elementArray}
         </section>
     );
 }

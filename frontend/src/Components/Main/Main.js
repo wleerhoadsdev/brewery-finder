@@ -16,6 +16,7 @@ import ViewBrewery from '../ViewBrewery/ViewBrewery';
 import { useEffect } from 'react';
 import AuthService from '../../services/auth.service';
 import BeerService from '../../services/beer.service';
+import './Main.css';
 
 export default function Main(props) {
     const [token, setToken] = useState('');

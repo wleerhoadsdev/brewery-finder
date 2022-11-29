@@ -16,16 +16,17 @@ export default function Home(props) {
     }, [isBrewer, props.handleMyBrewery]);
 
     const greetingText = props.user ? (
-        <h3 className='home__greeting'>
+        <h2 className='home__greeting'>
             Welcome back{' '}
             <span className='home__user'>{props.user.username}</span>!
-        </h3>
+        </h2>
     ) : (
         ''
     );
 
     const viewMyBreweryElement = (
-        <Link className={"link-styles"}
+        <Link
+            className={'link-styles'}
             to={{
                 pathname: `/brewery/${props.myBrewery}`,
             }}
@@ -35,7 +36,8 @@ export default function Home(props) {
     );
 
     const viewMyBeersElement = (
-        <Link className={"link-styles"}
+        <Link
+            className={'link-styles'}
             to={{
                 pathname: `/brewery/${props.myBrewery}/beers`,
             }}
@@ -44,23 +46,34 @@ export default function Home(props) {
         </Link>
     );
 
-    const viewAllUsersElement = <Link className={"link-styles"} to='/users'>View All Users</Link>;
+    const viewAllUsersElement = (
+        <Link
+            className={'link-styles'}
+            to='/users'
+        >
+            View All Users
+        </Link>
+    );
 
     return (
         <main>
             <div className='main__content-panel'>
                 {greetingText}
-                <h3 className='heading'>Discover your new favorite beer</h3>
-                <Link className={"link-styles"} 
-                    to='/breweries'>View All Breweries</Link>
+                <h1 className='heading'>Discover your new favorite beer</h1>
+                <Link
+                    className={'link-styles'}
+                    to='/breweries'
+                >
+                    View All Breweries
+                </Link>
                 {isBrewer && viewMyBreweryElement}
                 {isBrewer && viewMyBeersElement}
                 {isAdmin && viewAllUsersElement}
             </div>
-            <div className='main--image-panel'>
+            <div className='main__image-panel'>
                 <img
-                    src='https://via.placeholder.com/600'
-                    alt='placeholder'
+                    src='https://images.unsplash.com/photo-1542344807-658fcdfb5cf6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80'
+                    alt='beer lovers admiring beer'
                     className='home__image'
                 />
             </div>

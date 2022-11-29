@@ -12,6 +12,7 @@ export default function ViewBeerList(props) {
     const [breweryOwnerUserId, setBreweryOwnerUserId] = useState();
     const [beerRatings, setBeerRatings] = useState({});
     const [isMyBrewery, setIsMyBrewery] = useState({});
+    const [breweryPhoto, setBreweryPhoto] = useState('');
 
     let params = useParams();
     let breweryId = params.breweryId;
@@ -30,7 +31,8 @@ export default function ViewBeerList(props) {
         BeerService.fetchBeersData(breweryId, setBeersData);
         BreweryService.fetchBreweryOwnerUserId(
             breweryId,
-            setBreweryOwnerUserId
+            setBreweryOwnerUserId,
+            setBreweryPhoto
         );
         BeerReviewService.fetchBeerRatings(breweryId, setBeerRatings);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,8 +110,8 @@ export default function ViewBeerList(props) {
 
     return (
         <main>
-            <div className='main--content-panel'>
-                <h3>Page to View Full List of Beers</h3>
+            <div className='main__content-panel'>
+                <h1>List of Beers</h1>
                 <Link to='/breweries'>View All Breweries</Link>
                 <table>
                     <thead>
@@ -143,8 +145,8 @@ export default function ViewBeerList(props) {
             </div>
             <div className='main__image-panel'>
                 <img
-                    src='https://via.placeholder.com/600'
-                    alt='placeholder'
+                    src={breweryPhoto}
+                    alt='brewery'
                 />
             </div>
         </main>

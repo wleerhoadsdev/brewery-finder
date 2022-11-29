@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import BreweryService from '../../services/brewery.service';
+import NotAuthorized from '../NotAuthorized/NotAuthorized';
+import './EditBrewery.css'
 
 export default function EditBrewery(props) {
     const userId = props.user ? props.user.id : '';
@@ -64,14 +66,17 @@ export default function EditBrewery(props) {
         );
     }
 
-    if (!userId) return <h3>You are not authorized to view this page.</h3>
-        return (
-            <div className='edit_brewery_page'>
-                <h3 className='edit_brewery_heading'>
-                    {' '}
-                    Edit Existing Brewery Information
-                </h3>
-                <form onSubmit={handleSubmit}>
+    if (!userId) return <NotAuthorized />;
+    return (
+        <main id='edit-brewery__page'>
+            <div className='main__content-panel'>
+                <h1 className='edit_brewery_heading'>
+                    Edit Brewery Information
+                </h1>
+                <form
+                    onSubmit={handleSubmit}
+                    id='edit-brewery__form'
+                >
                     <input
                         type='text'
                         placeholder='Brewery Name'
@@ -158,8 +163,10 @@ export default function EditBrewery(props) {
                     />
                     <button>Submit</button>
                 </form>
-                <br />
                 <Link to={{ pathname: `/brewery/${breweryId}` }}>Go back</Link>
             </div>
-        );
+
+            <div className='main__image-panel'></div>
+        </main>
+    );
 }

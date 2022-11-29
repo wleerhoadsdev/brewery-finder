@@ -1,3 +1,25 @@
-h4 {
-  display: inline-block;
+.view-reviews__reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-reviews__review {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#view-reviews__title {
+    display: block;
+}
+
+#view-reviews__rating {
+    color: #414bb2;
+}
+
+h3 {
+    display: inline-block;
 }

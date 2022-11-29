@@ -1,4 +1,4 @@
-.brewery_table>thead>*{
+/* .brewery_table>thead>*{
     border-bottom: 1px solid #ddd;
 }
 
@@ -43,11 +43,9 @@ img{
 
 h3{
     grid-area:header;
-    /* margin-left:150px; */
 }
 
 
 .go_back_link{
     grid-area:go_back;
-    /* margin-left:150px; */
-}
+} */
