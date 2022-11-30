@@ -1,71 +1,82 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 header {
-  display: flex;
-  justify-content: space-between;
-  width:100%
-}
-nav {
-  display: flex;
-  align-items: center;
-  grid-area: nav;
-  width:100%;
-  padding-right:75px;
-}
-.nav_app_title{
-  font-family: 'Permanent Marker', cursive;
-  text-decoration:none;
-  font-size:60px;
-}
-
-nav > a {
-  margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .nav_app_title {
-  margin-right: auto;
-  display: inline;
-  margin-left: 50px;
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    font-size: 60px;
 }
 
-.link-styles{
-  background-color: white;
-  color: #414bb2;
-  border: 2px solid #414bb2;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+nav > a {
+    margin: 5px;
 }
 
-.link-styles:hover{
-  background-color: #414bb2;
-  color: white;
+.nav_app_title {
+    margin-right: auto;
+    display: inline;
+}
+
+.link-styles {
+    background-color: white;
+    color: #414bb2;
+    border: 2px solid #414bb2;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.link-styles:hover {
+    background-color: #414bb2;
+    color: white;
 }
 
 nav {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-
-
-.link-styles{
-  background-color: #414bb2;
-  color: white;
-  border: 2px solid #414bb2;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+.link-styles {
+    background-color: #414bb2;
+    color: white;
+    border: 2px solid #414bb2;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 }
 
-.link-styles:hover{
-  background-color: white;
-  color: #414bb2;
+.link-styles:hover {
+    background-color: white;
+    color: #414bb2;
 }
 
+/* // Small devices (landscape phones, 576px and up) */
+@media (max-width: 768px) {
+}
 
+/* // Medium devices (tablets, 768px and up) */
+@media (max-width: 992px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
 
+    .nav_app_title {
+        margin-right: 0;
+    }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (max-width: 1200px) {
+}
+
+/* // Ultra */
+@media (min-width: 1201px) {
+}
