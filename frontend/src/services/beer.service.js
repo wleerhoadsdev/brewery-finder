@@ -62,11 +62,9 @@ export const updateBeerToggleIsActive = (breweryId, beerId, beer) => {
 
 export const deleteBeer = (breweryId, beerId) => {
     return axios
-        .delete(
-            `${baseUrl}/brewery/${breweryId}/beer/${beerId}`,
-            {},
-            { headers: authHeader() }
-        )
+        .delete(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, {
+            headers: authHeader(),
+        })
         .then((response) => {
             alert('Beer has been deleted.');
         })

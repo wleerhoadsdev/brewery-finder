@@ -45,6 +45,7 @@ export const postBeerReview = (breweryId, beerId, reviewData) => {
         )
         .then((response) => {
             alert('Review was posted');
+            window.location.reload(true);
         })
         .catch(catchErrors);
 };
