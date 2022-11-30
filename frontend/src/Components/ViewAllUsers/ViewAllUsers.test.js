@@ -1,10 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
-import { renderWithRouter } from '../../testUtils';
-import { toBeInTheDocument } from '@testing-library/jest-dom/dist/matchers';
 
 import ViewAllUsers from './ViewAllUsers';
 import App from '../../App';
