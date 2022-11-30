@@ -8,34 +8,62 @@ export default function Navbar(props) {
 
     const nav = props.user ? (
         <nav>
+            {!isHomePage && (
+                <Link
+                    to='/'
+                    className='link-styles'
+                >
+                    HOME
+                </Link>
+            )}
             <Link
-                to='/'
-                className='nav_app_title'
+                to='/breweries'
+                className='link-styles'
             >
-                Beer Lovers
+                VIEW ALL BREWERIES
             </Link>
-            {!isHomePage && <Link to='/'>HOME</Link>}
-            <Link to='/breweries'>VIEW ALL BREWERIES</Link>
             <Link
                 to='/'
                 onClick={props.handleLogout}
+                className='link-styles'
             >
                 LOG OUT
             </Link>
         </nav>
     ) : (
         <nav>
+            {!isHomePage && (
+                <Link
+                    to='/'
+                    className='link-styles'
+                >
+                    HOME
+                </Link>
+            )}
+            <Link
+                to='/login'
+                className='link-styles'
+            >
+                SIGN IN
+            </Link>
+            <Link
+                to='/register'
+                className='link-styles'
+            >
+                CREATE ACCOUNT
+            </Link>
+        </nav>
+    );
+
+    return (
+        <header>
             <Link
                 to='/'
                 className='nav_app_title'
             >
                 Beer Lovers
             </Link>
-            {!isHomePage && <Link to='/'>HOME</Link>}
-            <Link to='/login'>SIGN IN</Link>
-            <Link to='/register'>CREATE ACCOUNT</Link>
-        </nav>
+            {nav}
+        </header>
     );
-
-    return <header>{nav}</header>;
 }

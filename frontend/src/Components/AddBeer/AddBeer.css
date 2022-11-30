@@ -1,0 +1,12 @@
+#add-beer__page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-beer__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

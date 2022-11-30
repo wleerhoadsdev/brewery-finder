@@ -1,0 +1,19 @@
+#login__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login__form > input,
+#login__form > button {
+    margin: 5px;
+}
+
+.login__new-user-link {
+    margin-left: 5px;
+}
+
+.login__page {
+    align-self: center;
+}

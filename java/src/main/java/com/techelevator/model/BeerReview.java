@@ -26,6 +26,28 @@ public class BeerReview {
 
     public BeerReview(){}
 
+    public BeerReview(int reviewId, int beerId, int authorUserId,
+                      double rating, String title, String body, Date createDateTime, Date updateDateTime) {
+        this.reviewId = reviewId;
+        this.beerId = beerId;
+        this.authorUserId = authorUserId;
+        this.rating = rating;
+        this.title = title;
+        this.body = body;
+        this.createDateTime = createDateTime;
+        this.updateDateTime = updateDateTime;
+    }
+
+    public BeerReview(int beerId, int authorUserId, double rating, String title, String body, Date createDateTime, Date updateDateTime) {
+        this.beerId = beerId;
+        this.authorUserId = authorUserId;
+        this.rating = rating;
+        this.title = title;
+        this.body = body;
+        this.createDateTime = createDateTime;
+        this.updateDateTime = updateDateTime;
+    }
+
     public int getReviewId() {
         return reviewId;
     }

@@ -1,0 +1,16 @@
+#edit-brewery__page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit-brewery__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit-brewery__form > input {
+    width: 400px;
+}

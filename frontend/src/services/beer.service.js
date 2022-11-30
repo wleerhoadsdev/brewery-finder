@@ -55,18 +55,16 @@ export const updateBeerToggleIsActive = (breweryId, beerId, beer) => {
             headers: authHeader(),
         })
         .then((response) => {
-            alert('Beer is now ' + (beer.isActive ? 'Inactive' : 'Active'));
+            alert('Beer is now ' + (beer.isActive ? 'Active' : 'Inactive'));
         })
         .catch(catchErrors);
 };
 
 export const deleteBeer = (breweryId, beerId) => {
     return axios
-        .delete(
-            `${baseUrl}/brewery/${breweryId}/beer/${beerId}`,
-            {},
-            { headers: authHeader() }
-        )
+        .delete(`${baseUrl}/brewery/${breweryId}/beer/${beerId}`, {
+            headers: authHeader(),
+        })
         .then((response) => {
             alert('Beer has been deleted.');
         })

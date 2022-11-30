@@ -26,7 +26,7 @@ public class JdbcBreweryDao implements BreweryDao {
 //    public JdbcBreweryDao(JdbcTemplate jdbcTemplate) {
 //        this.jdbcTemplate = jdbcTemplate;
 //    }
-        public JdbcBreweryDao(DataSource dataSource) {
+    public JdbcBreweryDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

@@ -1,0 +1,14 @@
+.add-brewery__panel {
+    align-items: center;
+}
+
+#add-brewery__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-brewery__button {
+    margin: 5px;
+}

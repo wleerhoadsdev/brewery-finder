@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import ViewReviews from '../ViewReviews/ViewReviews';
 import BeerReviewService from '../../services/beer-review.service';
 import BeerService from '../../services/beer.service';
+import './ViewBeerInformation.css';
 
 export default function ViewBeerInformation(props) {
     const role = props.user ? props.user.authorities[0].name : '';
@@ -30,42 +31,56 @@ export default function ViewBeerInformation(props) {
 
     if (beerData.isActive) {
         return (
-            <div className='home--left-panel'>
-                <h3>{beerData.name}</h3>
-                <p>{beerData.description}</p>
-                <p>{beerData.abv}</p>
-                <p>Beer Type: {beerTypesObj[beerData.typeId]}</p>
-                <p>Average Rating:{avgRating}</p>
-                <ViewReviews
-                    beerId={beerId}
-                    breweryId={breweryId}
-                    user={props.user}
-                />
-                <Link
-                    to={{
-                        pathname: `/brewery/${breweryId}/beers`,
-                    }}
-                >
-                    View Beer List
-                </Link>
-                <br />
-                <br />
-                {role === 'ROLE_USER' && (
+            <main>
+                <div className='main__content-panel beer-information'>
+                    <h1>{beerData.name}</h1>
                     <Link
                         to={{
-                            pathname: `/brewery/${breweryId}/beer/${beerId}/addreview`,
+                            pathname: `/brewery/${breweryId}/beers`,
                         }}
                     >
-                        Add Review
+                        Back to Beer List
                     </Link>
-                )}
-                <img
-                    src={beerData.imageUrl}
-                    alt={`${beerData.beerName}`}
-                />
-            </div>
+                    <p>Description: {beerData.description}</p>
+                    <p>ABV: {beerData.abv}</p>
+                    <p>Beer Type: {beerTypesObj[beerData.typeId]}</p>
+                    <p>Average Rating:{avgRating}</p>
+                    <ViewReviews
+                        beerId={beerId}
+                        breweryId={breweryId}
+                        user={props.user}
+                    />
+                    {role === 'ROLE_USER' && (
+                        <Link
+                            to={{
+                                pathname: `/brewery/${breweryId}/beer/${beerId}/addreview`,
+                            }}
+                        >
+                            Add Review
+                        </Link>
+                    )}
+                </div>
+                <div className='main__image-panel'>
+                    <img
+                        src={beerData.imageUrl}
+                        alt={`${beerData.beerName}`}
+                    />
+                </div>
+            </main>
         );
     } else {
-        return <></>;
+        return (
+            <main>
+                <div className='main__content-panel'>
+                    <h1>This beer does not exist</h1>
+                </div>
+                <div className='main__image-panel'>
+                    <img
+                        src='https://thumbs.dreamstime.com/b/colored-sad-beer-glass-icon-vector-illustration-design-colored-sad-beer-glass-icon-127079527.jpg'
+                        alt={'error'}
+                    />
+                </div>
+            </main>
+        );
     }
 }

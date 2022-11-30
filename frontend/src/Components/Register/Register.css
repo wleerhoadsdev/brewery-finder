@@ -1,4 +1,19 @@
-.success-message {
-  border: 1px solid green;
-  color: green;
+#register__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#register__form > input,
+#register__form > button {
+    margin: 5px;
+}
+
+.register__returning-user-link {
+    margin-left: 5px;
+}
+
+.register__page {
+    align-self: center;
 }

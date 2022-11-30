@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../../services/auth.service';
+import './Login.css';
 
 export default function Login(props) {
     let navigate = useNavigate();
@@ -42,40 +43,58 @@ export default function Login(props) {
     }
 
     return (
-        <div>
-            <h1>Please Sign In</h1>
-            <form>
-                <label className='sr-only'>Username</label>
-                <input
-                    type='text'
-                    id='username'
-                    name='username'
-                    className='form-control'
-                    placeholder='Username'
-                    autoComplete='username'
-                    onChange={handleInputChange}
-                    required
+        <main>
+            <div className='main__content-panel login__page'>
+                <h1>Welcome to Beer Lovers</h1>
+                <form id='login__form'>
+                    <label className='sr-only'>Username</label>
+                    <input
+                        type='text'
+                        id='username'
+                        name='username'
+                        className='form-control'
+                        placeholder='Username'
+                        autoComplete='username'
+                        onChange={handleInputChange}
+                        required
+                    />
+                    <label className='sr-only'>Password</label>
+                    <input
+                        type='password'
+                        id='password'
+                        name='password'
+                        className='form-control'
+                        placeholder='Password'
+                        autoComplete='current-password'
+                        onChange={handleInputChange}
+                        value={loginInfo.password}
+                        required
+                    />
+                    <button
+                        type='submit'
+                        onClick={handleLogin}
+                    >
+                        Log in
+                    </button>
+                </form>
+                <div>
+                    <span className='login__new-user-prompt'>
+                        Are you a new user?
+                    </span>
+                    <Link
+                        to='/register'
+                        className='login__new-user-link'
+                    >
+                        Sign up
+                    </Link>
+                </div>
+            </div>
+            <div className='main__image-panel'>
+                <img
+                    src='https://images.unsplash.com/photo-1585507137283-f883284cfcda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80'
+                    alt={'goblet of beer'}
                 />
-                <label className='sr-only'>Password</label>
-                <input
-                    type='password'
-                    id='password'
-                    name='password'
-                    className='form-control'
-                    placeholder='Password'
-                    autoComplete='current-password'
-                    onChange={handleInputChange}
-                    value={loginInfo.password}
-                    required
-                />
-                <Link to='/register'>Need an account?</Link>
-                <button
-                    type='submit'
-                    onClick={handleLogin}
-                >
-                    Sign in
-                </button>
-            </form>
-        </div>
+            </div>
+        </main>
     );
 }
