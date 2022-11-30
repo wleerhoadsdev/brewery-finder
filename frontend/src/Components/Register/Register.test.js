@@ -30,7 +30,7 @@ describe('Register component', () => {
         const confirmPassordInputElement =
             screen.getByPlaceholderText(/Confirm Password/i);
 
-        expect(titleElement).toHaveTextContent('Create Account');
+        expect(titleElement).toHaveTextContent('Welcome to Beer Lovers');
         expect(usernameInputElement).toBeInTheDocument();
         expect(nameInputElement).toBeInTheDocument();
         expect(emailInputElement).toBeInTheDocument();

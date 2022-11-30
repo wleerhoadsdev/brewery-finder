@@ -37,31 +37,33 @@ export default function ViewAllUsers(props) {
             )
         );
     });
-    if (isRoleAdmin) <NotAuthorized />;
     return (
         <main>
-            {!isRoleAdmin && <NotAuthorized />}
-            <div className='main__content-panel'>
-                <h1>View All Users</h1>
-                {isRoleAdmin && (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Name</th>
-                                <th>Brewery</th>
-                            </tr>
-                        </thead>
-                        <tbody>{usersElements}</tbody>
-                    </table>
-                )}
-            </div>
-            <div className='main__image-panel'>
-                <img
-                    src='https://images.unsplash.com/photo-1591373032196-95ddc21ee140?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1541&q=80'
-                    alt='bottle of beer tossed in the air'
-                />
-            </div>
+            {!isRoleAdmin ? (
+                <NotAuthorized />
+            ) : (
+                <>
+                    <div className='main__content-panel'>
+                        <h1>View All Users</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Name</th>
+                                    <th>Brewery</th>
+                                </tr>
+                            </thead>
+                            <tbody>{usersElements}</tbody>
+                        </table>
+                    </div>
+                    <div className='main__image-panel'>
+                        <img
+                            src='https://images.unsplash.com/photo-1591373032196-95ddc21ee140?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1541&q=80'
+                            alt='bottle of beer tossed in the air'
+                        />
+                    </div>
+                </>
+            )}
         </main>
     );
 }

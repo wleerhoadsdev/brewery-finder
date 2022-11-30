@@ -51,7 +51,7 @@ describe('EditBrewery component', () => {
         );
 
         const titleElement = await screen.findByRole('heading', {
-            level: 3,
+            level: 1,
         });
 
         expect(titleElement).toHaveTextContent(
@@ -70,11 +70,9 @@ describe('EditBrewery component', () => {
         );
 
         const titleElement = screen.getByRole('heading', {
-            level: 3,
+            level: 1,
         });
 
-        expect(titleElement).toHaveTextContent(
-            /Edit Existing Brewery Information/i
-        );
+        expect(titleElement).toHaveTextContent(/Edit Brewery Information/i);
     });
 });

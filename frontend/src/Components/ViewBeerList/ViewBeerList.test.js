@@ -19,9 +19,7 @@ describe('ViewBeerList component', () => {
             </MemoryRouter>
         );
 
-        const titleElement = screen.getByText(
-            /Page to View Full List of Beers/i
-        );
+        const titleElement = screen.getByText(/List of Beers/i);
 
         const allBreweriesLinkElement = screen.getByText(/View All Breweries/i);
 

@@ -28,7 +28,7 @@ describe('AddReview component', () => {
         );
 
         const titleElement = await screen.findByRole('heading', {
-            level: 3,
+            level: 1,
         });
 
         expect(titleElement).toHaveTextContent(

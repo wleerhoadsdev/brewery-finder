@@ -1,12 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
-import { renderWithRouter } from '../../testUtils';
-import { toBeInTheDocument } from '@testing-library/jest-dom/dist/matchers';
 
-import ViewReviews from './ViewReviews';
 import App from '../../App';
 
 describe('ViewReviews component', () => {
@@ -19,11 +15,11 @@ describe('ViewReviews component', () => {
             </MemoryRouter>
         );
 
-        const titleElements = await screen.findAllByRole('heading', {
-            level: 3,
+        const titleElement = await screen.findByRole('heading', {
+            level: 2,
         });
 
-        expect(titleElements[1]).toHaveTextContent(/Reviews/i);
+        expect(titleElement).toHaveTextContent(/Reviews/i);
     });
 
     test('expects test review information to be rendered on page', async () => {
@@ -34,9 +30,11 @@ describe('ViewReviews component', () => {
         );
 
         const reviewTitleElements = await screen.findAllByRole('heading', {
-            level: 4,
+            level: 3,
         });
-        const reviewBodyElement = screen.getByText(/I drove 15 miles to have it again/i)
+        const reviewBodyElement = screen.getByText(
+            /I drove 15 miles to have it again/i
+        );
 
         expect(reviewTitleElements[0]).toHaveTextContent(/Good beer/i);
         expect(reviewBodyElement).toBeInTheDocument();

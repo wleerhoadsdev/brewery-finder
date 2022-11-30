@@ -12,6 +12,14 @@ import App from '../../App';
 describe('ViewAllUsers component', () => {
     const route = '/users';
 
+    const userPropsMock = {
+        id: 2,
+        username: 'admin',
+        authorities: [{ name: 'ROLE_ADMIN' }],
+        name: 'admin',
+        emailAddress: 'admin@test.com',
+    };
+
     test('renders ViewAllUsers component to unauthorized user', async () => {
         render(
             <MemoryRouter initialEntries={[route]}>
@@ -19,32 +27,26 @@ describe('ViewAllUsers component', () => {
             </MemoryRouter>
         );
 
-        const titleElements = await screen.findAllByRole('heading', {
-            level: 3,
+        const titleElement = await screen.findByRole('heading', {
+            level: 1,
         });
 
-        expect(titleElements[0]).toHaveTextContent(/Page to View All Users/i);
-        expect(titleElements[1]).toHaveTextContent(
+        expect(titleElement).toHaveTextContent(
             /You are not authorized to view this page./i
         );
     });
 
-    // TODO: Figure out permission based tests
-    // test('renders ViewAllUsers component to user with admin privleges', async () => {
-    //     render(
-    //         <MemoryRouter initialEntries={[route]}>
-    //             <App />
-    //         </MemoryRouter>
-    //     );
+    test('renders ViewAllUsers component to admin user', async () => {
+        render(
+            <MemoryRouter initialEntries={[route]}>
+                <ViewAllUsers user={userPropsMock} />
+            </MemoryRouter>
+        );
 
-    //     const reviewTitleElements = await screen.findAllByRole('heading', {
-    //         level: 4,
-    //     });
-    //     const reviewBodyElement = screen.getAllByText(
-    //         /I drove 15 miles to have it again/i
-    //     );
+        const titleElement = await screen.findByRole('heading', {
+            level: 1,
+        });
 
-    //     expect(reviewTitleElements[0]).toHaveTextContent(/Good beer/i);
-    //     expect(reviewBodyElement).toBeInTheDocument();
-    // });
+        expect(titleElement).toHaveTextContent(/View All Users/i);
+    });
 });

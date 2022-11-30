@@ -20,7 +20,7 @@ describe('Home component', () => {
         );
 
         const titleElement = screen.getByRole('heading', {
-            level: 3,
+            level: 1,
         });
 
         expect(titleElement).toHaveTextContent(

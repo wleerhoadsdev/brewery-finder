@@ -20,11 +20,11 @@ describe('ViewBeerInformation component', () => {
         );
 
         const titleElements = await screen.findAllByRole('heading', {
-            level: 3,
+            level: 1,
         });
 
         const viewBeerListLinkElement = await screen.findByText(
-            /View Beer List/i
+            /Back to Beer List/i
         );
 
         expect(titleElements[0]).toBeInTheDocument();
