@@ -55,7 +55,7 @@ export const updateBeerToggleIsActive = (breweryId, beerId, beer) => {
             headers: authHeader(),
         })
         .then((response) => {
-            alert('Beer is now ' + (beer.isActive ? 'Inactive' : 'Active'));
+            alert('Beer is now ' + (beer.isActive ? 'Active' : 'Inactive'));
         })
         .catch(catchErrors);
 };
