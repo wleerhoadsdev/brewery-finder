@@ -75,6 +75,7 @@ export default function AddBeer(props) {
                             name='imageUrl'
                             type='url'
                             onChange={handleInputChange}
+                            placeholder='https://www....'
                         />
                         <label>Alcohol by Volume</label>
                         <input

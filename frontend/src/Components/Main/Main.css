@@ -47,8 +47,8 @@ table {
 /* // Small devices (landscape phones, 576px and up) */
 @media (max-width: 768px) {
     .main__image-panel {
-        max-height: 300px;
-        width: auto;
+        /* max-height: 300px;
+        width: auto; */
     }
 }
 

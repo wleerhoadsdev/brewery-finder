@@ -1,6 +1,6 @@
 #add-beer__page {
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -9,4 +9,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#add-beer__form > * {
+    margin: 5px;
 }
