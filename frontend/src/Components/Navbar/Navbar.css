@@ -71,6 +71,10 @@ nav {
     .nav_app_title {
         margin-right: 0;
     }
+
+    .link-styles{
+        white-space:nowrap;
+    }
 }
 
 /* // Large devices (desktops, 992px and up) */
