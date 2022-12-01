@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import AuthService from '../../services/auth.service';
 import BeerService from '../../services/beer.service';
 import './Main.css';
+import NotAuthorized from '../NotAuthorized/NotAuthorized';
 
 export default function Main(props) {
     const [token, setToken] = useState('');
@@ -180,6 +181,14 @@ export default function Main(props) {
                             token={token}
                             myBrewery={myBrewery}
                             handleMyBrewery={handleMyBrewery}
+                        />
+                    }
+                />
+                <Route
+                    path='*'
+                    element={
+                        <NotAuthorized
+                            message={'This page does not exist.'}
                         />
                     }
                 />
