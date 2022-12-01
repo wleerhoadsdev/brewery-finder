@@ -33,11 +33,24 @@ export default function ViewBrewery(props) {
                 >
                     View Brewery Beer List
                 </Link>
-                <p>Phone: {breweryData.phoneNumber}</p>
-                <p>Email: {breweryData.emailAddress}</p>
-                <p>Open Sun-Sat: {breweryData.hoursOfOperation}</p>
-                <p>{address}</p>
-                <p>Brewing {breweryData.history}</p>
+                <p>
+                    <span className='details'>Phone: </span>
+                    {breweryData.phoneNumber}
+                </p>
+                <p>
+                    <span className='details'>Email: </span>
+                    {breweryData.emailAddress}
+                </p>
+                <p>
+                    <span className='details'>Hours: </span> Open Sun-Sat
+                </p>
+                <p>
+                    <span className='details'>Address: </span> {address}
+                </p>
+                <p>
+                    <span className='details'>History: </span>
+                    {breweryData.history}
+                </p>
                 {isMyBrewery ? (
                     <Link
                         to={{

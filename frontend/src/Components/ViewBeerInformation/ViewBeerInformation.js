@@ -41,10 +41,21 @@ export default function ViewBeerInformation(props) {
                     >
                         Back to Beer List
                     </Link>
-                    <p>Description: {beerData.description}</p>
-                    <p>ABV: {beerData.abv}</p>
-                    <p>Beer Type: {beerTypesObj[beerData.typeId]}</p>
-                    <p>Average Rating:{avgRating}</p>
+                    <p>
+                        <span className='details'>Description: </span>{' '}
+                        {beerData.description}
+                    </p>
+                    <p>
+                        <span className='details'>ABV: </span> {beerData.abv}
+                    </p>
+                    <p>
+                        <span className='details'>Beer Type: </span>{' '}
+                        {beerTypesObj[beerData.typeId]}
+                    </p>
+                    <p>
+                        <span className='details'>Average Rating: </span>
+                        {avgRating}
+                    </p>
                     <ViewReviews
                         beerId={beerId}
                         breweryId={breweryId}

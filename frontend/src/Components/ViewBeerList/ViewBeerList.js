@@ -85,8 +85,8 @@ export default function ViewBeerList(props) {
                                     handleActiveChange(e, beer.beerId);
                                 }}
                             >
-                                Toggle beer to{' '}
-                                {beer.isActive ? 'Inactive' : 'Active'}
+                                Toggle{' '}
+                                {beer.isActive ? '  Inactive' : '  Active'}
                             </button>
                         </td>
                     )}

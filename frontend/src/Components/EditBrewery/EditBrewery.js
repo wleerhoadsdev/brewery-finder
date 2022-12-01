@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import BreweryService from '../../services/brewery.service';
 import NotAuthorized from '../NotAuthorized/NotAuthorized';
-import './EditBrewery.css'
+import './EditBrewery.css';
 
 export default function EditBrewery(props) {
     const userId = props.user ? props.user.id : '';
@@ -163,7 +163,9 @@ export default function EditBrewery(props) {
                     />
                     <button>Submit</button>
                 </form>
-                <Link to={{ pathname: `/brewery/${breweryId}` }}>Go back</Link>
+                <Link to={{ pathname: `/brewery/${breweryId}` }}>
+                    Go back to {formData.name} page
+                </Link>
             </div>
 
             <div className='main__image-panel'></div>
