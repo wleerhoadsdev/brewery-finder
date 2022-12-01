@@ -27,3 +27,8 @@
 .home__user {
     color: #414bb2;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+  }
