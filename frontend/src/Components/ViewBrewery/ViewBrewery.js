@@ -25,7 +25,7 @@ export default function ViewBrewery(props) {
     return (
         <main>
             <div className='main__content-panel'>
-                <h1>{breweryData.name}</h1>
+                <h1 className='heading'>{breweryData.name}</h1>
                 <Link
                     to={{
                         pathname: `/brewery/${breweryId}/beers`,

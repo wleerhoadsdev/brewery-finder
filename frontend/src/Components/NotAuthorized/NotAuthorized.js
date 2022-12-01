@@ -8,7 +8,7 @@ export default function NotAuthorized(props) {
     return (
         <main id='not-authorized__message'>
             <div className='main__content-panel'>
-                <h1>{message}</h1>
+                <h1 className='heading'>{message}</h1>
             </div>
 
             <div className='main__image-panel'>

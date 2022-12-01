@@ -46,7 +46,9 @@ export default function AddBrewery(props) {
     if (!isRoleAdmin)
         return (
             <main>
-                <h1>You are not authorized to view this page.</h1>
+                <h1 className='heading'>
+                    You are not authorized to view this page.
+                </h1>
             </main>
         );
     return (

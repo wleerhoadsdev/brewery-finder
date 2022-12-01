@@ -44,7 +44,7 @@ export default function ViewAllUsers(props) {
             ) : (
                 <>
                     <div className='main__content-panel'>
-                        <h1>View All Users</h1>
+                        <h1 className='heading'>View All Users</h1>
                         <table>
                             <thead>
                                 <tr>

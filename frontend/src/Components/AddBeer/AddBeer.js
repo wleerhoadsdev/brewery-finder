@@ -57,7 +57,7 @@ export default function AddBeer(props) {
                         onSubmit={handleSubmit}
                         id='add-beer__form'
                     >
-                        <h1>Add a new beer</h1>
+                        <h1 className='heading'>Add a new beer</h1>
                         <label>Name of Beer</label>
                         <input
                             name='name'

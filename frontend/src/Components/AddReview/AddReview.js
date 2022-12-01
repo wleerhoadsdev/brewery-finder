@@ -42,7 +42,7 @@ export default function AddReview(props) {
     return (
         <main id='add-review__page'>
             <div className='main__content-panel'>
-                <h1>Add a review</h1>
+                <h1 className='heading'>Add a review</h1>
                 <form
                     onSubmit={handleSubmit}
                     id='add-review__form'

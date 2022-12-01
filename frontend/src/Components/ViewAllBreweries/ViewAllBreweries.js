@@ -47,7 +47,7 @@ export default function ViewAllBreweries(props) {
     return (
         <main className='breweries'>
             <div className='main__content-panel'>
-                <h1> Below is our List of Breweries!</h1>
+                <h1 className='heading'> Below is our List of Breweries!</h1>
                 <table className='brewery_table'>
                     <thead>
                         <tr>

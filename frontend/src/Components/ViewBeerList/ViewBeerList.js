@@ -111,7 +111,7 @@ export default function ViewBeerList(props) {
     return (
         <main>
             <div className='main__content-panel'>
-                <h1>List of Beers</h1>
+                <h1 className='heading'>List of Beers</h1>
                 <Link to='/breweries'>View All Breweries</Link>
                 <table>
                     <thead>

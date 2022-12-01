@@ -38,7 +38,7 @@ export default function Register(props) {
     return (
         <main>
             <div className='main__content-panel register__page'>
-                <h1>Welcome to Beer Lovers</h1>
+                <h1 className='heading'>Welcome to Beer Lovers</h1>
                 <form id='register__form'>
                     <label className='sr-only'>Username</label>
                     <input

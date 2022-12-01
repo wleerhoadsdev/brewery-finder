@@ -33,7 +33,7 @@ export default function ViewBeerInformation(props) {
         return (
             <main>
                 <div className='main__content-panel beer-information'>
-                    <h1>{beerData.name}</h1>
+                    <h1 className='heading'>{beerData.name}</h1>
                     <Link
                         to={{
                             pathname: `/brewery/${breweryId}/beers`,
@@ -83,7 +83,7 @@ export default function ViewBeerInformation(props) {
         return (
             <main>
                 <div className='main__content-panel'>
-                    <h1>This beer does not exist</h1>
+                    <h1 className='heading'>This beer does not exist</h1>
                 </div>
                 <div className='main__image-panel'>
                     <img

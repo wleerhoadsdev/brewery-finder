@@ -18,6 +18,7 @@
     font-family: Arial, Helvetica, sans-serif;
     grid-area: heading;
     text-align: center;
+    font-weight: 700;
 }
 
 .main__content-panel > a {
@@ -31,4 +32,4 @@
 img {
     max-width: 100%;
     height: auto;
-  }
+}
