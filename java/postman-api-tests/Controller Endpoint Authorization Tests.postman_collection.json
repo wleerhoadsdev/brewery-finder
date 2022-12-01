@@ -1,0 +1,2937 @@
+{
+	"info": {
+		"_postman_id": "d479e975-4bda-4898-8310-ae8d9124c1d2",
+		"name": "Controller Endpoint Authorization Tests",
+		"description": "Most of the requests in this collection have test scripts. The ones that do automatically verify the correct outcome of calling each API endpoint under various conditions related to authorization where permission is determined by whether or not the method modifies data plus the user 's role and in some cases plus whether or not the user owns the brewery associated with the resource being created/modified. Due to the lack of time, some of the GET requests do not have test scripts. Those requests can be used to manually verify correct authorization by examining the responses. All users including unauthenticated ones should be allowed to read data (use the GET API end points).\n\n**NOTE**\n\nThis sequence of requests assumes that you are starting with a database that has been just (re)created via the shell script /java/database/create.sh\n\nAlso, it creates but does not delete some users, breweries, beers, and beer reviews. (I.e., it does not roll back or undo the changes it makes to the database.)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24508865"
+	},
+	"item": [
+		{
+			"name": "Register Ordinary User 1 (ROLE_USER)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyNewUserCreated\"))(\"user1\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user1\",\r\n    \"password\": \"user1password\",\r\n    \"confirmPassword\": \"user1password\",\r\n    \"role\": \"USER\",\r\n    \"name\": \"User1FirstName User1LastName\",\r\n    \"emailAddress\": \"user1@emailprovider.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Ordinary User 2 (ROLE_USER)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyNewUserCreated\"))(\"user2\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user2\",\r\n    \"password\": \"user2password\",\r\n    \"confirmPassword\": \"user2password\",\r\n    \"role\": \"USER\",\r\n    \"name\": \"User2FirstName User2LastName\",\r\n    \"emailAddress\": \"user2@emailprovider.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Ordinary User 3 (ROLE_USER)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyNewUserCreated\"))(\"user3\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user3\",\r\n    \"password\": \"user3password\",\r\n    \"confirmPassword\": \"user3password\",\r\n    \"role\": \"USER\",\r\n    \"name\": \"User3FirstName User3LastName\",\r\n    \"emailAddress\": \"user3@emailprovider.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Log In (and capture user ID & bearer token)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyUserLogin\"))(\"admin\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 1 Log In (and capture user ID & bearer token)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyUserLogin\"))(\"user1\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user1\",\r\n    \"password\": \"user1password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 2 Log In (and capture user ID & bearer token)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyUserLogin\"))(\"user2\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user2\",\r\n    \"password\": \"user2password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Log In (and capture user ID & bearer token)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyUserLogin\"))(\"user3\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user3\",\r\n    \"password\": \"user3password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User List All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/usersbreweries",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"usersbreweries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 2 List All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/usersbreweries",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"usersbreweries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 List All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/usersbreweries",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"usersbreweries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin List All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/usersbreweries",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"usersbreweries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Attempt Unauthorized Create Brewery for User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(401);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryOwnerUserId\": {{user1Id}},\r\n    \"name\": \"User 1's Brewery\",\r\n    \"isActive\": false,\r\n    \"isApproved\": false,\r\n    \"history\": \"\",\r\n    \"hoursOfOperation\": \"\",\r\n    \"address\": {\r\n        \"street\": \"\",\r\n        \"city\": \"\",\r\n        \"state\": \"\",\r\n        \"zipCode\": \"\",\r\n        \"country\": \"\"\r\n    },\r\n    \"phoneNumber\": \"\",\r\n    \"emailAddress\": \"\",\r\n    \"homePageUrl\": \"\",\r\n    \"imageUrl\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/addbrewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"addbrewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 2 Attempt Unauthorized Create Brewery for User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryOwnerUserId\": {{user1Id}},\r\n    \"name\": \"User 1's Brewery\",\r\n    \"isActive\": false,\r\n    \"isApproved\": false,\r\n    \"history\": \"\",\r\n    \"hoursOfOperation\": \"\",\r\n    \"address\": {\r\n        \"street\": \"\",\r\n        \"city\": \"\",\r\n        \"state\": \"\",\r\n        \"zipCode\": \"\",\r\n        \"country\": \"\"\r\n    },\r\n    \"phoneNumber\": \"\",\r\n    \"emailAddress\": \"\",\r\n    \"homePageUrl\": \"\",\r\n    \"imageUrl\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/addbrewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"addbrewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Create Brewery for User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBreweryCreated\"))(\"user1\", {\r",
+							"    \"breweryOwnerUserId\": parseInt(postman.getGlobalVariable(\"user1Id\")),\r",
+							"    \"name\": \"User 1's Brewery\",\r",
+							"    \"isActive\": false,\r",
+							"    \"isApproved\": false,\r",
+							"    \"history\": \"\",\r",
+							"    \"hoursOfOperation\": \"\",\r",
+							"    \"address\": {\r",
+							"        \"street\": \"\",\r",
+							"        \"city\": \"\",\r",
+							"        \"state\": \"\",\r",
+							"        \"zipCode\": \"\",\r",
+							"        \"country\": \"\"\r",
+							"    },\r",
+							"    \"phoneNumber\": \"\",\r",
+							"    \"emailAddress\": \"\",\r",
+							"    \"homePageUrl\": \"\",\r",
+							"    \"imageUrl\": \"\"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryOwnerUserId\": {{user1Id}},\r\n    \"name\": \"User 1's Brewery\",\r\n    \"isActive\": false,\r\n    \"isApproved\": false,\r\n    \"history\": \"\",\r\n    \"hoursOfOperation\": \"\",\r\n    \"address\": {\r\n        \"street\": \"\",\r\n        \"city\": \"\",\r\n        \"state\": \"\",\r\n        \"zipCode\": \"\",\r\n        \"country\": \"\"\r\n    },\r\n    \"phoneNumber\": \"\",\r\n    \"emailAddress\": \"\",\r\n    \"homePageUrl\": \"\",\r\n    \"imageUrl\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/addbrewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"addbrewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 Log In (Need new Bearer token which contains new role)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyUserLogin\"))(\"user1\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user1\",\r\n    \"password\": \"user1password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 Attempt Unauthorized Create Brewery for User 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryOwnerUserId\": {{user2Id}},\r\n    \"name\": \"User 2's Brewery\",\r\n    \"isActive\": false,\r\n    \"isApproved\": false,\r\n    \"history\": \"\",\r\n    \"hoursOfOperation\": \"\",\r\n    \"address\": {\r\n        \"street\": \"\",\r\n        \"city\": \"\",\r\n        \"state\": \"\",\r\n        \"zipCode\": \"\",\r\n        \"country\": \"\"\r\n    },\r\n    \"phoneNumber\": \"\",\r\n    \"emailAddress\": \"\",\r\n    \"homePageUrl\": \"\",\r\n    \"imageUrl\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/addbrewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"addbrewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Create Brewery for User 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBreweryCreated\"))(\"user2\", {\r",
+							"    \"breweryOwnerUserId\": parseInt(postman.getGlobalVariable(\"user2Id\")),\r",
+							"    \"name\": \"User 2's Brewery\",\r",
+							"    \"isActive\": false,\r",
+							"    \"isApproved\": false,\r",
+							"    \"history\": \"\",\r",
+							"    \"hoursOfOperation\": \"\",\r",
+							"    \"address\": {\r",
+							"        \"street\": \"\",\r",
+							"        \"city\": \"\",\r",
+							"        \"state\": \"\",\r",
+							"        \"zipCode\": \"\",\r",
+							"        \"country\": \"\"\r",
+							"    },\r",
+							"    \"phoneNumber\": \"\",\r",
+							"    \"emailAddress\": \"\",\r",
+							"    \"homePageUrl\": \"\",\r",
+							"    \"imageUrl\": \"\"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryOwnerUserId\": {{user2Id}},\r\n    \"name\": \"User 2's Brewery\",\r\n    \"isActive\": false,\r\n    \"isApproved\": false,\r\n    \"history\": \"\",\r\n    \"hoursOfOperation\": \"\",\r\n    \"address\": {\r\n        \"street\": \"\",\r\n        \"city\": \"\",\r\n        \"state\": \"\",\r\n        \"zipCode\": \"\",\r\n        \"country\": \"\"\r\n    },\r\n    \"phoneNumber\": \"\",\r\n    \"emailAddress\": \"\",\r\n    \"homePageUrl\": \"\",\r\n    \"imageUrl\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/addbrewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"addbrewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Attempt Create 2nd Brewery for User 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(400);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryOwnerUserId\": {{user2Id}},\r\n    \"name\": \"User 2's Brewery\",\r\n    \"isActive\": false,\r\n    \"isApproved\": false,\r\n    \"history\": \"\",\r\n    \"hoursOfOperation\": \"\",\r\n    \"address\": {\r\n        \"street\": \"\",\r\n        \"city\": \"\",\r\n        \"state\": \"\",\r\n        \"zipCode\": \"\",\r\n        \"country\": \"\"\r\n    },\r\n    \"phoneNumber\": \"\",\r\n    \"emailAddress\": \"\",\r\n    \"homePageUrl\": \"\",\r\n    \"imageUrl\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/addbrewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"addbrewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Attempt Unauthorized Update User 1 Brewery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(401);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"breweryOwnerUserId\": {{user1Id}},\r\n    \"name\": \"The User 1 Brewery\",\r\n    \"isActive\": true,\r\n    \"isApproved\": true,\r\n    \"history\": \"Since 1980\",\r\n    \"hoursOfOperation\": \"9-5 Mon-Fri\",\r\n    \"address\": {\r\n        \"street\": \"123 Main St\",\r\n        \"city\": \"Buffalo\",\r\n        \"state\": \"NY\",\r\n        \"zipCode\": \"14203\",\r\n        \"country\": \"USA\"\r\n    },\r\n    \"phoneNumber\": \"(716) 123-4567\",\r\n    \"emailAddress\": \"user1brewery@emailprovider.com\",\r\n    \"homePageUrl\": \"user1brewery.com\",\r\n    \"imageUrl\": \"https://images.unsplash.com/photo-1532634733-cae1395e440f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 2 Attempt Unauthorized Update User 1 Brewery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"breweryOwnerUserId\": {{user1Id}},\r\n    \"name\": \"The User 1 Brewery\",\r\n    \"isActive\": true,\r\n    \"isApproved\": true,\r\n    \"history\": \"Since 1980\",\r\n    \"hoursOfOperation\": \"9-5 Mon-Fri\",\r\n    \"address\": {\r\n        \"street\": \"123 Main St\",\r\n        \"city\": \"Buffalo\",\r\n        \"state\": \"NY\",\r\n        \"zipCode\": \"14203\",\r\n        \"country\": \"USA\"\r\n    },\r\n    \"phoneNumber\": \"(716) 123-4567\",\r\n    \"emailAddress\": \"user1brewery@emailprovider.com\",\r\n    \"homePageUrl\": \"user1brewery.com\",\r\n    \"imageUrl\": \"https://images.unsplash.com/photo-1532634733-cae1395e440f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Attempt Unauthorized Update User 1 Brewery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"breweryOwnerUserId\": {{user1Id}},\r\n    \"name\": \"The User 1 Brewery\",\r\n    \"isActive\": true,\r\n    \"isApproved\": true,\r\n    \"history\": \"Since 1980\",\r\n    \"hoursOfOperation\": \"9-5 Mon-Fri\",\r\n    \"address\": {\r\n        \"street\": \"123 Main St\",\r\n        \"city\": \"Buffalo\",\r\n        \"state\": \"NY\",\r\n        \"zipCode\": \"14203\",\r\n        \"country\": \"USA\"\r\n    },\r\n    \"phoneNumber\": \"(716) 123-4567\",\r\n    \"emailAddress\": \"user1brewery@emailprovider.com\",\r\n    \"homePageUrl\": \"user1brewery.com\",\r\n    \"imageUrl\": \"https://images.unsplash.com/photo-1532634733-cae1395e440f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 Update User 1 Brewery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBreweryUpdated\"))({\r",
+							"    \"breweryId\": parseInt(postman.getGlobalVariable(\"user1BreweryId\")),\r",
+							"    \"breweryOwnerUserId\": parseInt(postman.getGlobalVariable(\"user1Id\")),\r",
+							"    \"name\": \"The User 1 Brewery\",\r",
+							"    \"isActive\": true,\r",
+							"    \"isApproved\": true,\r",
+							"    \"history\": \"Since 1980\",\r",
+							"    \"hoursOfOperation\": \"9-5 Mon-Fri\",\r",
+							"    \"address\": {\r",
+							"        \"street\": \"123 Main St\",\r",
+							"        \"city\": \"Buffalo\",\r",
+							"        \"state\": \"NY\",\r",
+							"        \"zipCode\": \"14203\",\r",
+							"        \"country\": \"USA\"\r",
+							"    },\r",
+							"    \"phoneNumber\": \"(716) 123-4567\",\r",
+							"    \"emailAddress\": \"user1brewery@emailprovider.com\",\r",
+							"    \"homePageUrl\": \"user1brewery.com\",\r",
+							"    \"imageUrl\": \"https://images.unsplash.com/photo-1532634733-cae1395e440f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80\"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"breweryOwnerUserId\": {{user1Id}},\r\n    \"name\": \"The User 1 Brewery\",\r\n    \"isActive\": true,\r\n    \"isApproved\": true,\r\n    \"history\": \"Since 1980\",\r\n    \"hoursOfOperation\": \"9-5 Mon-Fri\",\r\n    \"address\": {\r\n        \"street\": \"123 Main St\",\r\n        \"city\": \"Buffalo\",\r\n        \"state\": \"NY\",\r\n        \"zipCode\": \"14203\",\r\n        \"country\": \"USA\"\r\n    },\r\n    \"phoneNumber\": \"(716) 123-4567\",\r\n    \"emailAddress\": \"user1brewery@emailprovider.com\",\r\n    \"homePageUrl\": \"user1brewery.com\",\r\n    \"imageUrl\": \"https://images.unsplash.com/photo-1532634733-cae1395e440f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Attempt Unauthorized Create User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(401);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chuck's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 5.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/addbeer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"addbeer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Attempt Unauthorized Create User 1 Brewer Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chuck's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 5.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/addbeer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"addbeer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 2 Attempt Unauthorized Create User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chuck's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 5.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/addbeer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"addbeer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 Create User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerCreated\"))({\r",
+							"    \"breweryId\": parseInt(postman.getGlobalVariable(\"user1BreweryId\")),\r",
+							"    \"name\": \"Chuck's Chunky Dark\",\r",
+							"    \"description\": \"A very dark beer with a taste that is nutty, like us!\",\r",
+							"    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r",
+							"    \"abv\": 5.4,\r",
+							"    \"typeId\": 1,\r",
+							"    \"isActive\": true\r",
+							"}, \"user1BeerAId\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chuck's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 5.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/addbeer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"addbeer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 Create User 1 Brewery Beer B",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerCreated\"))({\r",
+							"    \"breweryId\": parseInt(postman.getGlobalVariable(\"user1BreweryId\")),\r",
+							"    \"name\": \"Floyd's Foamin' Pale Ale\",\r",
+							"    \"description\": \"A light beer with a sophisticated taste.\",\r",
+							"    \"imageUrl\": \"https://cdn.pixabay.com/photo/2022/03/18/17/40/drinks-7077096_1280.jpg\",\r",
+							"    \"abv\": 3.5,\r",
+							"    \"typeId\": 5,\r",
+							"    \"isActive\": true\r",
+							"}, \"user1BeerBId\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Floyd's Foamin' Pale Ale\",\r\n    \"description\": \"A light beer with a sophisticated taste.\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2022/03/18/17/40/drinks-7077096_1280.jpg\",\r\n    \"abv\": 3.5,\r\n    \"typeId\": 5,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/addbeer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"addbeer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Attempt Unuathorized Create Review for User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(401);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerAId}},\r\n    \"authorUserId\": {{user3Id}},\r\n    \"rating\": 5.0,\r\n    \"title\": \"My Review\",\r\n    \"body\": \"This beer tastes very good. It is nice and smooth too.\",\r\n    \"createDateTime\": \"2022-11-18T00:00:00.000+00:00\",\r\n    \"updateDateTime\": \"2022-11-18T00:00:00.000+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/review",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Create Review for User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerReviewCreated\"))(\"user1\", {\r",
+							"    \"beerId\": parseInt(postman.getGlobalVariable(\"user1BeerAId\")),\r",
+							"    \"authorUserId\": parseInt(postman.getGlobalVariable(\"user3Id\")),\r",
+							"    \"rating\": 5.0,\r",
+							"    \"title\": \"My Review\",\r",
+							"    \"body\": \"This beer tastes very good. It is nice and smooth too.\",\r",
+							"    \"createDateTime\": \"2022-11-18T00:00:00.000+00:00\",\r",
+							"    \"updateDateTime\": \"2022-11-18T00:00:00.000+00:00\"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerAId}},\r\n    \"authorUserId\": {{user3Id}},\r\n    \"rating\": 5.0,\r\n    \"title\": \"My Review\",\r\n    \"body\": \"This beer tastes very good. It is nice and smooth too.\",\r\n    \"createDateTime\": \"2022-11-18T00:00:00.000+00:00\",\r\n    \"updateDateTime\": \"2022-11-18T00:00:00.000+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/review",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 2 Create Review for User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerReviewCreated\"))(\"user1\", {\r",
+							"    \"beerId\": parseInt(postman.getGlobalVariable(\"user1BeerAId\")),\r",
+							"    \"authorUserId\": parseInt(postman.getGlobalVariable(\"user2Id\")),\r",
+							"    \"rating\": 2.0,\r",
+							"    \"title\": \"User 2's Review\",\r",
+							"    \"body\": \"Too thick and sryupy.\",\r",
+							"    \"createDateTime\": \"2022-10-31T00:00:00.000+00:00\",\r",
+							"    \"updateDateTime\": \"2022-10-31T00:00:00.000+00:00\"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerAId}},\r\n    \"authorUserId\": {{user2Id}},\r\n    \"rating\": 2.0,\r\n    \"title\": \"User 2's Review\",\r\n    \"body\": \"Too thick and sryupy.\",\r\n    \"createDateTime\": \"2022-10-31T00:00:00.000+00:00\",\r\n    \"updateDateTime\": \"2022-10-31T00:00:00.000+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/review",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 2 Create Review for User 1 Brewery Beer B",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerReviewCreated\"))(\"user1\", {\r",
+							"    \"beerId\": parseInt(postman.getGlobalVariable(\"user1BeerBId\")),\r",
+							"    \"authorUserId\": parseInt(postman.getGlobalVariable(\"user2Id\")),\r",
+							"    \"rating\": 5.0,\r",
+							"    \"title\": \"User 2's Review\",\r",
+							"    \"body\": \"Awesome!\",\r",
+							"    \"createDateTime\": \"2022-11-05T00:00:00.000+00:00\",\r",
+							"    \"updateDateTime\": \"2022-11-05T00:00:00.000+00:00\"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerBId}},\r\n    \"authorUserId\": {{user2Id}},\r\n    \"rating\": 5.0,\r\n    \"title\": \"User 2's Review\",\r\n    \"body\": \"Awesome!\",\r\n    \"createDateTime\": \"2022-11-05T00:00:00.000+00:00\",\r\n    \"updateDateTime\": \"2022-11-05T00:00:00.000+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerBId}}/review",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerBId}}",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Attempt Unauthorized Update User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(401);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerAId}},\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chucky's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!!!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 6.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Attempt Unauthorized Update User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerAId}},\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chucky's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!!!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 6.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 2 Attempt Unauthorized Update User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerAId}},\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chucky's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!!!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 6.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 Update User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerUpdated\"))({\r",
+							"    \"beerId\": parseInt(postman.getGlobalVariable(\"user1BeerAId\")),\r",
+							"    \"breweryId\": parseInt(postman.getGlobalVariable(\"user1BreweryId\")),\r",
+							"    \"name\": \"Chucky's Chunky Dark\",\r",
+							"    \"description\": \"A very dark beer with a taste that is nutty, like us!!!\",\r",
+							"    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r",
+							"    \"abv\": 6.4,\r",
+							"    \"typeId\": 1,\r",
+							"    \"isActive\": true\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerAId}},\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chucky's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!!!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 6.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin User 1 Update User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerUpdated\"))({\r",
+							"    \"beerId\": parseInt(postman.getGlobalVariable(\"user1BeerAId\")),\r",
+							"    \"breweryId\": parseInt(postman.getGlobalVariable(\"user1BreweryId\")),\r",
+							"    \"name\": \"Chucky's Awesome Chunky Dark\",\r",
+							"    \"description\": \"A VERY dark beer with a taste that is nutty, like us!!!\",\r",
+							"    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r",
+							"    \"abv\": 6.7,\r",
+							"    \"typeId\": 1,\r",
+							"    \"isActive\": true\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"beerId\": {{user1BeerAId}},\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chucky's Awesome Chunky Dark\",\r\n    \"description\": \"A VERY dark beer with a taste that is nutty, like us!!!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 6.7,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User List All Breweries",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 List All Breweries",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 List All Breweries",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin List All Breweries",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Get User 1 Brewery By Brewery ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Get User 1 Brewery By Brewery ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewery User 2 Get User 1 Brewery By Brewery ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Get User 1 Brewery By Brewery ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Get User 1 Brewery By Brewer ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/{{user1Id}}/brewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"{{user1Id}}",
+						"brewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Get User 1 Brewery By Brewer ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/{{user1Id}}/brewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"{{user1Id}}",
+						"brewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewery User 2 Get User 1 Brewery By Brewer ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/{{user1Id}}/brewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"{{user1Id}}",
+						"brewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Get User 1 Brewery By Brewer ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/{{user1Id}}/brewery",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"{{user1Id}}",
+						"brewery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User List User 1 Brewery Beers",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 List User 1 Brewery Beers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 2 List User 1 Brewery Beers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin List User 1 Brewery Beers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User List User 1 Brewery Beer A Reviews",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/review",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 List User 1 Brewery Beer A Reviews",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/review",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewery User 2 List User 1 Brewery Beer A Reviews",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/review",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin List User 1 Brewery Beer A Reviews",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/review",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Get User 1 Brewery Beer A Average Rating",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/avgrating",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"avgrating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Get User 1 Brewery Beer A Average Rating",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/avgrating",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"avgrating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewery User 2 Get User 1 Brewery Beer A Average Rating",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/avgrating",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"avgrating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Get User 1 Brewery Beer A Average Rating",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}/avgrating",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}",
+						"avgrating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Get User 1 Beers Averages Ratings",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/avgrating",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"avgrating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinary User 3 Get User 1 Beers Averages Ratings",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/avgrating",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"avgrating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 2 Get User 1 Beers Averages Ratings",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/avgrating",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"avgrating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Get User 1 Beers Averages Ratings",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/avgrating",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"avgrating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticated User Attempt Unauthorized Delete User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(401);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ordinay User 3 Attempt Unauthorized Delete User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user3BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 2 Attempt Unauthorized Delete User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyRequestFailed\"))(403);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user2BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 Delete User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerDeleteSucceded\"))(\r",
+							"    parseInt(postman.getGlobalVariable(\"user1BreweryId\")),\r",
+							"    parseInt(postman.getGlobalVariable(\"user1BeerAId\")));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brewer User 1 Create User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerCreated\"))({\r",
+							"    \"breweryId\": parseInt(postman.getGlobalVariable(\"user1BreweryId\")),\r",
+							"    \"name\": \"Chuck's Chunky Dark\",\r",
+							"    \"description\": \"A very dark beer with a taste that is nutty, like us!\",\r",
+							"    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r",
+							"    \"abv\": 5.4,\r",
+							"    \"typeId\": 1,\r",
+							"    \"isActive\": true\r",
+							"}, \"user1BeerAId\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user1BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"breweryId\": {{user1BreweryId}},\r\n    \"name\": \"Chuck's Chunky Dark\",\r\n    \"description\": \"A very dark beer with a taste that is nutty, like us!\",\r\n    \"imageUrl\": \"https://cdn.pixabay.com/photo/2015/09/05/19/46/dark-beer-924823_1280.jpg\",\r\n    \"abv\": 5.4,\r\n    \"typeId\": 1,\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/addbeer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"addbeer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin User 1 Delete User 1 Brewery Beer A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"eval(postman.getGlobalVariable(\"verifyBeerDeleteSucceded\"))(\r",
+							"    parseInt(postman.getGlobalVariable(\"user1BreweryId\")),\r",
+							"    parseInt(postman.getGlobalVariable(\"user1BeerAId\")));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminBearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brewery/{{user1BreweryId}}/beer/{{user1BeerAId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brewery",
+						"{{user1BreweryId}}",
+						"beer",
+						"{{user1BeerAId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// console.log(\"Enter Collection Pre-request Script\");",
+					"// if (!postman.getGlobalVariable(\"collectionVariablesInitialized\")) {",
+					"",
+					"    postman.setGlobalVariable(\"baseUrl\", \"http://localhost:8081\");",
+					"",
+					"    postman.setGlobalVariable(\"verifyResponseContentType\", () => {",
+					"        pm.test(\"Response Content-Type is present\", function () {",
+					"            pm.response.to.have.header(\"Content-Type\");",
+					"        });",
+					"        pm.test(\"Response Content-Type is application/json\", function () {",
+					"            pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+					"        });",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyNewUserCreated\", username => {",
+					"        pm.test(\"Response Status code is 201\", function () {",
+					"            pm.response.to.have.status(201);",
+					"        });",
+					"        /* TODO: Add code to verify response body. */",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyUserLogin\", username => {",
+					"        pm.test(\"Response Status code is 200\", function () {",
+					"            pm.response.to.have.status(200);",
+					"        });",
+					"        eval(postman.getGlobalVariable(\"verifyResponseContentType\"))();",
+					"        pm.test(\"Response header Authorization field is present\", function () {",
+					"            pm.response.to.have.header(\"Content-Type\");",
+					"        });",
+					"        pm.test(\"Response header Authorization field has bearer token\", function () {",
+					"            let bearerToken = pm.response.headers.get(\"Authorization\");",
+					"            const bearerTokenPrefix = \"Bearer \";",
+					"            pm.expect(bearerToken.length, \"Bearer Token Length\").to.gt(bearerTokenPrefix.length);",
+					"            bearerToken = bearerToken.substr(bearerTokenPrefix.length);",
+					"            postman.setGlobalVariable(`${username}BearerToken`, bearerToken);",
+					"        });",
+					"",
+					"        const user = pm.response.json().user;",
+					"        postman.setGlobalVariable(`${username}Id`, user.id);",
+					"",
+					"        pm.test(\"Response contains expected username\", function () {",
+					"            pm.expect(user.username, \"username\").to.eql(username);",
+					"        });",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBreweryMatches\", (expectedBrewery, isBreweryIdImportant) => {",
+					"        eval(postman.getGlobalVariable(\"verifyResponseContentType\"))();",
+					"        pm.test(\"Response body has expected brewery\", function () {",
+					"            const returnedBrewery = pm.response.json();",
+					"            if (isBreweryIdImportant){",
+					"                pm.expect(returnedBrewery.breweryId, \"breweryId\").to.eql(",
+					"                    expectedBrewery.breweryId);",
+					"            }",
+					"            pm.expect(returnedBrewery.breweryOwnerUserId, \"breweryOwnerUserId\").to.eql(",
+					"                expectedBrewery.breweryOwnerUserId);",
+					"            pm.expect(returnedBrewery.name, \"name\").to.eql(",
+					"                expectedBrewery.name);",
+					"            pm.expect(returnedBrewery.isActive, \"isActive\").to.eql(",
+					"                expectedBrewery.isActive);",
+					"            pm.expect(returnedBrewery.isApproved, \"isApproved\").to.eql(",
+					"                expectedBrewery.isApproved);",
+					"            pm.expect(returnedBrewery.hoursOfOperation, \"hoursOfOperation\").to.eql(",
+					"                expectedBrewery.hoursOfOperation);",
+					"            pm.expect(returnedBrewery.address.street, \"address.street\").to.eql(",
+					"                expectedBrewery.address.street);",
+					"            pm.expect(returnedBrewery.address.city, \"address.city\").to.eql(",
+					"                expectedBrewery.address.city);",
+					"            pm.expect(returnedBrewery.address.state, \"address.state\").to.eql(",
+					"                expectedBrewery.address.state);",
+					"            pm.expect(returnedBrewery.address.zipCode, \"address.zipCode\").to.eql(",
+					"                expectedBrewery.address.zipCode);",
+					"            pm.expect(returnedBrewery.address.country, \"address.country\").to.eql(",
+					"                expectedBrewery.address.country);",
+					"            pm.expect(returnedBrewery.phoneNumber, \"address.phoneNumber\").to.eql(",
+					"                expectedBrewery.phoneNumber);",
+					"            pm.expect(returnedBrewery.emailAddress, \"address.emailAddress\").to.eql(",
+					"                expectedBrewery.emailAddress);",
+					"            pm.expect(returnedBrewery.homePageUrl, \"homePageUrl\").to.eql(",
+					"                expectedBrewery.homePageUrl);",
+					"            pm.expect(returnedBrewery.imageUrl, \"imageUrl\").to.eql(",
+					"                expectedBrewery.imageUrl);",
+					"        });",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBreweryCreated\", (username, expectedBrewery) => {",
+					"        pm.test(\"Response Status code is 201\", function () {",
+					"            pm.response.to.have.status(201);",
+					"        });",
+					"        eval(postman.getGlobalVariable(\"verifyBreweryMatches\"))(expectedBrewery, false);",
+					"        postman.setGlobalVariable(`${username}BreweryId`, pm.response.json().breweryId);",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBreweryUpdated\", expectedBrewery => {",
+					"        pm.test(\"Response Status code is 200\", function () {",
+					"            pm.response.to.have.status(200);",
+					"        });",
+					"        eval(postman.getGlobalVariable(\"verifyBreweryMatches\"))(expectedBrewery, true);",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBeerMatches\", (expectedBeer, isBeerIdImportant) => {",
+					"        eval(postman.getGlobalVariable(\"verifyResponseContentType\"))();",
+					"        pm.test(\"Response body has expected beer\", function () {",
+					"            const returnedBeer = pm.response.json();",
+					"            if (isBeerIdImportant) {",
+					"                pm.expect(returnedBeer.beerId, \"beerId\").to.eql(",
+					"                    expectedBeer.beerId);",
+					"            }",
+					"            pm.expect(returnedBeer.breweryId, \"breweryId\").to.eql(",
+					"                expectedBeer.breweryId);",
+					"            pm.expect(returnedBeer.name, \"name\").to.eql(",
+					"                expectedBeer.name);",
+					"            pm.expect(returnedBeer.description, \"description\").to.eql(",
+					"                expectedBeer.description);",
+					"            pm.expect(returnedBeer.imageUrl, \"imageUrl\").to.eql(",
+					"                expectedBeer.imageUrl);",
+					"            pm.expect(returnedBeer.abv, \"abv\").to.eql(",
+					"                expectedBeer.abv);",
+					"            pm.expect(returnedBeer.typeId, \"typeId\").to.eql(",
+					"                expectedBeer.typeId);",
+					"            pm.expect(returnedBeer.isActive, \"isActive\").to.eql(",
+					"                expectedBeer.isActive);",
+					"        });",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBeerCreated\", (expectedBeer, beerIdGlobalVariableName) => {",
+					"        pm.test(\"Response Status code is 201\", function () {",
+					"            pm.response.to.have.status(201);",
+					"        });",
+					"        eval(postman.getGlobalVariable(\"verifyBeerMatches\"))(expectedBeer, false);",
+					"        postman.setGlobalVariable(beerIdGlobalVariableName, pm.response.json().beerId);",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBeerUpdated\", expectedBeer => {",
+					"        pm.test(\"Response Status code is 200\", function () {",
+					"            pm.response.to.have.status(200);",
+					"        });",
+					"        eval(postman.getGlobalVariable(\"verifyBeerMatches\"))(expectedBeer, true);",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBeerDeleteSucceded\", (breweryId, beerId) => {",
+					"        pm.test(\"Response Status code is 200\", function () {",
+					"            pm.response.to.have.status(200);",
+					"        });",
+					"",
+					"        // TODO: Verify beer has been deleted",
+					"//        eval(postman.getGlobalVariable(\"verifyBeerDeleted\"))(breweryId, beerId);",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBeerReviewMatches\", (expectedBeerReview, isBeerReviewIdImportant) => {",
+					"        eval(postman.getGlobalVariable(\"verifyResponseContentType\"))();",
+					"        pm.test(\"Response body has expected beer\", function () {",
+					"            const returnedBeerReview = pm.response.json();",
+					"            if (isBeerReviewIdImportant) {",
+					"                pm.expect(returnedBeerReview.reviewId, \"reviewId\").to.eql(",
+					"                    expectedBeerReview.reviewId);",
+					"            }",
+					"            pm.expect(returnedBeerReview.beerId, \"beerId\").to.eql(",
+					"                expectedBeerReview.beerId);",
+					"            pm.expect(returnedBeerReview.authorUserId, \"authorUserId\").to.eql(",
+					"                expectedBeerReview.authorUserId);",
+					"            pm.expect(returnedBeerReview.rating, \"rating\").to.eql(",
+					"                expectedBeerReview.rating);",
+					"            pm.expect(returnedBeerReview.title, \"title\").to.eql(",
+					"                expectedBeerReview.title);",
+					"            pm.expect(returnedBeerReview.body, \"body\").to.eql(",
+					"                expectedBeerReview.body);",
+					"            pm.expect(returnedBeerReview.createDateTime, \"createDateTime\").to.eql(",
+					"                expectedBeerReview.createDateTime);",
+					"            pm.expect(returnedBeerReview.updateDateTime, \"updateDateTime\").to.eql(",
+					"                expectedBeerReview.updateDateTime);",
+					"        });",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyBeerReviewCreated\", (username, expectedBeerReview) => {",
+					"        pm.test(\"Response Status code is 201\", function () {",
+					"            pm.response.to.have.status(201);",
+					"        });",
+					"        eval(postman.getGlobalVariable(\"verifyBeerReviewMatches\"))(expectedBeerReview, false);",
+					"        postman.setGlobalVariable(`${username}BeerReviewId`, pm.response.json().reviewId);",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"verifyRequestFailed\", httpStatusCode => {",
+					"        pm.test(`Response Status code is ${httpStatusCode}`, function () {",
+					"            pm.response.to.have.status(httpStatusCode);",
+					"        });",
+					"    });",
+					"",
+					"    postman.setGlobalVariable(\"collectionVariablesInitialized\", true);",
+					"// }",
+					"// console.log(\"Exit Collection Pre-request Script\");",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
